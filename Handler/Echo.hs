@@ -1,0 +1,6 @@
+module Handler.Echo where
+
+import Import
+
+getEchoR :: Text -> Handler RepHtml
+getEchoR theText = defaultLayout $(widgetFile "echo")
