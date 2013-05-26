@@ -1,6 +1,5 @@
 \<!doctype html>
-<h1>Edit
-<h2>Edit blog page
+<h1>Edit blog page
 <form method=post enctype=#{enctype}>
     ^{postWidget}
     <div>

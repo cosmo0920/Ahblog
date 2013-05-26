@@ -35,6 +35,7 @@ getBlogViewR = do
   -- to construct the form (see templates/articles.hamlet).
   (articleWidget, enctype) <- generateFormPost entryForm
   defaultLayout $ do
+    addStylesheet $ StaticR css_padding_css
     $(widgetFile "view")
 
 getArticleEditR :: ArticleId -> Handler RepHtml
