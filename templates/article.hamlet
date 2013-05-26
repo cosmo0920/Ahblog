@@ -1,4 +1,3 @@
-<h1> <i>Internal Blog</i>
 <h2> #{articleTitle article}
 <hr>
 <article> #{articleContent article}<br/>
