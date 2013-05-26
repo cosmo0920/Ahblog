@@ -1,4 +1,3 @@
-$newline never
 \<!doctype html>
 \<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
 \<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
@@ -23,12 +22,45 @@ $newline never
         <script>
           document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/,'js');
     <body>
+        <div class="navbar navbar-fixed-top">
+          <div class="navbar-inner">
+            <div class="container">
+              <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              <a class="brand" href="/"><i>Internal Blog</i>
+              <div class="nav-collapse">
+                <ul class="nav">
+                  <li class="active">
+                    <a href="/blog">Blog
+                  <li>
+                    <a href="/blog/admin/new">Admin
+                  <li>
+                    <a href="/about">About
+                  <li>
+                    <a href="http://twitter.com/cosmo__">Go Twitter
+                  <li>
+                    <a href="http://cosmo0920.wordpress.com/">WordPress 
+
         <div class="container">
-            <header>
-            <div id="main" role="main">
-              ^{pageBody pc}
-            <footer>
-                #{extraCopyright $ appExtra $ settings master}
+          ^{pageBody pc}
+          <footer>
+            Code licensed under the <a href="">MIT License</a>
+
+        <script src=@{StaticR js_jquery_js}>
+        <script src=@{StaticR js_bootstrap_transition_js}>
+        <script src=@{StaticR js_bootstrap_alert_js}>
+        <script src=@{StaticR js_bootstrap_modal_js}>
+        <script src=@{StaticR js_bootstrap_dropdown_js}>
+        <script src=@{StaticR js_bootstrap_scrollspy_js}>
+        <script src=@{StaticR js_bootstrap_tab_js}>
+        <script src=@{StaticR js_bootstrap_tooltip_js}>
+        <script src=@{StaticR js_bootstrap_popover_js}>
+        <script src=@{StaticR js_bootstrap_button_js}>
+        <script src=@{StaticR js_bootstrap_collapse_js}>
+        <script src=@{StaticR js_bootstrap_carousel_js}>
+        <script src=@{StaticR js_bootstrap_typeahead_js}>
 
         $maybe analytics <- extraAnalytics $ appExtra $ settings master
             <script>
@@ -40,6 +72,7 @@ $newline never
                 \  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
                 })();
               }
+
         \<!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.  chromium.org/developers/how-tos/chrome-frame-getting-started -->
         \<!--[if lt IE 7 ]>
             <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js">

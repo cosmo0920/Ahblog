@@ -1,0 +1,7 @@
+\<!doctype html>
+<h1>Edit
+<h2>Edit blog page
+<form method=post enctype=#{enctype}>
+    ^{postWidget}
+    <div>
+        <input type=submit value="Post New Post">

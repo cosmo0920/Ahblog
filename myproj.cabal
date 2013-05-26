@@ -20,8 +20,10 @@ library
                      Settings.StaticFiles
                      Settings.Development
                      Handler.Home
-                     Handler.Echo
-                     Handler.Mirror
+                     Handler.Blog
+                     Handler.Article
+                     Handler.About
+                     Model.EntryForm
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT
