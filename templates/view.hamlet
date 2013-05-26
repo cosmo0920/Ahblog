@@ -1,11 +1,13 @@
 <h1> Articles
 $if null articles
-    <p> There are no articles in the blog
+  <p> There are no articles in the blog
 $else
-    <ul>
-        $forall Entity articleId article <- articles
-            <li>
-                <a href=@{ArticleR articleId} > #{articleTitle article}
+  $forall Entity articleId article <- articles
+    <p>
+    <h3><a href=@{ArticleR articleId} > #{articleTitle article}</h3></a>
+    <hr>
+    <p>#{articleContent article}
+    <hr>
 <hr>
 <p>
   <a href=@{BlogR}>

@@ -1,9 +1,6 @@
 <h2> #{articleTitle article}
 <hr>
 <article> #{articleContent article}<br/>
-<li>
-  <a href=@{BlogViewR}>
-    <i class="icon-circle-arrow-left">Back
-<li>
-  <a href=@{BlogR}>
-    <i class="icon-circle-arrow-left">admin
+<p>
+<a href=@{BlogViewR}>
+  <i class="icon-circle-arrow-left">Back

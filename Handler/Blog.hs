@@ -7,11 +7,12 @@ import Model.EntryForm
 getBlogR :: Handler RepHtml
 getBlogR = do
   -- Get the list of articles inside the database
-  articles <- runDB $ selectList [][Desc ArticleTitle]
+  articles <- runDB $ selectList [][Desc ArticleId]
   -- We'll need the two "objects": articleWidget and enctype
   -- to construct the form (see templates/articles.hamlet).
   (articleWidget, enctype) <- generateFormPost entryForm
   defaultLayout $ do
+    setTitle "Admin Page"
     addStylesheet $ StaticR css_textarea_css
     $(widgetFile "articles")
 
@@ -24,17 +25,18 @@ postBlogR = do
       setMessage $ toHtml $ (articleTitle article) <> " created"
       redirect $ ArticleR articleId
     _ -> defaultLayout $ do
+            addStylesheet $ StaticR css_padding_css
             setTitle "Please correct your entry form"
             $(widgetFile "articleAddError")
 
 getBlogViewR :: Handler RepHtml
 getBlogViewR = do
   -- Get the list of articles inside the database
-  articles <- runDB $ selectList [][Desc ArticleTitle]
+  articles <- runDB $ selectList [][Desc ArticleId]
   -- We'll need the two "objects": articleWidget and enctype
   -- to construct the form (see templates/articles.hamlet).
-  (articleWidget, enctype) <- generateFormPost entryForm
   defaultLayout $ do
+    setTitle "Internal Blog"
     addStylesheet $ StaticR css_padding_css
     $(widgetFile "view")
 
@@ -43,6 +45,7 @@ getArticleEditR articleId = do
   post <- runDB $ get404 articleId
   (postWidget, enctype) <- generateFormPost $ postForm $ Just post
   defaultLayout $ do
+    setTitle "Edit Blog"
     addStylesheet $ StaticR css_textarea_css
     $(widgetFile "edit")
 
