@@ -8,7 +8,6 @@ $else
     <hr>
     <p>#{articleContent article}
     <hr>
-<hr>
-<p>
-  <a href=@{BlogR}>
-    <i class="icon-circle-arrow-left">admin
+    
+  <div .pagination>
+    ^{widget}

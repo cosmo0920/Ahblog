@@ -1,8 +1,10 @@
 module Handler.Blog where
 
 import Import
+import Yesod.Paginator
 -- import Data.Monoid
 import Model.EntryForm
+import Model.MakeBrief
 
 getBlogR :: Handler RepHtml
 getBlogR = do
@@ -29,10 +31,22 @@ postBlogR = do
             setTitle "Please correct your entry form"
             $(widgetFile "articleAddError")
 
+getpostBlogR :: Handler RepHtml
+getpostBlogR = do
+  -- Get the list of articles inside the database
+  articles <- runDB $ selectList [][Desc ArticleId]
+  -- We'll need the two "objects": articleWidget and enctype
+  -- to construct the form (see templates/articles.hamlet).
+  (articleWidget, enctype) <- generateFormPost entryForm
+  defaultLayout $ do
+    setTitle "Admin Page"
+    addStylesheet $ StaticR css_textarea_css
+    $(widgetFile "new")
+
 getBlogViewR :: Handler RepHtml
 getBlogViewR = do
   -- Get the list of articles inside the database
-  articles <- runDB $ selectList [][Desc ArticleId]
+  (articles, widget) <- runDB $ selectPaginated 10 [] [Desc ArticleId]
   -- We'll need the two "objects": articleWidget and enctype
   -- to construct the form (see templates/articles.hamlet).
   defaultLayout $ do
@@ -70,3 +84,39 @@ getArticleDeleteR articleId = do
     _post <- get404 articleId
     delete articleId
   redirect $ BlogR
+
+addStyle :: Widget
+addStyle = do
+    -- Twitter Bootstrap
+    addStylesheetRemote "http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css"
+    -- message style
+    toWidget [lucius|.message { padding: 10px 0; background: #ffffed; } |]
+    -- jQuery
+    addScriptRemote "http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"
+    -- delete function
+    toWidget [julius|
+$(function(){
+    function confirmDelete(link) {
+        if (confirm("Are you sure you want to delete this image?")) {
+            deleteImage(link);
+        };
+    }
+    function deleteImage(link) {
+        $.ajax({
+            type: "DELETE",
+            url: link.attr("data-img-url"),
+        }).done(function(msg) {
+            var table = link.closest("table");
+            link.closest("tr").remove();
+            var rowCount = $("td", table).length;
+            if (rowCount === 0) {
+                table.remove();
+            }
+        });
+    }
+    $("a.delete").click(function() {
+        confirmDelete($(this));
+        return false;
+    });
+});
+|]

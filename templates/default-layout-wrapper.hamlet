@@ -32,12 +32,12 @@
               <a class="brand" href="/"><i>Internal Blog</i>
               <div class="nav-collapse">
                 <ul class="nav">
-                  <li class="active">
-                    <a href="/blog">Blog
                   <li>
-                    <a href="/blog/admin/new">Admin
+                    <a href=@{BlogViewR}>Blog
                   <li>
-                    <a href="/about">About
+                    <a href=@{BlogR}>Admin
+                  <li>
+                    <a href=@{AboutR}>About
                   <li>
                     <a href="http://twitter.com/cosmo__">Go Twitter
                   <li>
@@ -61,6 +61,7 @@
         <script src=@{StaticR js_bootstrap_collapse_js}>
         <script src=@{StaticR js_bootstrap_carousel_js}>
         <script src=@{StaticR js_bootstrap_typeahead_js}>
+        <script src=@{StaticR js_bootstrap_active_js}>			
 
         $maybe analytics <- extraAnalytics $ appExtra $ settings master
             <script>

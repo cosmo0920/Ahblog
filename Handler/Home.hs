@@ -2,7 +2,7 @@
 module Handler.Home where
 
 import Import
-import Handler.Blog 
+import Handler.Blog()
 -- This is a handler function for the GET request method on the HomeR
 -- resource pattern. All of your resource patterns are defined in
 -- config/routes

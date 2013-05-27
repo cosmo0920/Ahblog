@@ -8,7 +8,7 @@
 
 /blog BlogViewR GET
 /blog/#ArticleId ArticleR GET
-/blog/admin/new BlogR GET POST
+/blog/admin/manage BlogR GET POST
 /blog/admin/edit/#ArticleId ArticleEditR GET POST
 /blog/admin/delete/#ArticleId ArticleDeleteR GET
 /about AboutR GET
