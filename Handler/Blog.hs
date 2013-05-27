@@ -9,7 +9,9 @@ import Model.MakeBrief
 getBlogR :: Handler RepHtml
 getBlogR = do
   -- Get the list of articles inside the database
-  articles <- runDB $ selectList [][Desc ArticleId]
+  let page = 10
+  (articles, widget) <- runDB $ selectPaginated page [] [Desc ArticleId]
+  articleCount <- runDB $ count ([] :: [Filter Article])
   -- We'll need the two "objects": articleWidget and enctype
   -- to construct the form (see templates/articles.hamlet).
   (articleWidget, enctype) <- generateFormPost entryForm
@@ -46,7 +48,9 @@ getpostBlogR = do
 getBlogViewR :: Handler RepHtml
 getBlogViewR = do
   -- Get the list of articles inside the database
-  (articles, widget) <- runDB $ selectPaginated 10 [] [Desc ArticleId]
+  let page = 10
+  (articles, widget) <- runDB $ selectPaginated page [] [Desc ArticleId]
+  articleCount <- runDB $ count ([] :: [Filter Article])
   -- We'll need the two "objects": articleWidget and enctype
   -- to construct the form (see templates/articles.hamlet).
   defaultLayout $ do

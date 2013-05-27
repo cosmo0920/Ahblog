@@ -8,6 +8,7 @@ $else
     <hr>
     <p>#{articleContent article}
     <hr>
-    
-  <div .pagination>
-    ^{widget}
+  $if articleCount < page
+  $else
+    <div .pagination>
+      ^{widget}
