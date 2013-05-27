@@ -11,7 +11,7 @@ $else
             <a href=@{ArticleEditR articleId} > Edit
           <td width="30">
             <a href=@{ArticleDeleteR articleId} > Delete
-    $if articleCount < page
+    $if articleCount <= page
     $else
       <div .pagination>
         ^{widget}
