@@ -49,18 +49,7 @@
             Code licensed under the <a href="http://opensource.org/licenses/MIT">MIT License</a>
 
         <script src=@{StaticR js_jquery_js}>
-        <script src=@{StaticR js_bootstrap_transition_js}>
-        <script src=@{StaticR js_bootstrap_alert_js}>
-        <script src=@{StaticR js_bootstrap_modal_js}>
-        <script src=@{StaticR js_bootstrap_dropdown_js}>
-        <script src=@{StaticR js_bootstrap_scrollspy_js}>
-        <script src=@{StaticR js_bootstrap_tab_js}>
-        <script src=@{StaticR js_bootstrap_tooltip_js}>
-        <script src=@{StaticR js_bootstrap_popover_js}>
-        <script src=@{StaticR js_bootstrap_button_js}>
-        <script src=@{StaticR js_bootstrap_collapse_js}>
-        <script src=@{StaticR js_bootstrap_carousel_js}>
-        <script src=@{StaticR js_bootstrap_typeahead_js}>
+        <script src=@{StaticR js_bootstrap_js}>
         <script src=@{StaticR js_bootstrap_active_js}>			
 
         $maybe analytics <- extraAnalytics $ appExtra $ settings master

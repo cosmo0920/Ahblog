@@ -1,8 +1,8 @@
-@import "twitter/bootstrap/bootstrap";
+@import "bootstrap.css";
 
 body { padding-top: 60px; } 
 
-@import "twitter/bootstrap/responsive";
+@import "bootstrap-responsive.css";
  
 // Your custom LESS stylesheets goes here
 //
