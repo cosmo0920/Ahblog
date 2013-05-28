@@ -3,7 +3,7 @@ $if null articles
   <p> There are no articles in the blog
 $else
   $forall Entity articleId article <- articles
-    <p>
+    <p>#{show $ articleCreatedAt article}
     <h3><a href=@{ArticleR articleId} > #{articleTitle article}</h3></a>
     <hr>
     <p>#{articleContent article}
