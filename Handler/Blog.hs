@@ -26,7 +26,11 @@ postBlogR = do
   case res of
     FormSuccess article -> do
       articleId <- runDB $ insert article
-      setMessage $ toHtml $ (articleTitle article) <> " created"
+      renderer <- getUrlRenderParams
+      let html = [hamlet|<span .notice><h4>#{articleTitle article}</h4>
+                                       <p> created
+                                       <a href=@{BlogR}>Back Admin</a>|]
+      setMessage $ toHtml $ html renderer
       redirect $ ArticleR articleId
     _ -> defaultLayout $ do
             addStylesheet $ StaticR css_padding_css
@@ -76,7 +80,11 @@ postArticleEditR articleId = do
            _post <- get404 articleId
            update articleId [ ArticleTitle   =. articleTitle post
                             , ArticleContent =. articleContent post]
-         setMessage $ toHtml $ (articleTitle post) <> "updated"
+         renderer <- getUrlRenderParams
+         let html = [hamlet|<span .notice><h4>#{articleTitle post}</h4>
+                                          <p> updated
+                                          <a href=@{ArticleEditR articleId}>Back Edit</a>|]
+         setMessage $ toHtml $ html renderer
          redirect $ ArticleR articleId
        _ -> defaultLayout $ do
          setTitle "Please corrrect your entry form"
@@ -84,9 +92,14 @@ postArticleEditR articleId = do
 
 getArticleDeleteR :: ArticleId -> Handler RepHtml
 getArticleDeleteR articleId = do
+  article <- runDB $ get404 articleId
   runDB $ do
     _post <- get404 articleId
     delete articleId
+  renderer <- getUrlRenderParams
+  let html = [hamlet|<span .notice><h4>#{articleTitle article}</h4>
+                                   <p> deleted|]
+  setMessage $ toHtml $ html renderer
   redirect $ BlogR
 
 addStyle :: Widget

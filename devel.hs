@@ -1,5 +1,5 @@
 {-# LANGUAGE PackageImports #-}
-import "myproj" Application (getApplicationDev)
+import "Ahblog" Application (getApplicationDev)
 import Network.Wai.Handler.Warp
     (runSettings, defaultSettings, settingsPort)
 import Control.Concurrent (forkIO)

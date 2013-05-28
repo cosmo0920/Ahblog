@@ -1,4 +1,4 @@
-exec: ../dist/build/myproj/myproj
+exec: ../dist/build/Ahblog/Ahblog
 args:
     - production
 host: <<HOST-NOT-SET>>

@@ -1,4 +1,4 @@
-name:              myproj
+name:              Ahblog
 version:           0.1.0
 cabal-version:     >= 1.8
 build-type:        Simple
@@ -79,14 +79,14 @@ library
                  , yesod-paginator
                  , time
 
-executable         myproj
+executable         Ahblog
     if flag(library-only)
         Buildable: False
 
     main-is:           main.hs
     hs-source-dirs:    app
     build-depends:     base
-                     , myproj
+                     , Ahblog
                      , yesod-default
 
     ghc-options:       -threaded -O2
@@ -98,7 +98,7 @@ test-suite test
     ghc-options:       -Wall
 
     build-depends: base
-                 , myproj
+                 , Ahblog
                  , yesod-test >= 0.3 && < 0.4
                  , yesod-default
                  , yesod-core

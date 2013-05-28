@@ -1,4 +1,5 @@
 <h2> #{articleTitle article}
+<p>#{show $ articleCreatedAt article}
 <hr>
 <article> #{articleContent article}<br/>
 <p>
