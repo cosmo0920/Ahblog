@@ -33,7 +33,6 @@ postBlogR = do
       setMessage $ toHtml $ html renderer
       redirect $ ArticleR articleId
     _ -> defaultLayout $ do
-            addStylesheet $ StaticR css_padding_css
             setTitle "Please correct your entry form"
             $(widgetFile "articleAddError")
 
@@ -59,7 +58,6 @@ getBlogViewR = do
   -- to construct the form (see templates/articles.hamlet).
   defaultLayout $ do
     setTitle "Internal Blog"
-    addStylesheet $ StaticR css_padding_css
     $(widgetFile "view")
 
 getArticleEditR :: ArticleId -> Handler RepHtml
