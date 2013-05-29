@@ -1,14 +1,26 @@
-<h1> Articles
-$if null articles
-  <p> There are no articles in the blog
-$else
-  $forall Entity articleId article <- articles
-    <h3><a href=@{ArticleR articleId} > #{articleTitle article}</h3></a>
-    <p>#{show $ articleCreatedAt article}
-    <hr>
-    <p>#{articleContent article}
-    <hr>
-  $if articleCount <= page
-  $else
-    <div .pagination>
-      ^{widget}
+<div .row>
+  <div .span9>
+    <h1> Articles
+    $if null articles
+      <p> There are no articles in the blog
+    $else
+      $forall Entity articleId article <- articles
+        <h3><a href=@{ArticleR articleId} > #{articleTitle article}</h3></a>
+        <p>#{show $ articleCreatedAt article}
+        <hr>
+        <p>#{articleContent article}
+        <hr>
+  <div .span3>
+     <ul ."nav nav-list well">
+        <li .nav-header>Recent Post</li>
+        $if null articles
+          <p> There are no articles in the blog
+        $else
+          $forall Entity articleId article <- articles
+            <li><a href=@{ArticleR articleId} > #{articleTitle article}</li></a>
+        <li .nav-header>Powered by</li>
+        <li><a href="http://www.yesodweb.com/">Yesod</a></li>
+        <li><a href="http://twitter.github.com/bootstrap">Bootstrap</a></li>
+        <li><a href="http://www.haskell.org/">Haskell</a></li>
+<div .pagination>
+  ^{widget}

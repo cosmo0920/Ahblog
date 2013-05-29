@@ -11,10 +11,8 @@ $else
             <a href=@{ArticleEditR articleId} > Edit
           <td width="30">
             <a href=@{ArticleDeleteR articleId} > Delete
-    $if articleCount <= page
-    $else
-      <div .pagination>
-        ^{widget}
+    <div .pagination>
+      ^{widget}
 <hr>
   <form method=post enctype=#{enctype}>
     ^{articleWidget}

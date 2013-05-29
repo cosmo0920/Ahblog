@@ -11,7 +11,6 @@ getBlogR = do
   -- Get the list of articles inside the database
   let page = 10
   (articles, widget) <- runDB $ selectPaginated page [] [Desc ArticleId]
-  articleCount <- runDB $ count ([] :: [Filter Article])
   -- We'll need the two "objects": articleWidget and enctype
   -- to construct the form (see templates/articles.hamlet).
   (articleWidget, enctype) <- generateFormPost entryForm
@@ -53,7 +52,6 @@ getBlogViewR = do
   -- Get the list of articles inside the database
   let page = 10
   (articles, widget) <- runDB $ selectPaginated page [] [Desc ArticleId]
-  articleCount <- runDB $ count ([] :: [Filter Article])
   -- We'll need the two "objects": articleWidget and enctype
   -- to construct the form (see templates/articles.hamlet).
   defaultLayout $ do
