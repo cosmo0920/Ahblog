@@ -1,3 +1,4 @@
+<h1>Post New Article
 <form method=post enctype=#{enctype}>
   ^{articleWidget}
   <div>

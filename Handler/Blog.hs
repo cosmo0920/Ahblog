@@ -17,7 +17,7 @@ getBlogR = do
   defaultLayout $ do
     setTitle "Admin Page"
     addStylesheet $ StaticR css_textarea_css
-    $(widgetFile "articles")
+    $(widgetFile "admin")
 
 postBlogR :: Handler RepHtml
 postBlogR = do
@@ -35,8 +35,8 @@ postBlogR = do
             setTitle "Please correct your entry form"
             $(widgetFile "articleAddError")
 
-getpostBlogR :: Handler RepHtml
-getpostBlogR = do
+getNewBlogR :: Handler RepHtml
+getNewBlogR = do
   -- Get the list of articles inside the database
   articles <- runDB $ selectList [][Desc ArticleId]
   -- We'll need the two "objects": articleWidget and enctype
@@ -46,6 +46,22 @@ getpostBlogR = do
     setTitle "Admin Page"
     addStylesheet $ StaticR css_textarea_css
     $(widgetFile "new")
+
+postNewBlogR :: Handler RepHtml
+postNewBlogR = do
+  ((res,articleWidget),enctype) <- runFormPost entryForm
+  case res of
+    FormSuccess article -> do
+      articleId <- runDB $ insert article
+      renderer <- getUrlRenderParams
+      let html = [hamlet|<span .notice><h4>#{articleTitle article}</h4>
+                                       <p> created
+                                       <a href=@{BlogR}>Back Admin</a>|]
+      setMessage $ toHtml $ html renderer
+      redirect $ ArticleR articleId
+    _ -> defaultLayout $ do
+            setTitle "Please correct your entry form"
+            $(widgetFile "articleAddError")
 
 getBlogViewR :: Handler RepHtml
 getBlogViewR = do

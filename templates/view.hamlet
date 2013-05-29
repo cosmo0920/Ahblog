@@ -17,7 +17,8 @@
           <p> There are no articles in the blog
         $else
           $forall Entity articleId article <- articles
-            <li><a href=@{ArticleR articleId} > #{articleTitle article}</li></a>
+            <li><a href=@{ArticleR articleId} > 
+              #{makeBrief 20 $ articleTitle article}</li></a>
         <li .nav-header>Powered by</li>
         <li><a href="http://www.yesodweb.com/">Yesod</a></li>
         <li><a href="http://twitter.github.com/bootstrap">Bootstrap</a></li>
