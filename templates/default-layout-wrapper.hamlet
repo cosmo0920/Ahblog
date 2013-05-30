@@ -41,12 +41,14 @@
                   <li>
                     <a href="http://twitter.com/cosmo__">Go Twitter
                   <li>
-                    <a href="http://cosmo0920.wordpress.com/">WordPress 
-        <div class="container">
-           ^{pageBody pc}
+                    <a href="http://cosmo0920.wordpress.com/">WordPress
 
-          <footer>
-            Code licensed under the <a href="http://opensource.org/licenses/MIT">MIT License</a>
+        <div .container>
+          ^{pageBody pc}
+        <div .row>
+          <div ."span7 offset1">
+            <footer>
+              Code licensed under the <a href="http://opensource.org/licenses/MIT">MIT License</a>
 
         <script src=@{StaticR js_jquery_js}>
         <script src=@{StaticR js_bootstrap_js}>

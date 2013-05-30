@@ -1,27 +1,32 @@
-<div .row>
-  <div .span9>
-    <h1> Articles
-    $if null articles
-      <p> There are no articles in the blog
-    $else
-      $forall Entity articleId article <- articles
-        <h3><a href=@{ArticleR articleId} > #{articleTitle article}</h3></a>
-        <p>#{show $ articleCreatedAt article}
-        <hr>
-        <p>#{articleContent article}
-        <hr>
-  <div .span3>
-     <ul ."nav nav-list well">
-        <li .nav-header>Recent Post</li>
-        $if null articles
-          <p> There are no articles in the blog
-        $else
-          $forall Entity articleId article <- articles
-            <li><a href=@{ArticleR articleId} > 
-              #{makeBrief 20 $ articleTitle article}</li></a>
-        <li .nav-header>Powered by</li>
-        <li><a href="http://www.yesodweb.com/">Yesod</a></li>
-        <li><a href="http://twitter.github.com/bootstrap">Bootstrap</a></li>
-        <li><a href="http://www.haskell.org/">Haskell</a></li>
-<div .pagination>
-  ^{widget}
+<div .page-header>
+  <h1>Articles</h1></div>
+  <div .row>
+    <div .span9>
+      $if null articles
+        <p> There are no articles in the blog
+      $else
+        $forall Entity articleId article <- articles
+          <div .well>
+            <h3><a href=@{ArticleR articleId}> #{articleTitle article}</h3></a>
+            <p>#{show $ articleCreatedAt article}
+            <p>#{articleContent article}
+            
+    <div .span3>
+       <ul ."nav nav-list well">
+          <li .nav-header>Recent Post</li>
+          $if null articles
+            <p> There are no articles in the blog
+          $else
+            $forall Entity articleId article <- articles
+              <li><a href=@{ArticleR articleId}> 
+                #{makeBrief 20 $ articleTitle article}</li></a>
+          <li .nav-header>Powered by</li>
+          <li><a href="http://www.yesodweb.com/">Yesod</a></li>
+          <li><a href="http://twitter.github.com/bootstrap">Bootstrap</a></li>
+          <li><a href="http://www.haskell.org/">Haskell</a></li>
+          <li .nav-header>Search</li>
+          <input type="text" class="input-small search-query">
+            <button type="submit" class="btn">検 索</button></form>
+
+  <div .pagination>
+    ^{widget}

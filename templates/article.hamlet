@@ -1,7 +1,6 @@
 <h2> #{articleTitle article}
 <p>#{show $ articleCreatedAt article}
-<hr>
-<article> #{articleContent article}<br/>
-<p>
+<article>#{articleContent article}<br/>
+
 <a href=@{BlogViewR}>
   <i class="icon-circle-arrow-left">Back
