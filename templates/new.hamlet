@@ -1,5 +1,6 @@
-<h1>Post New Article
-<form method=post enctype=#{enctype}>
-  ^{articleWidget}
-  <div>
-     <input type=submit value="Post New Article">
+<div .page-header>
+  <h1>Post New Article</h1></div>
+  <form method=post enctype=#{enctype}>
+    ^{articleWidget}
+    <div>
+       <input type=submit value="Post New Article">
