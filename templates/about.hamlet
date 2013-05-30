@@ -1,16 +1,19 @@
-<h1>About
-<!-- MAIN CONTENT -->
-<div id="main_content_wrap" class="outer">
-  <section id="main_content" class="inner">
-  <h2>Welcome to About Page.
-
-  <h3>about me
-  <img alt src="https://secure.gravatar.com/userimage/16919991/d315fbbfc93ea4d7abcc65aca8f025f4.jpg?size=200" align="none">
-  <h4>Accounts
-  <br />
-  <p>Blog: <a href="http://cosmo0920.wordpress.com/">http://cosmo0920.wordpress.com/</a></p>
-
-  <p>Twitter: <a href="https://twitter.com/cosmo__">@cosmo__</a></p>
-
-  <p>Github: <a href="https://github.com/cosmo0920">cosmo0920</a></p>
-  <hr>
+<div .page-header>
+  <h1>About</h1></div>
+  <!-- MAIN CONTENT -->
+  <div .row>
+    <div .span9>
+      <div id="main_content_wrap" class="outer">
+        <section id="main_content" class="inner">
+        <h2>Welcome to About Page.
+      
+        <h3>about me
+        <img alt src="https://secure.gravatar.com/userimage/16919991/d315fbbfc93ea4d7abcc65aca8f025f4.jpg?size=200" align="none">
+        <h4>Accounts
+        <br />
+        <p>Blog: <a href="http://cosmo0920.wordpress.com/">http://cosmo0920.wordpress.com/</a></p>
+      
+        <p>Twitter: <a href="https://twitter.com/cosmo__">@cosmo__</a></p>
+      
+        <p>Github: <a href="https://github.com/cosmo0920">cosmo0920</a></p>
+        <hr>
