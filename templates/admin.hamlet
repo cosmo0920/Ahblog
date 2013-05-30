@@ -23,5 +23,5 @@
         ^{articleWidget}
         <div>
            <input type=submit value="Post New Article">
-  <b><a href=@{NewBlogR}>New Post</a></b>
+  <a href=@{NewBlogR} class="btn"><i class="icon-pencil"></i> New Post</a>
   <hr>

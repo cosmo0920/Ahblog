@@ -8,7 +8,7 @@
         $forall Entity articleId article <- articles
           <div .well>
             <h3><a href=@{ArticleR articleId}> #{articleTitle article}</h3></a>
-            <p>#{show $ articleCreatedAt article}
+            <p><i class="icon-calendar"></i>#{show $ articleCreatedAt article}
             <p>#{articleContent article}
             
     <div .span3>
@@ -25,8 +25,8 @@
           <li><a href="http://twitter.github.com/bootstrap">Bootstrap</a></li>
           <li><a href="http://www.haskell.org/">Haskell</a></li>
           <li .nav-header>Search</li>
-          <input type="text" class="input-small search-query">
-            <button type="submit" class="btn">検 索</button></form>
+          <input type="text" class="input-medium search-query">
+            <button type="submit" class="btn"><i class="icon-search"></i> 検 索</button></form>
 
   <div .pagination>
     ^{widget}
