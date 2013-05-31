@@ -9,7 +9,7 @@
          $forall Entity articleId article <- articles
            <table .table-condensed>
              <tr>
-               <td width="250">
+               <td width="280">
                  <a href=@{ArticleR articleId}>#{makeBrief 25 $ articleTitle article}
                <td width="30">
                  <a href=@{ArticleEditR articleId}> Edit
