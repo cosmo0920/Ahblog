@@ -24,6 +24,7 @@
           <li><a href="http://www.yesodweb.com/">Yesod</a></li>
           <li><a href="http://twitter.github.com/bootstrap">Bootstrap</a></li>
           <li><a href="http://www.haskell.org/">Haskell</a></li>
+          <li><a href="http://code.google.com/p/google-code-prettify/">google-code-prettify</a></li>
           <li .nav-header>Search</li>
           <input type="text" class="input-medium search-query">
             <button type="submit" class="btn"><i class="icon-search"></i> 検 索</button></form>
