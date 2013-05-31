@@ -1,6 +1,7 @@
-<h2> #{articleTitle article}
-<p>#{show $ articleCreatedAt article}
-<article>#{articleContent article}<br/>
-
-<a href=@{BlogViewR} class="btn">
-  <i class="icon-circle-arrow-left"></i>Back
+<div .page-header>
+  <h2>#{articleTitle article}</h2></div>
+  <p>#{show $ articleCreatedAt article}
+  <article>#{articleContent article}<br/>
+   
+  <a href=@{BlogViewR} class="btn">
+    <i class="icon-circle-arrow-left"></i>Back

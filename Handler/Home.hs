@@ -2,7 +2,7 @@
 module Handler.Home where
 
 import Import
-import Handler.Blog()
+
 -- This is a handler function for the GET request method on the HomeR
 -- resource pattern. All of your resource patterns are defined in
 -- config/routes
@@ -11,4 +11,7 @@ import Handler.Blog()
 -- functions. You can spread them across multiple files if you are so
 -- inclined, or create a single monolithic file.
 getHomeR :: Handler RepHtml
-getHomeR = redirect BlogViewR    
+getHomeR = do
+  defaultLayout $ do
+    setTitle "Home"
+    $(widgetFile "home")

@@ -29,7 +29,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-              <a class="brand" href="/"><i>Internal Blog</i>
+              <a class="brand" href=@{HomeR}><i>Internal Blog</i>
               <div class="nav-collapse">
                 <ul class="nav">
                   <li>
@@ -52,7 +52,6 @@
 
         <script src=@{StaticR js_jquery_js}>
         <script src=@{StaticR js_bootstrap_js}>
-        <script src=@{StaticR js_bootstrap_active_js}>
         <script src=@{StaticR js_google_code_prettify_prettify_js}>
         <script type="text/javascript">
           try{

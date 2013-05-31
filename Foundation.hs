@@ -136,9 +136,9 @@ instance YesodAuth App where
     type AuthId App = UserId
 
     -- Where to send a user after successful login
-    loginDest _ = HomeR
+    loginDest _ = RootR
     -- Where to send a user after logout
-    logoutDest _ = HomeR
+    logoutDest _ = RootR
 
     getAuthId creds = runDB $ do
         x <- getBy $ UniqueUser $ credsIdent creds
@@ -157,6 +157,12 @@ instance YesodAuth App where
 -- achieve customized and internationalized form validation messages.
 instance RenderMessage App FormMessage where
     renderMessage _ _ = defaultFormMessage
+
+getRootR :: Handler RepHtml
+getRootR = do
+    maid <- maybeAuthId
+    defaultLayout $ do
+      $(widgetFile "root")    
 
 -- | Get the 'Extra' value, used to hold data from the settings.yml file.
 getExtra :: Handler Extra
