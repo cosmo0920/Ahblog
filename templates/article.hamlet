@@ -3,4 +3,4 @@
 <article>#{articleContent article}<br/>
 
 <a href=@{BlogViewR}>
-  <i class="icon-circle-arrow-left">Back
+  <i class="icon-circle-arrow-left"></i>Back
