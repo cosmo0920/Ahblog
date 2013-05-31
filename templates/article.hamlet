@@ -2,5 +2,5 @@
 <p>#{show $ articleCreatedAt article}
 <article>#{articleContent article}<br/>
 
-<a href=@{BlogViewR}>
+<a href=@{BlogViewR} class="btn">
   <i class="icon-circle-arrow-left"></i>Back

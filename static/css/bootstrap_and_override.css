@@ -1,7 +1,10 @@
-body { padding-top: 60px; }
+body { 
+  padding-top: 60px; 
+  padding-bottom: 40px;
+}
 
 @import "bootstrap-responsive.css";
- 
+
 // Your custom LESS stylesheets goes here
 //
 // Since bootstrap was imported above you have access to its mixins which
