@@ -1,7 +1,8 @@
 \<!doctype html>
+<div .page-header>
+  <h1>Edit blog page</h1></div>
   $maybe _ <- maid
-    <p>Your current auth ID: #{show maid}
-    <h1>Edit blog page
+      <p>Your current auth ID: #{show maid}
     <form method=post enctype=#{enctype}>
         ^{postWidget}
         <div>

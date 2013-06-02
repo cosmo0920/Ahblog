@@ -1,8 +1,8 @@
 <div .page-header>
   $maybe _ <- maid
-    <p>Your current auth ID: #{show maid}</p>
-      <a href=@{AuthR LogoutR} class="btn">Logout  
     <h1>Blog Admin</h1></div>
+      <p>Your current auth ID: #{show maid}</p>
+      <a href=@{AuthR LogoutR} class="btn">Logout  
     <div .row>
       <div .span5>
         <h3>Index article
