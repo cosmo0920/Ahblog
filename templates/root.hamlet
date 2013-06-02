@@ -3,6 +3,7 @@
   $maybe _ <- maid
     <p>Your current auth ID: #{show maid}</p>
     <p>
+      <a href=@{HomeR}> &larr; Home
       <a href=@{AuthR LogoutR} class="btn">Logout
   $nothing
     <p>You appear not logged in.
