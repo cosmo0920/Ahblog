@@ -53,6 +53,7 @@
         <script src=@{StaticR js_jquery_js}>
         <script src=@{StaticR js_bootstrap_js}>
         <script src=@{StaticR js_google_code_prettify_prettify_js}>
+        <script src=@{StaticR js_nicEdit_js}>
         <script type="text/javascript">
           try{
             window.addEventListener("load",prettyPrint,false);

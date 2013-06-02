@@ -2,7 +2,7 @@ module Handler.Blog where
 
 import Import
 import Yesod.Paginator
--- import Data.Monoid
+import Yesod.Auth
 import Model.EntryForm
 import Model.MakeBrief
 
@@ -14,6 +14,7 @@ getBlogR = do
   -- We'll need the two "objects": articleWidget and enctype
   -- to construct the form (see templates/articles.hamlet).
   (articleWidget, enctype) <- generateFormPost entryForm
+  maid <- maybeAuthId
   defaultLayout $ do
     setTitle "Admin Page"
     addStylesheet $ StaticR css_textarea_css
@@ -42,6 +43,7 @@ getNewBlogR = do
   -- We'll need the two "objects": articleWidget and enctype
   -- to construct the form (see templates/articles.hamlet).
   (articleWidget, enctype) <- generateFormPost entryForm
+  maid <- maybeAuthId
   defaultLayout $ do
     setTitle "Admin Page"
     addStylesheet $ StaticR css_textarea_css
@@ -78,6 +80,7 @@ getArticleEditR :: ArticleId -> Handler RepHtml
 getArticleEditR articleId = do
   post <- runDB $ get404 articleId
   (postWidget, enctype) <- generateFormPost $ postForm $ Just post
+  maid <- maybeAuthId
   defaultLayout $ do
     setTitle "Edit Blog"
     addStylesheet $ StaticR css_textarea_css
@@ -86,6 +89,7 @@ getArticleEditR articleId = do
 postArticleEditR :: ArticleId -> Handler RepHtml
 postArticleEditR articleId = do
   ((res, postWidget), enctype) <- runFormPost $ postForm Nothing
+  maid <- maybeAuthId
   case res of
        FormSuccess post -> do 
          runDB $ do 

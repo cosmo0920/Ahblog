@@ -20,6 +20,7 @@ import Text.Jasmine (minifym)
 import Web.ClientSession (getKey)
 import Text.Hamlet (hamletFile)
 import System.Log.FastLogger (Logger)
+import Data.Maybe (isNothing, isJust)
 
 -- | The site argument for your application. This can be a good place to
 -- keep settings and values requiring initialization before your application
@@ -59,7 +60,6 @@ mkMessage "App" "messages" "en"
 mkYesodData "App" $(parseRoutesFile "config/routes")
 
 type Form x = Html -> MForm App App (FormResult x, Widget)
-
 -- Please see the documentation for the Yesod typeclass. There are a number
 -- of settings which can be configured by overriding methods here.
 instance Yesod App where
@@ -121,6 +121,11 @@ instance Yesod App where
         development || level == LevelWarn || level == LevelError
 
     getLogger = return . appLogger
+    isAuthorized BlogR _ = isAuthenticated
+    isAuthorized NewBlogR _ = isAuthenticated
+    isAuthorized (ArticleDeleteR _) _ = isAuthenticated
+    isAuthorized (ArticleEditR _) _ = isAuthenticated
+    isAuthorized _ _ = return Authorized
 
 -- How to run database actions.
 instance YesodPersist App where
@@ -167,6 +172,12 @@ getRootR = do
 -- | Get the 'Extra' value, used to hold data from the settings.yml file.
 getExtra :: Handler Extra
 getExtra = fmap (appExtra . settings) getYesod
+
+isAuthenticated = do
+    maid <- maybeAuthId
+    if isNothing maid
+      then return AuthenticationRequired
+      else return Authorized
 
 -- Note: previous versions of the scaffolding included a deliver function to
 -- send emails. Unfortunately, there are too many different options for us to

@@ -1,27 +1,33 @@
 <div .page-header>
-  <h1>Blog Admin</h1></div>
-  <div .row>
-    <div .span5>
-      <h3>Index article
-      $if null articles
-        <p> There are no articles in the blog
-      $else
-         $forall Entity articleId article <- articles
-           <table .table-condensed>
-             <tr>
-               <td width="280">
-                 <a href=@{ArticleR articleId}>#{makeBrief 25 $ articleTitle article}
-               <td width="30">
-                 <a href=@{ArticleEditR articleId}> Edit
-               <td width="30">
-                 <a href=@{ArticleDeleteR articleId}> Delete
-         <div .pagination>
-           ^{widget}
-    <div .span7>
-      <h3>simply post
-      <form method=post enctype=#{enctype}>
-        ^{articleWidget}
-        <div>
-           <input type=submit value="Post New Article">
-  <a href=@{NewBlogR} class="btn"><i class="icon-pencil"></i> New Post</a>
-  <hr>
+  $maybe _ <- maid
+    <p>Your current auth ID: #{show maid}</p>
+      <a href=@{AuthR LogoutR} class="btn">Logout  
+    <h1>Blog Admin</h1></div>
+    <div .row>
+      <div .span5>
+        <h3>Index article
+        $if null articles
+          <p> There are no articles in the blog
+        $else
+           $forall Entity articleId article <- articles
+             <table .table-condensed>
+               <tr>
+                 <td width="280">
+                   <a href=@{ArticleR articleId}>#{makeBrief 25 $ articleTitle article}
+                 <td width="30">
+                   <a href=@{ArticleEditR articleId}> Edit
+                 <td width="30">
+                   <a href=@{ArticleDeleteR articleId}> Delete
+           <div .pagination>
+             ^{widget}
+      <div .span7>
+        <h3>simply post
+        <form method=post enctype=#{enctype}>
+          ^{articleWidget}
+          <div>
+             <input type=submit value="Post New Article">
+    <a href=@{NewBlogR} class="btn"><i class="icon-pencil"></i> New Post</a>
+    <hr>
+  $nothing
+    <h2>Authorization required</h2>
+      <a href=@{AuthR LoginR} class="btn">login 

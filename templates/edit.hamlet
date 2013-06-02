@@ -1,6 +1,11 @@
 \<!doctype html>
-<h1>Edit blog page
-<form method=post enctype=#{enctype}>
-    ^{postWidget}
-    <div>
-        <input type=submit value="Update Post">
+  $maybe _ <- maid
+    <p>Your current auth ID: #{show maid}
+    <h1>Edit blog page
+    <form method=post enctype=#{enctype}>
+        ^{postWidget}
+        <div>
+            <input type=submit value="Update Post">
+  $nothing
+    <h2>Authorization required</h2>
+      <a href=@{AuthR LoginR} class="btn">login

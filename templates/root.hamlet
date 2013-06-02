@@ -1,9 +1,10 @@
 <div .page-header>
   <h1>Login Page<h1></div>
-  <p>Your current auth ID: #{show maid}
   $maybe _ <- maid
+    <p>Your current auth ID: #{show maid}</p>
     <p>
-      <a href=@{AuthR LogoutR}>Logout
+      <a href=@{AuthR LogoutR} class="btn">Logout
   $nothing
+    <p>You appear not logged in.
     <p>
-      <a href=@{AuthR LoginR} class="btn">Go to the login page
+      <a href=@{AuthR LoginR} class="btn">login
