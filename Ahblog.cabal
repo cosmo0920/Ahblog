@@ -23,6 +23,7 @@ library
                      Handler.Blog
                      Handler.Article
                      Handler.About
+                     Handler.Admin
                      Model.EntryForm
                      Model.MakeBrief
 
