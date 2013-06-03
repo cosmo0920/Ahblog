@@ -3,6 +3,8 @@ module Handler.Admin where
 import Import
 import Yesod.Paginator
 import Yesod.Auth
+import Control.Monad (forM)
+import Data.Maybe (fromMaybe)
 import Model.EntryForm
 import Model.MakeBrief
 
@@ -11,6 +13,8 @@ getBlogR = do
   -- Get the list of articles inside the database
   let page = 10
   (articles, widget) <- runDB $ selectPaginated page [] [Desc ArticleId]
+  (Entity _ user) <- requireAuth
+  let username = userIdent user
   -- We'll need the two "objects": articleWidget and enctype
   -- to construct the form (see templates/articles.hamlet).
   (articleWidget, enctype) <- generateFormPost entryForm
@@ -40,6 +44,8 @@ getNewBlogR :: Handler RepHtml
 getNewBlogR = do
   -- Get the list of articles inside the database
   articles <- runDB $ selectList [][Desc ArticleId]
+  (Entity _ user) <- requireAuth
+  let username = userIdent user
   -- We'll need the two "objects": articleWidget and enctype
   -- to construct the form (see templates/articles.hamlet).
   (articleWidget, enctype) <- generateFormPost entryForm
@@ -71,6 +77,8 @@ getArticleEditR articleId = do
   post <- runDB $ get404 articleId
   (postWidget, enctype) <- generateFormPost $ postForm $ Just post
   maid <- maybeAuthId
+  (Entity _ user) <- requireAuth
+  let username = userIdent user
   defaultLayout $ do
     setTitle "Edit Blog"
     addStylesheet $ StaticR css_textarea_css
@@ -80,6 +88,8 @@ postArticleEditR :: ArticleId -> Handler RepHtml
 postArticleEditR articleId = do
   ((res, postWidget), enctype) <- runFormPost $ postForm Nothing
   maid <- maybeAuthId
+  (Entity _ user) <- requireAuth
+  let username = userIdent user
   case res of
        FormSuccess post -> do 
          runDB $ do 

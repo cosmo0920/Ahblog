@@ -164,15 +164,18 @@ instance RenderMessage App FormMessage where
     renderMessage _ _ = defaultFormMessage
 
 getRootR :: Handler RepHtml
-getRootR = do
-    maid <- maybeAuthId
-    defaultLayout $ do
-      $(widgetFile "root")    
+getRootR = do  
+  (Entity _ user) <- requireAuth
+  let username = userIdent user
+  maid <- maybeAuthId
+  defaultLayout $ do
+             $(widgetFile "root")    
 
 -- | Get the 'Extra' value, used to hold data from the settings.yml file.
 getExtra :: Handler Extra
 getExtra = fmap (appExtra . settings) getYesod
 
+isAuthenticated :: YesodAuth master => GHandler sub master AuthResult
 isAuthenticated = do
     maid <- maybeAuthId
     if isNothing maid
