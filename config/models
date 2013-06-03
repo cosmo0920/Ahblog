@@ -1,6 +1,6 @@
 User
     ident Text
-	screenName Text
+	screenName Text Maybe
     password Text Maybe
     UniqueUser ident
 	deriving Show
