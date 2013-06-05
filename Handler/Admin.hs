@@ -3,8 +3,8 @@ module Handler.Admin where
 import Import
 import Yesod.Paginator
 import Yesod.Auth
-import Control.Monad (forM)
-import Data.Maybe (fromMaybe)
+-- import Control.Monad (forM)
+-- import Data.Maybe (fromMaybe)
 import Model.EntryForm
 import Model.MakeBrief
 
@@ -12,9 +12,9 @@ getBlogR :: Handler RepHtml
 getBlogR = do
   -- Get the list of articles inside the database
   let page = 10
-  (articles, widget) <- runDB $ selectPaginated page [] [Desc ArticleId]
-  (Entity _ user) <- requireAuth
+  (Entity userId user) <- requireAuth
   let username = userIdent user
+  (articles, widget) <- runDB $ selectPaginated page [] [Desc ArticleId]
   -- We'll need the two "objects": articleWidget and enctype
   -- to construct the form (see templates/articles.hamlet).
   (articleWidget, enctype) <- generateFormPost entryForm
@@ -26,6 +26,7 @@ getBlogR = do
 
 postBlogR :: Handler RepHtml
 postBlogR = do
+  (Entity userId user) <- requireAuth
   ((res,articleWidget),enctype) <- runFormPost entryForm
   case res of
     FormSuccess article -> do
@@ -42,10 +43,10 @@ postBlogR = do
 
 getNewBlogR :: Handler RepHtml
 getNewBlogR = do
-  -- Get the list of articles inside the database
-  articles <- runDB $ selectList [][Desc ArticleId]
   (Entity _ user) <- requireAuth
   let username = userIdent user
+  -- Get the list of articles inside the database
+  articles <- runDB $ selectList [][Desc ArticleId]
   -- We'll need the two "objects": articleWidget and enctype
   -- to construct the form (see templates/articles.hamlet).
   (articleWidget, enctype) <- generateFormPost entryForm
@@ -57,6 +58,8 @@ getNewBlogR = do
 
 postNewBlogR :: Handler RepHtml
 postNewBlogR = do
+  (Entity _ user) <- requireAuth
+  let username = userIdent user
   ((res,articleWidget),enctype) <- runFormPost entryForm
   case res of
     FormSuccess article -> do
@@ -74,22 +77,22 @@ postNewBlogR = do
 
 getArticleEditR :: ArticleId -> Handler RepHtml
 getArticleEditR articleId = do
-  post <- runDB $ get404 articleId
-  (postWidget, enctype) <- generateFormPost $ postForm $ Just post
-  maid <- maybeAuthId
   (Entity _ user) <- requireAuth
   let username = userIdent user
+  maid <- maybeAuthId
+  post <- runDB $ get404 articleId
+  (postWidget, enctype) <- generateFormPost $ postForm $ Just post
   defaultLayout $ do
     setTitle "Edit Blog"
     addStylesheet $ StaticR css_textarea_css
     $(widgetFile "edit")
 
 postArticleEditR :: ArticleId -> Handler RepHtml
-postArticleEditR articleId = do
-  ((res, postWidget), enctype) <- runFormPost $ postForm Nothing
+postArticleEditR articleId = do 
   maid <- maybeAuthId
   (Entity _ user) <- requireAuth
   let username = userIdent user
+  ((res, postWidget), enctype) <- runFormPost $ postForm Nothing
   case res of
        FormSuccess post -> do 
          runDB $ do 

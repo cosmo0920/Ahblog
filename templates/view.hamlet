@@ -14,20 +14,19 @@
     <div .span3>
        <ul ."nav nav-list well">
           <li .nav-header>Recent Post</li>
-          $if null articles
+          $if null articleArchives
             <p> There are no articles in the blog
           $else
-            $forall Entity articleId article <- articles
+            $forall Entity articleId articleArchive <- articleArchives
               <li><a href=@{ArticleR articleId}> 
-                #{makeBrief 20 $ articleTitle article}</li></a>
+                #{makeBrief 20 $ articleTitle articleArchive}</li></a>
           <li .nav-header>Powered by</li>
           <li><a href="http://www.yesodweb.com/">Yesod</a></li>
           <li><a href="http://twitter.github.com/bootstrap">Bootstrap</a></li>
           <li><a href="http://www.haskell.org/">Haskell</a></li>
           <li><a href="http://code.google.com/p/google-code-prettify/">google-code-prettify</a></li>
           <li .nav-header>Search</li>
-          <input type="text" class="input-medium search-query">
-            <button type="submit" class="btn"><i class="icon-search"></i> 検 索</button></form>
+          <input type="text" class="input-medium search-query" placeholder="Search">
 
   <div .pagination>
     ^{widget}

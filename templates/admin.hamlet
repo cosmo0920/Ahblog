@@ -3,8 +3,14 @@
     <h1>Blog Admin</h1></div>
       <p>Current login user: #{username}</p>
       <a href=@{AuthR LogoutR} class="btn">Logout  
-    <div .row>
-      <div .span5>
+
+    <div class="tabbable">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#article" data-toggle="tab">Admin Article</a></li>
+        <li><a href="#post" data-toggle="tab">Simple Post</a></li>
+    
+    <div class="tab-content">
+      <div class="tab-pane active" id="article">
         <h3>Index article
         $if null articles
           <p> There are no articles in the blog
@@ -20,14 +26,16 @@
                    <a href=@{ArticleDeleteR articleId}> Delete
            <div .pagination>
              ^{widget}
-      <div .span7>
+           <a href=@{NewBlogR} class="btn"><i class="icon-pencil"></i> New Post</a>
+   
+      <div class="tab-pane" id="post">
         <h3>simply post
         <form method=post enctype=#{enctype}>
-          ^{articleWidget}
-          <div>
-             <input type=submit value="Post New Article">
-    <a href=@{NewBlogR} class="btn"><i class="icon-pencil"></i> New Post</a>
-    <hr>
+           ^{articleWidget}
+           <div>
+              <input type=submit value="Post New Article">
+
+      <hr>
   $nothing
     <h2>Authorization required</h2>
       <a href=@{AuthR LoginR} class="btn">login 
