@@ -38,11 +38,19 @@
                     <a href=@{BlogR}>Admin
                   <li>
                     <a href=@{AboutR}>About
+                  <li .dropdown>
+                    <a href="#" .dropdown-toggle data-toggle="dropdown">Authorize<b class="caret"></b></a> 
+                    <ul class="dropdown-menu">
+                      $maybe _ <- maid
+                        <li><a href="#">You are Logged in.</a>
+                        <li><a href=@{AuthR LogoutR}>Logout</a>
+                      $nothing
+                        <li><a href=@{AuthR LoginR}>Login</a>
+                        <li><a href=@{HomeR}>Home</a>
                   <li>
                     <a href="http://twitter.com/cosmo__">Go Twitter
                   <li>
                     <a href="http://cosmo0920.wordpress.com/">WordPress
-
         <div .container>
           ^{pageBody pc}
         <div .row>
@@ -53,7 +61,6 @@
         <script src=@{StaticR js_jquery_js}>
         <script src=@{StaticR js_bootstrap_js}>
         <script src=@{StaticR js_google_code_prettify_prettify_js}>
-        <script src=@{StaticR js_nicEdit_js}>
         <script type="text/javascript">
           try{
             window.addEventListener("load",prettyPrint,false);
