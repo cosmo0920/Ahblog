@@ -1,9 +1,9 @@
 User
     ident Text
-	screenName Text Maybe
+    screenName Text Maybe
     password Text Maybe
     UniqueUser ident
-	deriving Show
+    deriving Show
 Email
     email Text
     user UserId Maybe
