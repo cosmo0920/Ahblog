@@ -1,14 +1,10 @@
 User
     ident Text
-    screenName Text Maybe
-    password Text Maybe
+    screenName Text Maybe -- TODO:make editable screenName
+    password Text Maybe -- TODO:make editable password
     UniqueUser ident
     deriving Show
-Email
-    email Text
-    user UserId Maybe
-    verkey Text Maybe
-    UniqueEmail email
+
 Article
     title   Text
     content Html
