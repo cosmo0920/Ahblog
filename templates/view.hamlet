@@ -5,7 +5,7 @@
       $if null articles
         <p> There are no articles in the blog
       $else
-        $forall Entity articleId article <- articles
+        $forall Entity _ article <- articles
           <div .well>
             <h3><a href=@{PermalinkR $ articleSlug article}>#{articleTitle article}</h3></a>
             <p><i class="icon-calendar"></i>#{show $ articleCreatedAt article}
@@ -18,7 +18,7 @@
           $if null articleArchives
             <p> There are no articles in the blog
           $else
-            $forall Entity articleId articleArchive <- articleArchives
+            $forall Entity _ articleArchive <- articleArchives
               <li><a href=@{PermalinkR $ articleSlug articleArchive}> 
                 #{makeBrief 20 $ articleTitle articleArchive}</li></a>
           <li .nav-header>Powered by</li>
