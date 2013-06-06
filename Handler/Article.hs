@@ -1,3 +1,6 @@
+{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, FlexibleContexts #-}
+{-# LANGUAGE TemplateHaskell, OverloadedStrings, GADTs, MultiParamTypeClasses #-}
+{-# LANGUAGE NamedFieldPuns, RecordWildCards #-}
 module Handler.Article where
 
 import Import
@@ -9,6 +12,13 @@ getArticleR articleId = do
     defaultLayout $ do
         setTitle $ toHtml $ articleTitle article
         $(widgetFile "article")
+
+getPermalinkR :: Text -> Handler RepHtml
+getPermalinkR slug = do
+    Entity _ Article {articleTitle, articleContent, ..} <- runDB $ getBy404 $ UniqueSlug slug
+    defaultLayout $ do
+        setTitle $ toHtml $ articleTitle
+        $(widgetFile "permalink")
 
 -- getSearchR :: Text -> Handler RepHtml
 -- getSearchR pattern = do

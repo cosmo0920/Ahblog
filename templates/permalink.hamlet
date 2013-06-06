@@ -1,0 +1,10 @@
+<div .page-header>
+  <h2>#{articleTitle}</h2></div>
+  <div .row>
+    <div .span9>
+      <p><i class="icon-calendar"></i>#{show $ articleCreatedAt}
+      <div .well>
+        <article>#{articleContent}<br/>
+         
+  <a href=@{BlogViewR} class="btn">
+    <i class="icon-circle-arrow-left"></i>Back

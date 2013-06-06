@@ -8,7 +8,9 @@ User
 Article
     title   Text
     content Html
+    slug Text
     createdAt  UTCTime default=CURRENT_TIMESTAMP
+    UniqueSlug slug
     deriving
 
  -- By default this file is used in Model.hs (which is imported by Foundation.hs)
