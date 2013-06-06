@@ -6,7 +6,7 @@
 
 /home HomeR GET
 / RootR GET
-/blog/permalink/#Text PermalinkR GET
+/blog/post/#Text PermalinkR GET
 /blog BlogViewR GET
 /blog/#ArticleId ArticleR GET
 /blog/admin/new NewBlogR GET POST
