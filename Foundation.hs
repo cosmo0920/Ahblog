@@ -128,6 +128,7 @@ instance Yesod App where
     isAuthorized NewBlogR _ = isAuthenticated
     isAuthorized (ArticleDeleteR _) _ = isAuthenticated
     isAuthorized (ArticleEditR _) _ = isAuthenticated
+    isAuthorized (ArticleR _) _ = isAuthenticated
     isAuthorized _ _ = return Authorized
 
 -- How to run database actions.

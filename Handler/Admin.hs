@@ -56,6 +56,13 @@ getNewBlogR = do
     addStylesheet $ StaticR css_textarea_css
     $(widgetFile "new")
 
+getArticleR :: ArticleId -> Handler RepHtml
+getArticleR articleId = do
+    article <- runDB $ get404 articleId
+    defaultLayout $ do
+        setTitle $ toHtml $ articleTitle article
+        $(widgetFile "article")
+
 postNewBlogR :: Handler RepHtml
 postNewBlogR = do
   (Entity _ user) <- requireAuth

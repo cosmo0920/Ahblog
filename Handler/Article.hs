@@ -6,12 +6,6 @@ module Handler.Article where
 import Import
 --import Database.Persist.GenericSql
 -- import Database.Persist.Store
-getArticleR :: ArticleId -> Handler RepHtml
-getArticleR articleId = do
-    article <- runDB $ get404 articleId
-    defaultLayout $ do
-        setTitle $ toHtml $ articleTitle article
-        $(widgetFile "article")
 
 getPermalinkR :: Text -> Handler RepHtml
 getPermalinkR slug = do
