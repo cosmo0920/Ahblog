@@ -26,8 +26,10 @@
           <li><a href="http://twitter.github.com/bootstrap">Bootstrap</a></li>
           <li><a href="http://www.haskell.org/">Haskell</a></li>
           <li><a href="http://code.google.com/p/google-code-prettify/">google-code-prettify</a></li>
-          <li .nav-header>Search</li>
-          <input type="text" class="input-medium search-query" placeholder="Search">
+          <li><a href="https://github.com/yesodweb/yesod/wiki/Yesod-Libraries">some yesod library</a></li>
+          <li><a href="http://hackage.haskell.org/package/friendly-time">friendly-time</a></li>
+          <li .nav-header>Archive</li>
+          <li><a href="@{ArchiveR}">archive</a></li>
 
   <div .pagination>
     ^{widget}

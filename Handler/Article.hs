@@ -22,7 +22,7 @@ getArchiveR = do
   now <- liftIO $ getCurrentTime
   archives <- runDB $ selectList [] [Desc ArticleCreatedAt]
   defaultLayout $ do
-    setTitle "Archive"
+    setTitle "Article Archive"
     $(widgetFile "archive")
 
 -- getSearchR :: Text -> Handler RepHtml
