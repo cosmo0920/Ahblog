@@ -1,4 +1,4 @@
-module Model.EntryForm where
+module Helper.EntryForm where
 
 import Import
 -- to use Html into forms

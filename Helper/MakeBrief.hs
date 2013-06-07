@@ -1,4 +1,4 @@
-module Model.MakeBrief where
+module Helper.MakeBrief where
 
 import Import
 import qualified Data.Text as T

@@ -24,8 +24,8 @@ library
                      Handler.Article
                      Handler.About
                      Handler.Admin
-                     Model.EntryForm
-                     Model.MakeBrief
+                     Helper.EntryForm
+                     Helper.MakeBrief
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT

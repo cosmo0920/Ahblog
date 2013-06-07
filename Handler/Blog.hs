@@ -2,7 +2,7 @@ module Handler.Blog where
 
 import Import
 import Yesod.Paginator
-import Model.MakeBrief
+import Helper.MakeBrief
 
 getBlogViewR :: Handler RepHtml
 getBlogViewR = do

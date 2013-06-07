@@ -5,8 +5,8 @@ import Yesod.Paginator
 import Yesod.Auth
 -- import Control.Monad (forM)
 -- import Data.Maybe (fromMaybe)
-import Model.EntryForm
-import Model.MakeBrief
+import Helper.EntryForm
+import Helper.MakeBrief
 
 getBlogR :: Handler RepHtml
 getBlogR = do
