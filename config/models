@@ -1,8 +1,8 @@
 User
-    ident Text
+    email Text
     screenName Text Maybe -- TODO:make editable screenName
     password Text Maybe -- TODO:make editable password
-    UniqueUser ident
+    UniqueUser email
     deriving Show
 
 Article

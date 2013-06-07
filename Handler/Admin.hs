@@ -15,7 +15,7 @@ getBlogR = do
   -- Get the list of articles inside the database
   let page = 10
   (Entity userId user) <- requireAuth
-  let username = userIdent user
+  let username = userEmail user
   (articles, widget) <- runDB $ selectPaginated page [] [Desc ArticleCreatedAt]
   -- We'll need the two "objects": articleWidget and enctype
   -- to construct the form (see templates/articles.hamlet).
@@ -46,7 +46,7 @@ postBlogR = do
 getNewBlogR :: Handler RepHtml
 getNewBlogR = do
   (Entity _ user) <- requireAuth
-  let username = userIdent user
+  let username = userEmail user
   -- Get the list of articles inside the database
   articles <- runDB $ selectList [][Desc ArticleCreatedAt]
   -- We'll need the two "objects": articleWidget and enctype
@@ -69,7 +69,7 @@ getArticleR articleId = do
 postNewBlogR :: Handler RepHtml
 postNewBlogR = do
   (Entity _ user) <- requireAuth
-  let username = userIdent user
+  let username = userEmail user
   ((res,articleWidget),enctype) <- runFormPost entryForm
   case res of
     FormSuccess article -> do
@@ -87,7 +87,7 @@ postNewBlogR = do
 getArticleEditR :: ArticleId -> Handler RepHtml
 getArticleEditR articleId = do
   (Entity _ user) <- requireAuth
-  let username = userIdent user
+  let username = userEmail user
   maid <- maybeAuthId
   post <- runDB $ get404 articleId
   (postWidget, enctype) <- generateFormPost $ postForm $ Just post
@@ -100,7 +100,7 @@ postArticleEditR :: ArticleId -> Handler RepHtml
 postArticleEditR articleId = do 
   maid <- maybeAuthId
   (Entity _ user) <- requireAuth
-  let username = userIdent user
+  let username = userEmail user
   ((res, postWidget), enctype) <- runFormPost $ postForm Nothing
   case res of
        FormSuccess post -> do 

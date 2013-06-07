@@ -170,7 +170,7 @@ instance RenderMessage App FormMessage where
 getRootR :: Handler RepHtml
 getRootR = do  
   (Entity _ user) <- requireAuth
-  let username = userIdent user
+  let username = userEmail user
   maid <- maybeAuthId
   defaultLayout $ do
              $(widgetFile "root")    
