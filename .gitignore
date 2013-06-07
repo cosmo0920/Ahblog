@@ -1,6 +1,7 @@
 dist*
 static/tmp/
 config/client_session_key.aes
+config/settings.yml
 *.hi
 *.o
 *.sqlite3
