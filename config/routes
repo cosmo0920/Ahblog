@@ -6,6 +6,7 @@
 
 /home HomeR GET
 / RootR GET
+/archive ArchiveR GET
 /blog/post/#Text PermalinkR GET
 /blog BlogViewR GET
 /blog/admin/manage BlogR GET POST

@@ -4,15 +4,26 @@
 module Handler.Article where
 
 import Import
+import Data.Time
+import Data.Time.Format.Human
 --import Database.Persist.GenericSql
 -- import Database.Persist.Store
 
 getPermalinkR :: Text -> Handler RepHtml
 getPermalinkR slug = do
-    Entity _ Article {articleTitle, articleContent, ..} <- runDB $ getBy404 $ UniqueSlug slug
-    defaultLayout $ do
-        setTitle $ toHtml $ articleTitle
-        $(widgetFile "permalink")
+  now <- liftIO $ getCurrentTime
+  Entity _ Article {articleTitle, articleContent, ..} <- runDB $ getBy404 $ UniqueSlug slug
+  defaultLayout $ do
+    setTitle $ toHtml $ articleTitle
+    $(widgetFile "permalink")
+
+getArchiveR :: Handler RepHtml
+getArchiveR = do
+  now <- liftIO $ getCurrentTime
+  archives <- runDB $ selectList [] [Desc ArticleCreatedAt]
+  defaultLayout $ do
+    setTitle "Archive"
+    $(widgetFile "archive")
 
 -- getSearchR :: Text -> Handler RepHtml
 -- getSearchR pattern = do

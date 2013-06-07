@@ -79,6 +79,7 @@ library
                  , fast-logger                   >= 0.3
                  , yesod-paginator
                  , time
+                 , friendly-time
 
 executable         Ahblog
     if flag(library-only)

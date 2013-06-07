@@ -3,6 +3,8 @@ module Handler.Admin where
 import Import
 import Yesod.Paginator
 import Yesod.Auth
+import Data.Time
+import Data.Time.Format.Human
 -- import Control.Monad (forM)
 -- import Data.Maybe (fromMaybe)
 import Helper.EntryForm
@@ -58,10 +60,11 @@ getNewBlogR = do
 
 getArticleR :: ArticleId -> Handler RepHtml
 getArticleR articleId = do
-    article <- runDB $ get404 articleId
-    defaultLayout $ do
-        setTitle $ toHtml $ articleTitle article
-        $(widgetFile "article")
+  now <- liftIO $ getCurrentTime
+  article <- runDB $ get404 articleId
+  defaultLayout $ do
+    setTitle $ toHtml $ articleTitle article
+    $(widgetFile "article")
 
 postNewBlogR :: Handler RepHtml
 postNewBlogR = do

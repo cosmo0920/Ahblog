@@ -2,7 +2,7 @@
   <h2>#{articleTitle article}</h2></div>
   <div .row>
     <div .span9>
-      <p><i class="icon-calendar"></i>#{show $ articleCreatedAt article}
+      <p><i class="icon-calendar"></i>#{humanReadableTime' now $ articleCreatedAt article}
       <div .well>
         <article>#{articleContent article}<br/>
          
