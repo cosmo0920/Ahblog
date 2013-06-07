@@ -8,9 +8,9 @@
 / RootR GET
 /blog/post/#Text PermalinkR GET
 /blog BlogViewR GET
-/blog/#ArticleId ArticleR GET
-/blog/admin/new NewBlogR GET POST
 /blog/admin/manage BlogR GET POST
+/blog/admin/new NewBlogR GET POST
+/blog/admin/article/#ArticleId ArticleR GET
 /blog/admin/edit/#ArticleId ArticleEditR GET POST
 /blog/admin/delete/#ArticleId ArticleDeleteR GET
 /about AboutR GET

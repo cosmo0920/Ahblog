@@ -14,7 +14,7 @@ getBlogR = do
   let page = 10
   (Entity userId user) <- requireAuth
   let username = userIdent user
-  (articles, widget) <- runDB $ selectPaginated page [] [Desc ArticleId]
+  (articles, widget) <- runDB $ selectPaginated page [] [Desc ArticleCreatedAt]
   -- We'll need the two "objects": articleWidget and enctype
   -- to construct the form (see templates/articles.hamlet).
   (articleWidget, enctype) <- generateFormPost entryForm
@@ -46,7 +46,7 @@ getNewBlogR = do
   (Entity _ user) <- requireAuth
   let username = userIdent user
   -- Get the list of articles inside the database
-  articles <- runDB $ selectList [][Desc ArticleId]
+  articles <- runDB $ selectList [][Desc ArticleCreatedAt]
   -- We'll need the two "objects": articleWidget and enctype
   -- to construct the form (see templates/articles.hamlet).
   (articleWidget, enctype) <- generateFormPost entryForm
@@ -81,7 +81,6 @@ postNewBlogR = do
             setTitle "Please correct your entry form"
             $(widgetFile "articleAddError")
 
-
 getArticleEditR :: ArticleId -> Handler RepHtml
 getArticleEditR articleId = do
   (Entity _ user) <- requireAuth
@@ -105,7 +104,8 @@ postArticleEditR articleId = do
          runDB $ do 
            _post <- get404 articleId
            update articleId [ ArticleTitle   =. articleTitle post
-                            , ArticleContent =. articleContent post]
+                            , ArticleContent =. articleContent post
+                            , ArticleSlug    =. articleSlug post]
          renderer <- getUrlRenderParams
          let html = [hamlet|<span .notice><h4>#{articleTitle post}</h4>
                                           <p> updated

@@ -8,8 +8,8 @@ getBlogViewR :: Handler RepHtml
 getBlogViewR = do
   -- Get the list of articles inside the database
   let page = 10
-  (articles, widget) <- runDB $ selectPaginated page [] [Desc ArticleId]
-  articleArchives <- runDB $ selectList [] [Desc ArticleId, LimitTo 10]
+  (articles, widget) <- runDB $ selectPaginated page [] [Desc ArticleCreatedAt]
+  articleArchives <- runDB $ selectList [] [Desc ArticleCreatedAt, LimitTo 10]
   -- We'll need the two "objects": articleWidget and enctype
   -- to construct the form (see templates/articles.hamlet).
   defaultLayout $ do
