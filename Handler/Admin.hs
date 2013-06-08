@@ -10,8 +10,8 @@ import Data.Time.Format.Human
 import Helper.EntryForm
 import Helper.MakeBrief
 
-getBlogR :: Handler RepHtml
-getBlogR = do
+getAdminR :: Handler RepHtml
+getAdminR = do
   -- Get the list of articles inside the database
   let page = 10
   (Entity userId user) <- requireAuth
@@ -26,8 +26,8 @@ getBlogR = do
     addStylesheet $ StaticR css_textarea_css
     $(widgetFile "admin")
 
-postBlogR :: Handler RepHtml
-postBlogR = do
+postAdminR :: Handler RepHtml
+postAdminR = do
   (Entity userId user) <- requireAuth
   ((res,articleWidget),enctype) <- runFormPost entryForm
   case res of
@@ -36,7 +36,7 @@ postBlogR = do
       renderer <- getUrlRenderParams
       let html = [hamlet|<span .notice><h4>#{articleTitle article}</h4>
                                        <p> created
-                                       <a href=@{BlogR}>Back Admin</a>|]
+                                       <a href=@{AdminR}>Back Admin</a>|]
       setMessage $ toHtml $ html renderer
       redirect $ ArticleR articleId
     _ -> defaultLayout $ do
@@ -81,7 +81,7 @@ postNewBlogR = do
       renderer <- getUrlRenderParams
       let html = [hamlet|<span .notice><h4>#{articleTitle article}</h4>
                                        <p> created
-                                       <a href=@{BlogR}>Back Admin</a>|]
+                                       <a href=@{AdminR}>Back Admin</a>|]
       setMessage $ toHtml $ html renderer
       redirect $ ArticleR articleId
     _ -> defaultLayout $ do
@@ -143,4 +143,4 @@ postArticleDeleteR articleId = do
   let html = [hamlet|<span .notice><h4>#{articleTitle article}</h4>
                                    <p> deleted|]
   setMessage $ toHtml $ html renderer
-  redirect $ BlogR
+  redirect $ AdminR

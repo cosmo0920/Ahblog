@@ -1,7 +1,5 @@
 User
     email Text
-    screenName Text Maybe -- TODO:make editable screenName
-    password Text Maybe -- TODO:make editable password
     UniqueUser email
     deriving Show
 

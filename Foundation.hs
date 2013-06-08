@@ -123,7 +123,7 @@ instance Yesod App where
         development || level == LevelWarn || level == LevelError
 
     getLogger = return . appLogger
-    isAuthorized BlogR _ = isAdmin
+    isAuthorized AdminR _ = isAdmin
     isAuthorized NewBlogR _ = isAdmin
     isAuthorized (ArticleDeleteR _) _ = isAdmin
     isAuthorized (ArticleEditR _) _ = isAdmin
@@ -154,7 +154,7 @@ instance YesodAuth App where
             Just (Entity uid _) -> return $ Just uid
             Nothing -> do
                 fmap Just $ insert $ 
-                  User (credsIdent creds) Nothing Nothing
+                  User (credsIdent creds)
 
     -- You can add other plugins like BrowserID, email or OAuth here
     authPlugins _ = [authBrowserId, authGoogleEmail]

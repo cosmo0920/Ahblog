@@ -35,7 +35,7 @@
                   <li>
                     <a href=@{BlogViewR}>Blog
                   <li>
-                    <a href=@{BlogR}>Admin
+                    <a href=@{AdminR}>Admin
                   <li>
                     <a href=@{AboutR}>About
                   <li .dropdown>
