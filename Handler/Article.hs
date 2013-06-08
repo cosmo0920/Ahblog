@@ -24,7 +24,7 @@ getPermalinkR slug = do
 
 postPermalinkR :: Text -> Handler RepHtml
 postPermalinkR slug = do
-  Entity articleId Article {articleTitle, articleContent, ..} <- runDB $ getBy404 $ UniqueSlug slug
+  Entity articleId Article {..} <- runDB $ getBy404 $ UniqueSlug slug
   ((res, _), _) <- runFormPost (commentForm articleId)
   case res of
     FormSuccess comment -> do
