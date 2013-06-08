@@ -188,7 +188,7 @@ isAdmin = do
     Nothing -> return AuthenticationRequired
     Just (Entity _ user)
       | userEmail user `elem` extraAdmins extra -> return Authorized
-      | otherwise -> return AuthenticationRequired
+      | otherwise -> return $ Unauthorized ""
 
 -- Note: previous versions of the scaffolding included a deliver function to
 -- send emails. Unfortunately, there are too many different options for us to
