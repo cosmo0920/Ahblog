@@ -20,7 +20,7 @@ import Text.Jasmine (minifym)
 import Web.ClientSession (getKey)
 import Text.Hamlet (hamletFile)
 import System.Log.FastLogger (Logger)
-import Data.Maybe (isNothing, isJust)
+import Data.Maybe (isNothing)
 import Data.Text
 
 -- | The site argument for your application. This can be a good place to
@@ -124,11 +124,11 @@ instance Yesod App where
         development || level == LevelWarn || level == LevelError
 
     getLogger = return . appLogger
-    isAuthorized BlogR _ = isAuthenticated
-    isAuthorized NewBlogR _ = isAuthenticated
-    isAuthorized (ArticleDeleteR _) _ = isAuthenticated
-    isAuthorized (ArticleEditR _) _ = isAuthenticated
-    isAuthorized (ArticleR _) _ = isAuthenticated
+    isAuthorized BlogR _ = isAdmin
+    isAuthorized NewBlogR _ = isAdmin
+    isAuthorized (ArticleDeleteR _) _ = isAdmin
+    isAuthorized (ArticleEditR _) _ = isAdmin
+    isAuthorized (ArticleR _) _ = isAdmin
     isAuthorized _ _ = return Authorized
 
 -- How to run database actions.
@@ -176,7 +176,8 @@ getRootR = do
              $(widgetFile "root")    
 
 -- | Get the 'Extra' value, used to hold data from the settings.yml file.
-getExtra :: Handler Extra
+--getExtra :: Handler Extra
+getExtra :: GHandler sub App Extra 
 getExtra = fmap (appExtra . settings) getYesod
 
 isAuthenticated :: YesodAuth master => GHandler sub master AuthResult
@@ -185,6 +186,16 @@ isAuthenticated = do
     if isNothing maid
       then return AuthenticationRequired
       else return Authorized
+
+isAdmin :: GHandler s App AuthResult 
+isAdmin = do
+  extra <- getExtra
+  mauth <- maybeAuth
+  case mauth of
+    Nothing -> return AuthenticationRequired
+    Just (Entity _ user)
+      | userEmail user `elem` extraAdmins extra -> return Authorized
+      | otherwise -> return AuthenticationRequired
 
 -- Note: previous versions of the scaffolding included a deliver function to
 -- send emails. Unfortunately, there are too many different options for us to
