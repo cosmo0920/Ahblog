@@ -61,9 +61,13 @@ getNewBlogR = do
 getArticleR :: ArticleId -> Handler RepHtml
 getArticleR articleId = do
   now <- liftIO $ getCurrentTime
+  comments <- runDB $ map entityVal <$>
+              selectList [CommentArticle ==. articleId] [Asc CommentPosted]
   article <- runDB $ get404 articleId
+  ((_, commentWidget), enctype) <- runFormPost $ commentForm articleId
   defaultLayout $ do
     setTitle $ toHtml $ articleTitle article
+    addStylesheet $ StaticR css_commentarea_css
     $(widgetFile "article")
 
 postNewBlogR :: Handler RepHtml
@@ -122,9 +126,19 @@ postArticleEditR articleId = do
 getArticleDeleteR :: ArticleId -> Handler RepHtml
 getArticleDeleteR articleId = do
   article <- runDB $ get404 articleId
+  (postWidget, enctype) <- generateFormPost $ postForm $ Just article
+  defaultLayout $ do
+    setTitle "Delete"
+    addStylesheet $ StaticR css_textarea_css
+    $(widgetFile "delete")
+
+postArticleDeleteR :: ArticleId -> Handler RepHtml
+postArticleDeleteR articleId = do
+  article <- runDB $ get404 articleId
   runDB $ do
     _post <- get404 articleId
     delete articleId
+    deleteWhere [CommentArticle ==. articleId]
   renderer <- getUrlRenderParams
   let html = [hamlet|<span .notice><h4>#{articleTitle article}</h4>
                                    <p> deleted|]

@@ -1,3 +1,6 @@
+{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, FlexibleContexts #-}
+{-# LANGUAGE TemplateHaskell, OverloadedStrings, GADTs, MultiParamTypeClasses #-}
+{-# LANGUAGE NamedFieldPuns, RecordWildCards #-}
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 module Helper.EntryForm where
 
@@ -20,3 +23,9 @@ postForm p = renderDivs $ Article
   <*> areq textField "Slug" (articleSlug <$> p)
   <*> aformM (liftIO getCurrentTime)
 
+commentForm :: ArticleId -> Form Comment
+commentForm articleId = renderDivs $ Comment
+  <$> areq textField "Name" Nothing
+  <*> areq nicHtmlField "Content" Nothing
+  <*> pure articleId
+  <*> aformM (liftIO getCurrentTime)

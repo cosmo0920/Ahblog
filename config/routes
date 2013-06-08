@@ -7,11 +7,11 @@
 /home HomeR GET
 / RootR GET
 /archive ArchiveR GET
-/blog/post/#Text PermalinkR GET
+/blog/post/#Text PermalinkR GET POST
 /blog BlogViewR GET
 /blog/admin/manage BlogR GET POST
 /blog/admin/new NewBlogR GET POST
 /blog/admin/article/#ArticleId ArticleR GET
 /blog/admin/edit/#ArticleId ArticleEditR GET POST
-/blog/admin/delete/#ArticleId ArticleDeleteR GET
+/blog/admin/delete/#ArticleId ArticleDeleteR GET POST
 /about AboutR GET
