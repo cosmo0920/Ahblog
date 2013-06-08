@@ -5,6 +5,24 @@
       <p><i class="icon-calendar"></i>#{humanReadableTime' now $ articleCreatedAt}
       <div .well>
         <article>#{articleContent}<br/>
-         
+      <hr>
+      $if null comments
+        <h3>There are no comment in this article
+      $else
+        <div #comment>
+        <h3>Comment</h3>
+          $forall Comment name content _ posted <- comments
+            <article>
+              <div .name>
+                <h4>#{name}:
+                <span .tooltip .gray>#{show posted}
+              <div .well .comment-content>
+                #{content}
+      <hr>
+      <h3>Add Comment
+      <form method="post" enctype="#{enctype}">
+          ^{commentWidget}
+        <input type="submit" .btn .btn-primary value="Post">
+      <hr>    
   <a href=@{BlogViewR} class="btn">
     <i class="icon-circle-arrow-left"></i>Back

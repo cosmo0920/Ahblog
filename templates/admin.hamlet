@@ -1,14 +1,13 @@
 <div .page-header>
   $maybe _ <- maid
     <h1>Blog Admin</h1></div>
-      <p>Current login user: #{username}</p>
-      <a href=@{AuthR LogoutR} class="btn">Logout  
 
     <div class="tabbable">
       <ul class="nav nav-tabs">
         <li class="active"><a href="#article" data-toggle="tab">Admin Article</a></li>
         <li><a href="#post" data-toggle="tab">Simple Post</a></li>
-    
+        <li><a href="#user" data-toggle="tab">User</a></li>
+
     <div class="tab-content">
       <div class="tab-pane active" id="article">
         <h3>Index article
@@ -33,8 +32,13 @@
         <form method=post enctype=#{enctype}>
            ^{articleWidget}
            <div>
-              <input type=submit value="Post New Article">
+              <input type=submit .btn .btn-info value="Post New Article">
 
+      <div class="tab-pane" id="user">
+        <h3>User</h3>
+          <p>Current login user: #{username}</p>
+          <a href=@{AuthR LogoutR} class="btn">Logout
+  
       <hr>
   $nothing
     <h2>Authorization required</h2>

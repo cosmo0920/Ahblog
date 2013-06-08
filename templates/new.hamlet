@@ -4,8 +4,8 @@
     <p>Your username: #{username}</p>
     <form method=post enctype=#{enctype}>
       ^{articleWidget}
-      <div>
-         <input type=submit value="Post New Article">
+      <input type=submit .btn .btn-info value="Post New Article">
+    <hr>
   $nothing
     <h2>Authorization required</h2>
       <a href=@{AuthR LoginR} class="btn">login

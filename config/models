@@ -5,6 +5,12 @@ User
     UniqueUser email
     deriving Show
 
+Comment
+    name Text
+    content Html
+    article ArticleId
+    posted UTCTime default=CURRENT_TIMESTAMP
+
 Article
     title   Text
     content Html
