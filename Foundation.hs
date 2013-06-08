@@ -86,6 +86,7 @@ instance Yesod App where
         -- you to use normal widget features in default-layout.
         maid <- maybeAuthId
         pc <- widgetToPageContent $ do
+            addScriptRemote "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
             addStylesheet $ StaticR css_bootstrap_and_override_css
             addStylesheet $ StaticR css_bootstrap_css
             addStylesheet $ StaticR css_desert_css
