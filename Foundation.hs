@@ -20,7 +20,6 @@ import Text.Jasmine (minifym)
 import Web.ClientSession (getKey)
 import Text.Hamlet (hamletFile)
 import System.Log.FastLogger (Logger)
-import Data.Maybe (isNothing)
 import Data.Text
 
 -- | The site argument for your application. This can be a good place to
@@ -180,13 +179,7 @@ getRootR = do
 getExtra :: GHandler sub App Extra 
 getExtra = fmap (appExtra . settings) getYesod
 
-isAuthenticated :: YesodAuth master => GHandler sub master AuthResult
-isAuthenticated = do
-    maid <- maybeAuthId
-    if isNothing maid
-      then return AuthenticationRequired
-      else return Authorized
-
+-- is administrator?
 isAdmin :: GHandler s App AuthResult 
 isAdmin = do
   extra <- getExtra
