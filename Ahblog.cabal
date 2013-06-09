@@ -24,7 +24,7 @@ library
                      Handler.Article
                      Handler.About
                      Handler.Admin
-                     Helper.EntryForm
+                     Helper.Form
                      Helper.MakeBrief
 
     if flag(dev) || flag(library-only)

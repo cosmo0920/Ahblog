@@ -7,7 +7,7 @@ import Data.Time
 import Data.Time.Format.Human
 -- import Control.Monad (forM)
 -- import Data.Maybe (fromMaybe)
-import Helper.EntryForm
+import Helper.Form
 import Helper.MakeBrief
 
 getAdminR :: Handler RepHtml

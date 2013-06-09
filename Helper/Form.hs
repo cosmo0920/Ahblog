@@ -2,7 +2,7 @@
 {-# LANGUAGE TemplateHaskell, OverloadedStrings, GADTs, MultiParamTypeClasses #-}
 {-# LANGUAGE NamedFieldPuns, RecordWildCards #-}
 {-# OPTIONS_GHC -fno-warn-orphans #-}
-module Helper.EntryForm where
+module Helper.Form where
 
 import Import
 -- to use Html into forms

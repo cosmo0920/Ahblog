@@ -4,7 +4,7 @@
 module Handler.Article where
 
 import Import
-import Helper.EntryForm
+import Helper.Form
 import Data.Time
 import Data.Time.Format.Human
 --import Database.Persist.GenericSql
