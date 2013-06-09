@@ -26,6 +26,6 @@ postForm p = renderDivs $ Article
 commentForm :: ArticleId -> Form Comment
 commentForm articleId = renderDivs $ Comment
   <$> areq textField "Name" Nothing
-  <*> areq nicHtmlField "Content" Nothing
+  <*> areq htmlField "Content" Nothing
   <*> pure articleId
   <*> aformM (liftIO getCurrentTime)
