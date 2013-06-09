@@ -2,4 +2,4 @@
   <h1>Internal Blog</h1></div>
   <p>This is the homepage for the #
       <a href=@{BlogViewR}>Internal Blog
-  <a href=@{Import.RootR} class="btn">Go to the Login Page</a>
+  <hr>
