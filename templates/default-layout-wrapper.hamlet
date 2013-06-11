@@ -35,14 +35,12 @@
                   <li>
                     <a href=@{BlogViewR}>Blog
                   <li>
-                    <a href=@{AdminR}>Admin
-                  <li>
                     <a href=@{AboutR}>About
                   <li .dropdown>
-                    <a href="#" .dropdown-toggle data-toggle="dropdown">Authorize<b class="caret"></b></a> 
+                    <a href="#" .dropdown-toggle data-toggle="dropdown">Control<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                       $maybe _ <- maid
-                        <li><a href="#">You are Logged in.</a>
+                        <li><a href=@{AdminR}>Admin</a>
                         <li><a href=@{AuthR LogoutR}>Logout</a>
                       $nothing
                         <li><a href=@{AuthR LoginR}>Login</a>
