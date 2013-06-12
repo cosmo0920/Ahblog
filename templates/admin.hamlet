@@ -48,8 +48,6 @@
                  <td width="30">
                    <a href="#"> Delete
 
-            <div .pagination>
-              ^{commentwidget}
       <div class="tab-pane" id="post">
         <h3>simply post
         <form method=post enctype=#{enctype}>
