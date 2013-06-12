@@ -13,4 +13,5 @@
 /blog/admin/article/#ArticleId ArticleR GET POST
 /blog/admin/edit/#ArticleId ArticleEditR GET POST
 /blog/admin/delete/#ArticleId ArticleDeleteR GET POST
+/blog/admin/commentdel/#CommentId CommentDeleteR GET
 /about AboutR GET

@@ -73,8 +73,7 @@ getArticleR articleId = do
 
 postArticleR :: ArticleId -> Handler RepHtml
 postArticleR articleId = do
---  post <- runDB $ get404 articleId
-  ((res,_), enctype) <- runFormPost $ commentForm articleId
+  ((res,_), _) <- runFormPost $ commentForm articleId
   case res of
     FormSuccess comment -> do
       _ <- runDB $ insert comment
@@ -155,6 +154,18 @@ postArticleDeleteR articleId = do
     deleteWhere [CommentArticle ==. articleId]
   renderer <- getUrlRenderParams
   let html = [hamlet|<span .notice><h4>#{articleTitle article}</h4>
+                                   <p> deleted|]
+  setMessage $ toHtml $ html renderer
+  redirect $ AdminR
+
+getCommentDeleteR :: CommentId -> Handler RepHtml
+getCommentDeleteR commentId = do
+  comment <- runDB $ get404 commentId
+  runDB $ do
+    _post <- get404 commentId
+    delete commentId
+  renderer <- getUrlRenderParams
+  let html = [hamlet|<span .notice><h4>#{commentName comment}</h4>
                                    <p> deleted|]
   setMessage $ toHtml $ html renderer
   redirect $ AdminR

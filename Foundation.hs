@@ -129,6 +129,7 @@ instance Yesod App where
     isAuthorized (ArticleDeleteR _) _ = isAdmin
     isAuthorized (ArticleEditR _) _ = isAdmin
     isAuthorized (ArticleR _) _ = isAdmin
+    isAuthorized (CommentDeleteR _) _ = isAdmin
     isAuthorized _ _ = return Authorized
 
 -- How to run database actions.
