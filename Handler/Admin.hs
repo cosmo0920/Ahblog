@@ -17,6 +17,7 @@ getAdminR = do
   (Entity userId user) <- requireAuth
   let username = userEmail user
   (articles, widget) <- runDB $ selectPaginated page [] [Desc ArticleCreatedAt]
+  (comments, commentwidget) <- runDB $ selectPaginated page [] [Desc CommentPosted]
   -- We'll need the two "objects": articleWidget and enctype
   -- to construct the form (see templates/articles.hamlet).
   (articleWidget, enctype) <- generateFormPost entryForm
@@ -69,6 +70,19 @@ getArticleR articleId = do
     setTitle $ toHtml $ articleTitle article
     addStylesheet $ StaticR css_commentarea_css
     $(widgetFile "article")
+
+postArticleR :: ArticleId -> Handler RepHtml
+postArticleR articleId = do
+--  post <- runDB $ get404 articleId
+  ((res,_), enctype) <- runFormPost $ commentForm articleId
+  case res of
+    FormSuccess comment -> do
+      _ <- runDB $ insert comment
+      setMessage "Your comment was posted"
+      redirect $ ArticleR articleId
+    _ -> do
+      setMessage "Error occurred"
+      redirect $ ArticleR articleId
 
 postNewBlogR :: Handler RepHtml
 postNewBlogR = do

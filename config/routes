@@ -10,7 +10,7 @@
 /blog BlogViewR GET
 /blog/admin/manage AdminR GET POST
 /blog/admin/new NewBlogR GET POST
-/blog/admin/article/#ArticleId ArticleR GET
+/blog/admin/article/#ArticleId ArticleR GET POST
 /blog/admin/edit/#ArticleId ArticleEditR GET POST
 /blog/admin/delete/#ArticleId ArticleDeleteR GET POST
 /about AboutR GET

@@ -23,9 +23,9 @@ postForm p = renderDivs $ Article
   <*> areq textField "Slug" (articleSlug <$> p)
   <*> aformM (liftIO getCurrentTime)
 
-commentForm :: ArticleId -> Form Comment
+commentForm :: ArticleId -> Html -> MForm App App (FormResult Comment, Widget)
 commentForm articleId = renderDivs $ Comment
   <$> areq textField "Name" Nothing
-  <*> areq htmlField "Content" Nothing
+  <*> (unTextarea <$> areq textareaField "Content" Nothing)
   <*> pure articleId
   <*> aformM (liftIO getCurrentTime)

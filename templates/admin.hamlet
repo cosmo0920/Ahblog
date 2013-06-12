@@ -5,6 +5,7 @@
     <div class="tabbable">
       <ul class="nav nav-tabs">
         <li class="active"><a href="#article" data-toggle="tab">Admin Article</a></li>
+        <li><a href="#comment" data-toggle="tab">Admin Comment</a></li>
         <li><a href="#post" data-toggle="tab">Simple Post</a></li>
         <li><a href="#user" data-toggle="tab">User</a></li>
 
@@ -26,7 +27,29 @@
            <div .pagination>
              ^{widget}
            <a href=@{NewBlogR} class="btn"><i class="icon-pencil"></i> New Post</a>
-   
+      <div class="tab-pane" id="comment">
+        <h3>Index comment
+        $if null comments
+          <p> There are no comments in the blog
+        $else
+          <table .table .table-bordered .table-condensed>
+           <thead>
+             <tr>
+               <th>Name
+               <th>Abstract
+               <th>Admin
+
+           <tbody .link>
+             <tbody .link>
+             $forall Entity commentId comment <- comments
+               <tr>
+                 <td width="30">#{makeBrief 20 $ commentName comment}
+                 <td width="280">#{makeBrief 100 $ commentContent comment}
+                 <td width="30">
+                   <a href="#"> Delete
+
+            <div .pagination>
+              ^{commentwidget}
       <div class="tab-pane" id="post">
         <h3>simply post
         <form method=post enctype=#{enctype}>

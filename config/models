@@ -5,7 +5,7 @@ User
 
 Comment
     name Text
-    content Html
+    content Text
     article ArticleId
     posted UTCTime default=CURRENT_TIMESTAMP
 
