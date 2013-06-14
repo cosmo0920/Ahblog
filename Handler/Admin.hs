@@ -17,7 +17,7 @@ getAdminR = do
   (Entity userId user) <- requireAuth
   let username = userEmail user
   (articles, widget) <- runDB $ selectPaginated page [] [Desc ArticleCreatedAt]
-  (comments,_) <- runDB $ selectPaginated page [] [Desc CommentPosted]
+  comments <- runDB $ selectList [] [Desc CommentPosted]
   -- We'll need the two "objects": articleWidget and enctype
   -- to construct the form (see templates/articles.hamlet).
   (articleWidget, enctype) <- generateFormPost entryForm
