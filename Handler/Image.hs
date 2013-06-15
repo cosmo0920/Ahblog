@@ -12,8 +12,7 @@ getImagesR = do
     images <- runDB $ selectList [ImageFilename !=. ""] [Desc ImageDate]
     mmsg <- getMessage
     defaultLayout $ do
-        addScript $ StaticR js_jquery_min_js
-        $(widgetFile "image")
+      $(widgetFile "image")
 
 postImagesR :: Handler RepHtml
 postImagesR = do

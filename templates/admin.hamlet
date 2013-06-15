@@ -26,8 +26,8 @@
                    <a href=@{ArticleDeleteR articleId}> Delete
            <div .pagination>
              ^{widget}
-           <a href=@{NewBlogR} class="btn"><i class="icon-pencil"></i> New Post</a>
-           <a href=@{ImagesR} class="btn"><i class="icon-circle-arrow-up"></i>Admin Image</a>
+           <a href=@{NewBlogR} class="btn btn-info"><i class="icon-pencil"></i> New Post</a>
+           <a href=@{ImagesR} class="btn btn-success"><i class="icon-circle-arrow-up"></i> Admin Image</a>
       <div class="tab-pane" id="comment">
         <h3>Index comment
         $if null comments

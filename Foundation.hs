@@ -87,6 +87,7 @@ instance Yesod App where
         maid <- maybeAuthId
         pc <- widgetToPageContent $ do
             addScriptRemote "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+            addScript $ StaticR js_jquery_min_js
             addStylesheet $ StaticR css_bootstrap_and_override_css
             addStylesheet $ StaticR css_bootstrap_css
             addStylesheet $ StaticR css_desert_css
