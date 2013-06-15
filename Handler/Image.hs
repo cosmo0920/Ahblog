@@ -6,19 +6,13 @@ import Data.Text (unpack)
 import System.Directory (removeFile, doesFileExist)
 import Helper.ImageForm
 
-addStyle :: Widget
-addStyle = do
-    -- message style
-    toWidget [lucius|.message { padding: 10px 0; background: #ffffed; } |]
-    addScript $ StaticR js_jquery_min_js
-
 getImagesR :: Handler RepHtml
 getImagesR = do
     ((_, widget), enctype) <- runFormPost uploadForm
     images <- runDB $ selectList [ImageFilename !=. ""] [Desc ImageDate]
     mmsg <- getMessage
     defaultLayout $ do
-        addStyle
+        addScript $ StaticR js_jquery_min_js
         $(widgetFile "image")
 
 postImagesR :: Handler RepHtml
