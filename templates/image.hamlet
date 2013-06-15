@@ -1,0 +1,37 @@
+$newline never
+$maybe msg <- mmsg
+  <div .message>
+    <div .container>
+      #{msg}
+<div .container>
+  <div .row>
+    <h2>
+      Upload new image
+    <div .form-actions>
+      <form method=post enctype=#{enctype}>
+        ^{widget}
+        <input .btn type=submit value="Upload">
+    $if not $ null images
+      <table .table>
+        <tr>
+          <th>
+            Image
+          <th>
+            Decription
+          <th>
+            Uploaded
+          <th>
+            Action
+        $forall Entity imageId image <- images
+          <tr>
+            <td>
+              <a href=#{imageFilePath $ imageFilename image}>
+                #{imageFilename image}
+            <td>
+              $maybe description <- imageDescription image
+                #{description}
+            <td>
+              #{show $ imageDate image}
+            <td>
+              <a href=# .delete data-img-url=@{ImageR imageId}>
+                delete

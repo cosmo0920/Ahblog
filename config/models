@@ -17,4 +17,10 @@ Article
     UniqueSlug slug
     deriving
 
+Image
+    filename String
+    description Textarea Maybe
+    date UTCTime default=CURRENT_TIMESTAMP
+    deriving Show
+
  -- By default this file is used in Model.hs (which is imported by Foundation.hs)

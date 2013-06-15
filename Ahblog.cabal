@@ -24,8 +24,10 @@ library
                      Handler.Article
                      Handler.About
                      Handler.Admin
+                     Handler.Image
                      Helper.Form
                      Helper.MakeBrief
+                     Helper.ImageForm
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT
@@ -80,6 +82,7 @@ library
                  , yesod-paginator
                  , time
                  , friendly-time
+                 , filepath
 
 executable         Ahblog
     if flag(library-only)

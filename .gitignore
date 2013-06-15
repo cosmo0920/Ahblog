@@ -1,5 +1,6 @@
 dist*
 static/tmp/
+static/upload/
 config/client_session_key.aes
 config/settings.yml
 *.hi
