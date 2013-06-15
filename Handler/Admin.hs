@@ -9,6 +9,7 @@ import Data.Time.Format.Human
 -- import Data.Maybe (fromMaybe)
 import Helper.Form
 import Helper.MakeBrief
+import Handler.Image ()
 
 getAdminR :: Handler RepHtml
 getAdminR = do

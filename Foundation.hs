@@ -123,14 +123,16 @@ instance Yesod App where
     shouldLog _ _source level =
         development || level == LevelWarn || level == LevelError
 
-    getLogger = return . appLogger
-    isAuthorized AdminR _ = isAdmin
-    isAuthorized NewBlogR _ = isAdmin
+    getLogger                         = return . appLogger
+    isAuthorized AdminR _             = isAdmin
+    isAuthorized NewBlogR _           = isAdmin
     isAuthorized (ArticleDeleteR _) _ = isAdmin
-    isAuthorized (ArticleEditR _) _ = isAdmin
-    isAuthorized (ArticleR _) _ = isAdmin
+    isAuthorized (ArticleEditR _) _   = isAdmin
+    isAuthorized (ArticleR _) _       = isAdmin
     isAuthorized (CommentDeleteR _) _ = isAdmin
-    isAuthorized _ _ = return Authorized
+    isAuthorized (ImageR _) _         = isAdmin
+    isAuthorized ImagesR _            = isAdmin
+    isAuthorized _ _                  = return Authorized
 
 -- How to run database actions.
 instance YesodPersist App where
