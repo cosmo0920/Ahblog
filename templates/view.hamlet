@@ -15,7 +15,7 @@
             
     <div .span3>
        <ul ."nav nav-list well">
-          <li .nav-header><i class="icon-signal"></i>Recent Post</li>
+          <li .nav-header><i class="icon-signal"></i>Recent Posts</li>
           $if null articleArchives
             <p> There are no articles in the blog
           $else

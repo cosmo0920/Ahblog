@@ -53,7 +53,7 @@
               <a href="https://github.com/cosmo0920/Ahblog">Code</a> licensed under the <a href="http://opensource.org/licenses/MIT">MIT License</a><br />
               see <a href=@{ArchiveR}>archive</a> of all posts
 
-        <script src=@{StaticR js_jquery_js}>
+        <script src=@{StaticR js_jquery_min_js}>
         <script src=@{StaticR js_bootstrap_js}>
         <script src=@{StaticR js_google_code_prettify_prettify_js}>
         <script type="text/javascript">
