@@ -24,6 +24,7 @@ getBlogViewR = do
 getSearchR :: Text -> Handler RepHtml
 getSearchR searchString = do
     articles <- selectArticles searchString
+    now <- liftIO $ getCurrentTime
     defaultLayout $ do
       $(widgetFile "search")
   where
