@@ -4,6 +4,8 @@ import Import
 import System.FilePath
 import Data.Text (unpack)
 import System.Directory (removeFile, doesFileExist)
+import Data.Time
+import Data.Time.Format.Human
 import Helper.ImageForm
 
 getImagesR :: Handler RepHtml
@@ -11,6 +13,7 @@ getImagesR = do
     ((_, widget), enctype) <- runFormPost uploadForm
     images <- runDB $ selectList [ImageFilename !=. ""] [Desc ImageDate]
     mmsg <- getMessage
+    now <- liftIO $ getCurrentTime
     defaultLayout $ do
       $(widgetFile "image")
 

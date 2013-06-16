@@ -31,7 +31,7 @@ $maybe msg <- mmsg
               $maybe description <- imageDescription image
                 #{description}
             <td>
-              #{show $ imageDate image}
+              #{humanReadableTime' now $ imageDate image}
             <td>
               <a href=# .delete data-img-url=@{ImageR imageId}>
                 delete
