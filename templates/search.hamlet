@@ -1,0 +1,23 @@
+<div .page-header>
+  <h1>Search Result
+
+$if null articles
+  <p>There is no match <b>#{searchString}</b> in this blog articles.
+  <hr>
+$else
+  <p>Search result for <b>#{searchString}</b> in this blog articles as follows:
+  <div .post-listing>
+    <table .table .table-bordered .table-condensed>
+      <thead>
+        <tr>
+          <th>Title
+          <th>Posted
+   
+      <tbody .link>
+        $forall Entity _ article <- articles
+          <tr>
+            <td>
+              <a href="@{PermalinkR $ articleSlug article}">#{articleTitle article}
+   
+            <td>#{show $ articleCreatedAt article}
+  <hr>

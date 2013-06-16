@@ -5,6 +5,8 @@ import Yesod.Paginator
 import Helper.MakeBrief
 import Data.Time.Format.Human
 import Data.Time
+import qualified Data.Text as T (concat)
+import Database.Persist.GenericSql
 
 getBlogViewR :: Handler RepHtml
 getBlogViewR = do
@@ -18,3 +20,13 @@ getBlogViewR = do
   defaultLayout $ do
     setTitle "Internal Blog"
     $(widgetFile "view")
+
+getSearchR :: Text -> Handler RepHtml
+getSearchR searchString = do
+    articles <- selectArticles searchString
+    defaultLayout $ do
+      $(widgetFile "search")
+  where
+    selectArticles :: Text -> Handler [Entity Article]
+    selectArticles t = runDB $ rawSql s [toPersistValue $ T.concat ["%", t, "%"]]
+      where s = "SELECT ?? FROM article WHERE content LIKE ?"
