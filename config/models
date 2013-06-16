@@ -1,6 +1,7 @@
 User
     email Text
     UniqueUser email
+    screenName Text Maybe
     deriving Show
 
 Comment

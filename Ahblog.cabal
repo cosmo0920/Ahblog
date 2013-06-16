@@ -28,6 +28,7 @@ library
                      Helper.Form
                      Helper.MakeBrief
                      Helper.ImageForm
+                     Helper.UserForm
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT

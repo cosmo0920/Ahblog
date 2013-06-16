@@ -8,6 +8,7 @@ import Import
 -- to use Html into forms
 import Yesod.Form.Nic
 import Data.Time
+
 instance YesodNic App
 entryForm :: Form Article
 entryForm = renderDivs $ Article
