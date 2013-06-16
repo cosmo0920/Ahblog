@@ -30,4 +30,4 @@ getSearchR searchString = do
   where
     selectArticles :: Text -> Handler [Entity Article]
     selectArticles t = runDB $ rawSql s [toPersistValue $ T.concat ["%", t, "%"]]
-      where s = "SELECT ?? FROM article WHERE content LIKE ?"
+      where s = "SELECT ?? FROM article WHERE content LIKE ? ORDER BY created_at DESC"
