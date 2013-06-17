@@ -5,8 +5,6 @@ import Yesod.Paginator
 import Yesod.Auth
 import Data.Time
 import Data.Time.Format.Human
--- import Control.Monad (forM)
--- import Data.Maybe (fromMaybe)
 import Helper.Form
 import Helper.MakeBrief
 import Handler.Image ()
@@ -16,7 +14,6 @@ getAdminR = do
   -- Get the list of articles inside the database
   let page = 10
   username <- userScreenName . entityVal <$> requireAuth
-  --let username = userScreenName user
   (articles, widget) <- runDB $ selectPaginated page [] [Desc ArticleCreatedAt]
   comments <- runDB $ selectList [] [Desc CommentPosted]
   -- We'll need the two "objects": articleWidget and enctype
