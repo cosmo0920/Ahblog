@@ -25,6 +25,7 @@ library
                      Handler.About
                      Handler.Admin
                      Handler.Image
+                     Handler.User
                      Helper.Form
                      Helper.MakeBrief
                      Helper.ImageForm

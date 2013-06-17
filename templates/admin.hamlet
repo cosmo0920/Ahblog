@@ -59,7 +59,8 @@
       <div class="tab-pane" id="user">
         <h3>User</h3>
           <p>Current login user: #{username}</p>
-          <a href=@{AuthR LogoutR} class="btn">Logout
+          <a href=@{AuthR LogoutR} class="btn">Logout</a>
+          <a href=@{UserSettingR} class="btn">Profile</a>
   
       <hr>
   $nothing

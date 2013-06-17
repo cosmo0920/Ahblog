@@ -1,7 +1,7 @@
 User
     email Text
     UniqueUser email
-    screenName Text Maybe
+    screenName Text
     deriving Show
 
 Comment

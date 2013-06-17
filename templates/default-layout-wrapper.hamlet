@@ -26,9 +26,6 @@
           <div class="navbar-inner">
             <div class="container-fluid">
               <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
               <a class="brand" href=@{HomeR}><i>Internal Blog</i>
               <div class="nav-collapse">
                 <ul class="nav">
@@ -41,6 +38,7 @@
                     <ul class="dropdown-menu">
                       $maybe _ <- maid
                         <li><a href=@{AdminR}>Admin</a>
+                        <li><a href=@{UserSettingR}>User Profile</a>
                         <li><a href=@{AuthR LogoutR}>Logout</a>
                       $nothing
                         <li><a href=@{AuthR LoginR}>Login</a>

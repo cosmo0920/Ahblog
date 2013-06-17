@@ -10,4 +10,4 @@ userForm html = do
       screenName = userScreenName user
   flip renderDivs html $ User
     <$> pure email
-    <*> aopt textField "screen_name" (Just screenName)
+    <*> areq textField "screen_name" (Just screenName)

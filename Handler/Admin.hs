@@ -15,8 +15,8 @@ getAdminR :: Handler RepHtml
 getAdminR = do
   -- Get the list of articles inside the database
   let page = 10
-  (Entity userId user) <- requireAuth
-  let username = userEmail user
+  username <- userScreenName . entityVal <$> requireAuth
+  --let username = userScreenName user
   (articles, widget) <- runDB $ selectPaginated page [] [Desc ArticleCreatedAt]
   comments <- runDB $ selectList [] [Desc CommentPosted]
   -- We'll need the two "objects": articleWidget and enctype
@@ -47,8 +47,7 @@ postAdminR = do
 
 getNewBlogR :: Handler RepHtml
 getNewBlogR = do
-  (Entity _ user) <- requireAuth
-  let username = userEmail user
+  username <- userScreenName . entityVal <$> requireAuth
   -- Get the list of articles inside the database
   articles <- runDB $ selectList [][Desc ArticleCreatedAt]
   -- We'll need the two "objects": articleWidget and enctype

@@ -21,6 +21,7 @@ import Web.ClientSession (getKey)
 import Text.Hamlet (hamletFile)
 import System.Log.FastLogger (Logger)
 import Data.Text
+import Data.Maybe (isNothing)
 
 -- | The site argument for your application. This can be a good place to
 -- keep settings and values requiring initialization before your application
@@ -133,6 +134,7 @@ instance Yesod App where
     isAuthorized (CommentDeleteR _) _ = isAdmin
     isAuthorized (ImageR _) _         = isAdmin
     isAuthorized ImagesR _            = isAdmin
+    isAuthorized UserSettingR _       = isAuthenticated
     isAuthorized _ _                  = return Authorized
 
 -- How to run database actions.
@@ -159,7 +161,7 @@ instance YesodAuth App where
             Just (Entity uid _) -> return $ Just uid
             Nothing -> do
                 fmap Just $ insert $ 
-                  User (credsIdent creds) Nothing
+                  User (credsIdent creds) (credsIdent creds)
 
     -- You can add other plugins like BrowserID, email or OAuth here
     authPlugins _ = [authBrowserId, authGoogleEmail]
@@ -186,6 +188,13 @@ isAdmin = do
     Just (Entity _ user)
       | userEmail user `elem` extraAdmins extra -> return Authorized
       | otherwise -> return $ Unauthorized ""
+
+isAuthenticated :: YesodAuth master => GHandler sub master AuthResult
+isAuthenticated = do
+    maid <- maybeAuthId
+    if isNothing maid
+      then return AuthenticationRequired
+      else return Authorized
 
 -- Note: previous versions of the scaffolding included a deliver function to
 -- send emails. Unfortunately, there are too many different options for us to
