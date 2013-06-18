@@ -56,4 +56,7 @@ writeToServer file = do
     return filename
 
 imageFilePath :: String -> FilePath
-imageFilePath f = "/" </> uploadDirectory </> uploadSubDirectory </> f
+imageFilePath f = uploadDirectory </> uploadSubDirectory </> f
+
+imageFilePath' :: String -> FilePath
+imageFilePath' f = "/" </> uploadDirectory </> uploadSubDirectory </> f

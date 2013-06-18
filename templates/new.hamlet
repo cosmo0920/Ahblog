@@ -21,7 +21,7 @@
           $forall Entity _ image <- images
             <tr>
               <td>
-                <a href=#{imageFilePath $ imageFilename image}>
+                <a href=#{imageFilePath' $ imageFilename image}>
                   #{imageFilename image}
               <td>
                 $maybe description <- imageDescription image
