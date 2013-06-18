@@ -11,6 +11,7 @@ Comment
     posted UTCTime default=CURRENT_TIMESTAMP
 
 Article
+    author  UserId Eq
     title   Text
     content Html
     slug Text

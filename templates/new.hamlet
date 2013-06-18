@@ -1,11 +1,33 @@
 <div .page-header>
-  <h1>Post New Article</h1></div>  
+  <h1>Post New Article</h1></div>
   $maybe _ <- maid
-    <p>Your username: #{username}</p>
-    <form method=post enctype=#{enctype}>
-      ^{articleWidget}
-      <input type=submit .btn .btn-info value="Post New Article">
-    <hr>
+    <div .row>
+      <div .span9>
+        <p>Your username: #{username}</p>
+        <form method=post enctype=#{enctype}>
+          ^{articleWidget}
+          <input type=submit .btn .btn-info value="Post New Article">
+      <div .span3>
+        <h4>Recent Images</h4>
+        $if not $ null images
+        <table .table>
+          <tr>
+            <th>
+              Image
+            <th>
+              Decription
+            <th>
+              Uploaded
+          $forall Entity _ image <- images
+            <tr>
+              <td>
+                <a href=#{imageFilePath $ imageFilename image}>
+                  #{imageFilename image}
+              <td>
+                $maybe description <- imageDescription image
+                  #{description}
+              <td>
+                #{humanReadableTime' now $ imageDate image}
   $nothing
     <h2>Authorization required</h2>
       <a href=@{AuthR LoginR} class="btn">login

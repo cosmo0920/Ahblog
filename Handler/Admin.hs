@@ -7,7 +7,7 @@ import Data.Time
 import Data.Time.Format.Human
 import Helper.Form
 import Helper.MakeBrief
-import Handler.Image ()
+import Handler.Image
 
 getAdminR :: Handler RepHtml
 getAdminR = do
@@ -47,6 +47,8 @@ getNewBlogR = do
   username <- userScreenName . entityVal <$> requireAuth
   -- Get the list of articles inside the database
   articles <- runDB $ selectList [][Desc ArticleCreatedAt]
+  images <- runDB $ selectList [ImageFilename !=. ""] [Desc ImageDate]
+  now <- liftIO $ getCurrentTime
   -- We'll need the two "objects": articleWidget and enctype
   -- to construct the form (see templates/articles.hamlet).
   (articleWidget, enctype) <- generateFormPost entryForm
@@ -59,9 +61,11 @@ getNewBlogR = do
 getArticleR :: ArticleId -> Handler RepHtml
 getArticleR articleId = do
   now <- liftIO $ getCurrentTime
-  comments <- runDB $ map entityVal <$>
-              selectList [CommentArticle ==. articleId] [Asc CommentPosted]
-  article <- runDB $ get404 articleId
+  (comments, article) <- runDB $ do
+    comments <- map entityVal <$>
+                selectList [CommentArticle ==. articleId] [Asc CommentPosted]
+    article  <- get404 articleId
+    return (comments, article)
   ((_, commentWidget), enctype) <- runFormPost $ commentForm articleId
   defaultLayout $ do
     setTitle $ toHtml $ articleTitle article
@@ -83,7 +87,7 @@ postArticleR articleId = do
 postNewBlogR :: Handler RepHtml
 postNewBlogR = do
   (Entity _ user) <- requireAuth
-  let username = userEmail user
+  let username = userScreenName user
   ((res,articleWidget),enctype) <- runFormPost entryForm
   case res of
     FormSuccess article -> do
@@ -101,7 +105,7 @@ postNewBlogR = do
 getArticleEditR :: ArticleId -> Handler RepHtml
 getArticleEditR articleId = do
   (Entity _ user) <- requireAuth
-  let username = userEmail user
+  let username = userScreenName user
   maid <- maybeAuthId
   post <- runDB $ get404 articleId
   (postWidget, enctype) <- generateFormPost $ postForm $ Just post
@@ -114,7 +118,7 @@ postArticleEditR :: ArticleId -> Handler RepHtml
 postArticleEditR articleId = do 
   maid <- maybeAuthId
   (Entity _ user) <- requireAuth
-  let username = userEmail user
+  let username = userScreenName user
   ((res, postWidget), enctype) <- runFormPost $ postForm Nothing
   case res of
        FormSuccess post -> do 

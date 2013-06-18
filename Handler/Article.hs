@@ -7,15 +7,17 @@ import Import
 import Helper.Form
 import Data.Time
 import Data.Time.Format.Human
---import Database.Persist.GenericSql
--- import Database.Persist.Store
 
 getPermalinkR :: Text -> Handler RepHtml
 getPermalinkR slug = do
   now <- liftIO $ getCurrentTime
-  Entity articleId Article {articleTitle, articleContent, ..} <- runDB $ getBy404 $ UniqueSlug slug
-  comments <- runDB $ map entityVal <$>
-              selectList [CommentArticle ==. articleId] [Asc CommentPosted]
+  Entity articleId Article {articleTitle, articleContent, articleAuthor, ..} <- runDB $ getBy404 $ UniqueSlug slug
+  (comments, author) <- runDB $ do
+    comments <- map entityVal <$>
+                selectList [CommentArticle ==. articleId] [Asc CommentPosted]
+    author   <- get404 articleAuthor
+    return (comments, author)
+  let screenAuthor = userScreenName author
   ((_, commentWidget), enctype) <- runFormPost $ commentForm articleId
   defaultLayout $ do
     setTitle $ toHtml $ articleTitle
@@ -24,7 +26,7 @@ getPermalinkR slug = do
 
 postPermalinkR :: Text -> Handler RepHtml
 postPermalinkR slug = do
-  Entity articleId Article {..} <- runDB $ getBy404 $ UniqueSlug slug
+  Entity articleId _ <- runDB $ getBy404 $ UniqueSlug slug
   ((res, _), _) <- runFormPost (commentForm articleId)
   case res of
     FormSuccess comment -> do
@@ -42,13 +44,3 @@ getArchiveR = do
   defaultLayout $ do
     setTitle "Article Archive"
     $(widgetFile "archive")
-
--- getSearchR :: Text -> Handler RepHtml
--- getSearchR pattern = do
---     articles <- selectArticleContent pattern
---     defaultLayout $ do
---        setTitle "search result"
---        $(widgetFile "search")
---   where
---     selectArticleContent :: Text -> Handler [Entity Article]
---     selectArticleContent t = runDB $ selectList [Filter Article (Left $ PersistText "%Michael%") (BackendSpecificFilter "LIKE")] []
