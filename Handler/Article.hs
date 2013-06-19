@@ -11,13 +11,9 @@ import Data.Time.Format.Human
 getPermalinkR :: Text -> Handler RepHtml
 getPermalinkR slug = do
   now <- liftIO $ getCurrentTime
-  Entity articleId Article {articleTitle, articleContent, articleAuthor, ..} <- runDB $ getBy404 $ UniqueSlug slug
-  (comments, author) <- runDB $ do
-    comments <- map entityVal <$>
+  Entity articleId Article {articleTitle, articleContent, ..} <- runDB $ getBy404 $ UniqueSlug slug
+  comments<- runDB $ map entityVal <$>
                 selectList [CommentArticle ==. articleId] [Asc CommentPosted]
-    author   <- get404 articleAuthor
-    return (comments, author)
-  let screenAuthor = userScreenName author
   ((_, commentWidget), enctype) <- runFormPost $ commentForm articleId
   defaultLayout $ do
     setTitle $ toHtml $ articleTitle

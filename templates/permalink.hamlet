@@ -3,7 +3,6 @@
   <div .row>
     <div .span9>
       <p><i class="icon-calendar"></i>#{humanReadableTime' now $ articleCreatedAt}
-      <p><i class="icon-user"></i>Posted by #{screenAuthor}
       <div .well>
         <article>#{articleContent}<br/>
       <hr>
