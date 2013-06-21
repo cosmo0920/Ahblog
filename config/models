@@ -12,7 +12,7 @@ Comment
 
 Article
     title   Text
-    content Html
+    content Markdown
     slug Text
     createdAt  UTCTime default=CURRENT_TIMESTAMP
     UniqueSlug slug

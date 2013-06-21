@@ -38,6 +38,8 @@ data App = App
 -- Using a new type for Slug. Simply a wrapper around a text value.
 newtype Slug = Slug {unSlug :: Text}
         deriving (Show, Read, Eq, PathPiece, PersistField)
+
+
 -- Set up i18n messages. See the message folder.
 mkMessage "App" "messages" "en"
 

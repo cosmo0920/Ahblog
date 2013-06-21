@@ -19,3 +19,4 @@
 /about AboutR GET
 /setting/user UserSettingR GET POST
 /search/#Text SearchR GET
+/blog/feed BlogFeedR GET
