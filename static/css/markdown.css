@@ -1,0 +1,56 @@
+/* = Source Code CSS
+------------------------------------------*/
+table.sourceCode, 
+tr.sourceCode, 
+td.lineNumbers, 
+td.sourceCode {
+    margin: 0;
+    padding: 0;
+    vertical-align:
+    baseline;
+    border: none;
+    line-height: 1.3em;
+    }
+
+table.sourceCode {
+    margin-bottom: 15px;
+    width: 100%;
+    background-color: #303030;
+    color: #cccccc;
+    -webkit-box-shadow: 2px 2px 10px #000030;
+            box-shadow: 2px 2px 10px #000030;
+    -webkit-border-radius: 4px;
+            border-radius: 4px;
+    }
+
+td.lineNumbers {
+    text-align: right;
+    padding-right: 2px;
+    padding-left: 2px;
+    border-right: 1px solid #505050;
+    }
+
+td.sourceCode { padding-left: 5px; }
+
+td.sourceCode > pre, code.sourceCode { margin: 0; padding: 0; }
+pre, code {
+    color: #eeeeee;
+    padding: 2px 4px;
+    background-color: #303030;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    }
+
+code { margin: 0 3px; }
+code > span.kw { color: #f0dfaf; }
+code > span.dt { color: #dfdfbf; }
+code > span.dv { color: #dcdccc; }
+code > span.bn { color: #dca3a3; }
+code > span.fl { color: #c0bed1; }
+code > span.ch { color: #dca3a3; }
+code > span.st { color: #cc9393; }
+code > span.co { color: #7f9f7f; }
+code > span.ot { color: #efef8f; }
+code > span.al { color: #ffcfaf; }
+code > span.fu { color: #efef8f; }
+code > span.er { color: #c3bf9f; }
