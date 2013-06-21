@@ -2,4 +2,4 @@
 <h3>Update Screen Name</h3>
   <form method=post action=@{UserSettingR} enctype=#{enctype}>
      ^{widget}
-     <input type=submit value="Update Screen Name">
+     <input type=submit value="Update User Info">

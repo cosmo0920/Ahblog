@@ -8,12 +8,12 @@
           ^{articleWidget}
           <input type=submit .btn .btn-info value="Post New Article">
       <div .span3>
-        <h4>Recent Images</h4>
+        <h4>Recent Files</h4>
         $if not $ null images
         <table .table>
           <tr>
             <th>
-              Image
+              File
             <th>
               Decription
             <th>

@@ -12,7 +12,7 @@ getPermalinkR :: Text -> Handler RepHtml
 getPermalinkR slug = do
   now <- liftIO $ getCurrentTime
   Entity articleId Article {articleTitle, articleContent, ..} <- runDB $ getBy404 $ UniqueSlug slug
-  comments<- runDB $ map entityVal <$>
+  comments <- runDB $ map entityVal <$>
                 selectList [CommentArticle ==. articleId] [Asc CommentPosted]
   ((_, commentWidget), enctype) <- runFormPost $ commentForm articleId
   defaultLayout $ do

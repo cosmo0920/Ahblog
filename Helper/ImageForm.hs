@@ -10,10 +10,10 @@ uploadDirectory :: FilePath
 uploadDirectory = "static"
 
 uploadSubDirectory :: FilePath
-uploadSubDirectory = "upload"
+uploadSubDirectory = "files"
 
 uploadForm :: Html -> MForm App App (FormResult (FileInfo, Maybe Textarea, UTCTime), Widget)
 uploadForm = renderDivs $ (,,)
-    <$> fileAFormReq "Image file"
-    <*> aopt textareaField "Image description" Nothing
+    <$> fileAFormReq "Upload file"
+    <*> aopt textareaField "file description" Nothing
     <*> aformM (liftIO getCurrentTime)

@@ -14,6 +14,7 @@ getAdminR = do
   -- Get the list of articles inside the database
   let page = 10
   username <- userScreenName . entityVal <$> requireAuth
+  users <- runDB $ selectList [] [Desc UserScreenName]
   (articles, widget) <- runDB $ selectPaginated page [] [Desc ArticleCreatedAt]
   comments <- runDB $ selectList [] [Desc CommentPosted]
   -- We'll need the two "objects": articleWidget and enctype

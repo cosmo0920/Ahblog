@@ -6,7 +6,7 @@ $maybe msg <- mmsg
 <div .container>
   <div .row>
     <h2>
-      Upload new image
+      Upload new file
     <div .form-actions>
       <form method=post enctype=#{enctype}>
         ^{widget}

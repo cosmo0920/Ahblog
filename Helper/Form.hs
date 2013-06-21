@@ -8,7 +8,6 @@ import Import
 -- to use Html into forms
 import Yesod.Form.Nic
 import Data.Time
-import Yesod.Auth
 
 instance YesodNic App
 entryForm :: Form Article

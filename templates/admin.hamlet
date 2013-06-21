@@ -59,6 +59,18 @@
       <div class="tab-pane" id="user">
         <h3>User</h3>
           <p>Current login user: #{username}</p>
+          <table .table .table-bordered .table-condensed>
+           <thead>
+             <tr>
+               <th>Email
+               <th>ScreenName
+           <tbody .link>
+             <tbody .link>
+             $forall Entity _ user <- users
+               <tr>
+                 <td width="30">#{userEmail user}
+                 <td width="50">#{makeBrief 50 $ userScreenName user}
+
           <a href=@{AuthR LogoutR} class="btn">Logout</a>
           <a href=@{UserSettingR} class="btn">Profile</a>
   
