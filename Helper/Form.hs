@@ -6,28 +6,39 @@ module Helper.Form where
 
 import Import
 -- to use Html into forms
-import Yesod.Form.Nic
 import Data.Time
 import Yesod.Markdown
+import Yesod.Auth
 
-instance YesodNic App
 entryForm :: Form Article
-entryForm = renderDivs $ Article
-    <$> areq textField "Title" Nothing
+entryForm html = do
+  Entity userId _ <- lift requireAuth
+  flip renderDivs html $ Article
+    <$> pure userId
+    <*> areq textField "Title" Nothing
     <*> areq markdownField "Content" Nothing
     <*> areq textField "Slug" Nothing
     <*> aformM (liftIO getCurrentTime)
 
 postForm :: Maybe Article -> Form Article
-postForm p = renderDivs $ Article
-    <$> areq textField "Title" (articleTitle <$> p)
+postForm p html = do
+  Entity userId _ <- lift requireAuth
+  flip renderDivs html $ Article
+    <$> pure userId
+    <*> areq textField "Title" (articleTitle <$> p)
     <*> areq markdownField "Content" (articleContent <$> p)
     <*> areq textField "Slug" (articleSlug <$> p)
     <*> aformM (liftIO getCurrentTime)
 
 commentForm :: ArticleId -> Html -> MForm App App (FormResult Comment, Widget)
-commentForm articleId = renderDivs $ Comment
-  <$> areq textField "Name" Nothing
-  <*> (unTextarea <$> areq textareaField "Content" Nothing)
-  <*> pure articleId
-  <*> aformM (liftIO getCurrentTime)
+commentForm articleId extra = do
+  muser <- lift maybeAuth
+  let mname = case muser of
+        Just entity -> userScreenName $ entityVal entity
+        Nothing -> "Anonymous"
+  renderDivs (commentAForm mname) extra
+  where commentAForm mname = Comment
+          <$> areq textField "Name" (Just mname)
+          <*> (unTextarea <$> areq textareaField "Content" Nothing)
+          <*> pure articleId
+          <*> aformM (liftIO getCurrentTime)

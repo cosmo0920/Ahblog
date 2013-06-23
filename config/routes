@@ -18,5 +18,5 @@
 /blog/admin/commentdel/#CommentId CommentDeleteR GET
 /about AboutR GET
 /setting/user UserSettingR GET POST
-/search/#Text SearchR GET
+/search SearchR GET
 /blog/feed BlogFeedR GET

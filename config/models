@@ -11,12 +11,13 @@ Comment
     posted UTCTime default=CURRENT_TIMESTAMP
 
 Article
+    author UserId Eq
     title   Text
     content Markdown
     slug Text
     createdAt  UTCTime default=CURRENT_TIMESTAMP
     UniqueSlug slug
-    deriving
+    deriving Show
 
 Image
     filename String

@@ -1,5 +1,5 @@
 <div .page-header>
-  <h1>Search Result
+  <h1>Search Result</h1>
 $if null articles
   <p>There is no match <b>#{searchString}</b> in this blog articles.
   <hr>

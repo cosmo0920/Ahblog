@@ -35,10 +35,6 @@ data App = App
     , persistConfig :: Settings.PersistConfig
     , appLogger :: Logger
     }
--- Using a new type for Slug. Simply a wrapper around a text value.
-newtype Slug = Slug {unSlug :: Text}
-        deriving (Show, Read, Eq, PathPiece, PersistField)
-
 
 -- Set up i18n messages. See the message folder.
 mkMessage "App" "messages" "en"
@@ -154,7 +150,7 @@ instance YesodAuth App where
     type AuthId App = UserId
 
     -- Where to send a user after successful login
-    loginDest _ = HomeR
+    loginDest _ = UserSettingR
     -- Where to send a user after logout
     logoutDest _ = HomeR
 

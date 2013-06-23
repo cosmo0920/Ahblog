@@ -3,3 +3,8 @@
   <form method=post action=@{UserSettingR} enctype=#{enctype}>
      ^{widget}
      <input type=submit value="Update User Info">
+  <hr>
+  <a href=@{HomeR} class="btn">
+    <i class="icon-circle-arrow-left"></i>Back Home
+  <a href=@{BlogViewR} class="btn">
+    Go Blog <i class="icon-circle-arrow-right"></i>

@@ -5,6 +5,7 @@ import Yesod.Paginator
 import Helper.MakeBrief
 import Data.Time.Format.Human
 import Data.Time
+import Data.Maybe
 import Data.List (head)
 import qualified Data.Text as T (concat)
 import Database.Persist.GenericSql
@@ -45,9 +46,15 @@ getBlogViewR = do
     setTitle "Internal Blog"
     $(widgetFile "view")
 
-getSearchR :: Text -> Handler RepHtml
-getSearchR searchString = do
-    articles <- selectArticles searchString
+getSearchR :: Handler RepHtml
+getSearchR = do
+    searchString <- runInputGet $ fromMaybe "" <$> iopt (searchField True) "q"
+    articles <-
+       if searchString /= ""
+       then selectArticles searchString
+       else return (mempty)
+
+    --articles <- selectArticles searchString
     now <- liftIO $ getCurrentTime
     defaultLayout $ do
       $(widgetFile "search")
