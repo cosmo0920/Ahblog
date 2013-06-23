@@ -64,12 +64,15 @@
              <tr>
                <th>Email
                <th>ScreenName
+               <th>Admin
            <tbody .link>
              <tbody .link>
-             $forall Entity _ user <- users
+             $forall Entity userId user <- users
                <tr>
                  <td width="30">#{userEmail user}
                  <td width="50">#{makeBrief 50 $ userScreenName user}
+                 <td width="30">
+                   <a href="@{UserDeleteR userId}"> Delete
 
           <a href=@{AuthR LogoutR} class="btn">Logout</a>
           <a href=@{UserSettingR} class="btn">Profile</a>

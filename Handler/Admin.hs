@@ -171,3 +171,15 @@ getCommentDeleteR commentId = do
                                    <p> deleted|]
   setMessage $ toHtml $ html renderer
   redirect $ AdminR
+
+getUserDeleteR :: UserId -> Handler RepHtml
+getUserDeleteR userId = do
+  user <- runDB $ get404 userId
+  runDB $ do
+    _user <- get404 userId
+    delete userId
+  renderer <- getUrlRenderParams
+  let html = [hamlet|<span .notice><h4>#{userScreenName user}</h4>
+                                   <p> deleted|]
+  setMessage $ toHtml $ html renderer
+  redirect $ AdminR

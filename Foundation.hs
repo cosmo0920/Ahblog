@@ -133,6 +133,7 @@ instance Yesod App where
     isAuthorized (CommentDeleteR _) _ = isAdmin
     isAuthorized (ImageR _) _         = isAdmin
     isAuthorized ImagesR _            = isAdmin
+    isAuthorized (UserDeleteR _) _    = isAdmin
     isAuthorized UserSettingR _       = isAuthenticated
     isAuthorized _ _                  = return Authorized
 
