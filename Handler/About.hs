@@ -14,4 +14,4 @@ getAboutR = do
      |]
 
 aboutPage :: String
-aboutPage = "about" </> "page.md"
+aboutPage = "page" </> "about.md"
