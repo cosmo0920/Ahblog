@@ -11,14 +11,7 @@ import Yesod.Markdown
 import Yesod.Auth
 
 entryForm :: Form Article
-entryForm html = do
-  Entity userId _ <- lift requireAuth
-  flip renderDivs html $ Article
-    <$> pure userId
-    <*> areq textField "Title" Nothing
-    <*> areq markdownField "Content" Nothing
-    <*> areq textField "Slug" Nothing
-    <*> aformM (liftIO getCurrentTime)
+entryForm html = postForm Nothing html
 
 postForm :: Maybe Article -> Form Article
 postForm p html = do

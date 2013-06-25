@@ -120,7 +120,7 @@ postArticleEditR articleId = do
   maid <- maybeAuthId
   (Entity _ user) <- requireAuth
   let username = userScreenName user
-  ((res, postWidget), enctype) <- runFormPost $ postForm Nothing
+  ((res, postWidget), enctype) <- runFormPost entryForm
   case res of
        FormSuccess post -> do 
          runDB $ do 
