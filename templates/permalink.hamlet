@@ -22,11 +22,13 @@
                 <div .well .comment-content>
                   #{content}
         <hr>
-        <h3 #comment>Add Comment
-        <form method="post" enctype="#{enctype}">
-            ^{commentWidget}
-          <input type="submit" .btn .btn-primary value="Post">
-        Your screen name appears in the name column when you <a href=@{AuthR LoginR}>Login</a>.
+        $maybe _ <- maid
+          <h3 #comment>Add Comment
+          <form method="post" enctype="#{enctype}">
+              ^{commentWidget}
+            <input type="submit" .btn .btn-primary value="Post">
+        $nothing
+          You must be <a href=@{AuthR LoginR}>logged in</a> to post a comment.
         <hr>
     <a href=@{BlogViewR} class="btn">
       <i class="icon-circle-arrow-left"></i>Back

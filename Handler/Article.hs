@@ -12,6 +12,7 @@ import Yesod.Auth
 getPermalinkR :: Text -> Handler RepHtml
 getPermalinkR slug = do
   now <- liftIO $ getCurrentTime
+  maid <- maybeAuthId
   Entity articleId Article {articleTitle, articleContent, articleAuthor, ..} <- runDB $ getBy404 $ UniqueSlug slug
   (comments, author) <- runDB $ do
     comments <- map entityVal <$>
