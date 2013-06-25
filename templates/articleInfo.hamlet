@@ -1,3 +1,5 @@
+<h3><a href=@{PermalinkR $ articleSlug article}>#{articleTitle article}</h3></a>
+<p><i class="icon-calendar"></i>#{humanReadableTime' now $ articleCreatedAt article}
 <p><i class="icon-user"></i>Posted by #{screenAuthor}
 $if not (null tags)
   <div .tags>
@@ -7,3 +9,4 @@ $if not (null tags)
         <li>
           <a href=@{TagR tag}>
             #{tag}
+<p>#{articleContent article}

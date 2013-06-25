@@ -7,10 +7,7 @@
       $else
         $forall Entity _ article <- articles
           <div .well>
-            <h3><a href=@{PermalinkR $ articleSlug article}>#{articleTitle article}</h3></a>
-            <p><i class="icon-calendar"></i>#{humanReadableTime' now $ articleCreatedAt article}
             ^{articleInfo article}
-            <p>#{articleContent article}
             <a href=@{PermalinkR $ articleSlug article}>Permalink</a> |
             <a href=@{PermalinkR $ articleSlug article}#comment>Comment</a>
             
