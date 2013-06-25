@@ -3,6 +3,11 @@ body {
   padding-bottom: 40px;
 }
 
+.footnoteRef {
+  padding:60px 0 0;
+  margin:-60px 0 0;
+}
+
 @import "bootstrap-responsive.css";
 
 // Your custom LESS stylesheets goes here
