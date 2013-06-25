@@ -15,7 +15,7 @@
             
     <div .span3>
        <p align="right">
-         <a href=@{BlogFeedR}><img src="/static/img/feed-icon-28x28.png"></a>
+         <a href=@{BlogFeedR}><img src=@{StaticR img_feed_icon_28x28_png}></a>
        <ul ."nav nav-list well">
           <li .nav-header><i class="icon-signal"></i>Recent Posts</li>
           $if null articleArchives
