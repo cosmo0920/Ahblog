@@ -1,0 +1,9 @@
+<p><i class="icon-user"></i>Posted by #{screenAuthor}
+$if not (null tags)
+  <div .tags>
+    <i .icon-tags>
+    <ul .tag-list>
+      $forall tag <- tags
+        <li>
+          <a href=@{TagR tag}>
+            #{tag}

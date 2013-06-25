@@ -1,0 +1,6 @@
+<h1>"#{tag}" Tagged Articles
+<ul>
+  $forall art <- sortBy (flip $ on compare articleCreatedAt) articles
+    <li>
+      <a href=@{PermalinkR $ articleSlug art}>#{articleTitle art}
+ 

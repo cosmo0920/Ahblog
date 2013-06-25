@@ -1,0 +1,11 @@
+.tag-list > li {
+  margin-left: 1em;
+  display: inline;
+}
+
+.tag-list {
+  display: inline;
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+}

@@ -9,19 +9,27 @@ import Import
 import Data.Time
 import Yesod.Markdown
 import Yesod.Auth
+import Data.Maybe
+import qualified Data.Text  as T
 
-entryForm :: Form Article
-entryForm html = postForm Nothing html
+entryForm :: Form (Article, [Text])
+entryForm html = postForm Nothing Nothing html
 
-postForm :: Maybe Article -> Form Article
-postForm p html = do
+modifyForm :: Article -> [Text] -> Form (Article, [Text])
+modifyForm art oldTags = postForm (Just art) (Just oldTags)
+
+postForm :: Maybe Article -> Maybe [Text] -> Form (Article, [Text])
+postForm mart mtags html = do
   Entity userId _ <- lift requireAuth
-  flip renderDivs html $ Article
-    <$> pure userId
-    <*> areq textField "Title" (articleTitle <$> p)
-    <*> areq markdownField "Content" (articleContent <$> p)
-    <*> areq textField "Slug" (articleSlug <$> p)
-    <*> aformM (liftIO getCurrentTime)
+  (r,widget) <- flip renderDivs html $ 
+    let art = Article <$> pure userId
+                      <*> areq textField "Title" (articleTitle <$> mart)
+                      <*> areq markdownField "Content" (articleContent <$> mart)
+                      <*> areq textField "Slug" (articleSlug <$> mart)
+                      <*> aformM (liftIO getCurrentTime)
+        tags = T.words . fromMaybe "" <$> aopt textField "Tags" (Just . T.unwords <$> mtags) 
+    in (,) <$> art <*> tags
+  return (r,widget)
 
 commentForm :: ArticleId -> Html -> MForm App App (FormResult Comment, Widget)
 commentForm articleId extra = do

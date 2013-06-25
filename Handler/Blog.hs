@@ -2,14 +2,17 @@ module Handler.Blog where
 
 import Import
 import Yesod.Paginator
-import Helper.Sidebar
 import Data.Time.Format.Human
 import Data.Time
 import Data.Maybe
-import Data.List (head)
+import Data.List (head, sortBy)
+import Data.Function
+import Control.Monad
 import qualified Data.Text as T (concat)
 import Database.Persist.GenericSql
 import Yesod.Feed
+import Helper.Sidebar
+import Helper.ArticleInfo
 
 getBlogFeedR :: Handler RepAtomRss
 getBlogFeedR = do
@@ -64,3 +67,12 @@ getSearchR = do
     selectArticles :: Text -> Handler [Entity Article]
     selectArticles t = runDB $ rawSql s [toPersistValue $ T.concat ["%", t, "%"]]
       where s = "SELECT ?? FROM article WHERE content LIKE ? ORDER BY created_at DESC"
+
+getTagR :: Text -> Handler RepHtml
+getTagR tag = do
+  articles <- runDB $ do
+    mapM (get404 . tagArticle . entityVal) =<< selectList [TagName ==. tag] []
+  when (null articles) notFound
+  defaultLayout $ do
+    setTitle $ "Tagged Article"
+    $(widgetFile "tag")

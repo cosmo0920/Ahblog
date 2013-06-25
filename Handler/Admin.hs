@@ -5,6 +5,7 @@ import Yesod.Paginator
 import Yesod.Auth
 import Data.Time
 import Data.Time.Format.Human
+import Control.Monad
 import Helper.Form
 import Helper.MakeBrief
 import Helper.Sidebar
@@ -32,8 +33,9 @@ postAdminR = do
   (Entity userId user) <- requireAuth
   ((res,articleWidget),enctype) <- runFormPost entryForm
   case res of
-    FormSuccess article -> do
+    FormSuccess (article, tags) -> do
       articleId <- runDB $ insert article
+      forM_ tags $ \tag -> runDB $ insert $ Tag tag articleId
       renderer <- getUrlRenderParams
       let html = [hamlet|<span .notice><h4>#{articleTitle article}</h4>
                                        <p> created
@@ -92,8 +94,9 @@ postNewBlogR = do
   let username = userScreenName user
   ((res,articleWidget),enctype) <- runFormPost entryForm
   case res of
-    FormSuccess article -> do
+    FormSuccess (article, tags) -> do
       articleId <- runDB $ insert article
+      forM_ tags $ \tag -> runDB $ insert $ Tag tag articleId
       renderer <- getUrlRenderParams
       let html = [hamlet|<span .notice><h4>#{articleTitle article}</h4>
                                        <p> created
@@ -107,10 +110,12 @@ postNewBlogR = do
 getArticleEditR :: ArticleId -> Handler RepHtml
 getArticleEditR articleId = do
   (Entity _ user) <- requireAuth
+  oldTags <- map (\(Entity _ t) -> tagName t)
+                 <$> (runDB $ selectList [TagArticle ==. articleId] [])
   let username = userScreenName user
   maid <- maybeAuthId
   post <- runDB $ get404 articleId
-  (postWidget, enctype) <- generateFormPost $ postForm $ Just post
+  (postWidget, enctype) <- generateFormPost $ (postForm (Just post) (Just oldTags))
   defaultLayout $ do
     setTitle "Edit Blog"
     addStylesheet $ StaticR css_textarea_css
@@ -123,12 +128,11 @@ postArticleEditR articleId = do
   let username = userScreenName user
   ((res, postWidget), enctype) <- runFormPost entryForm
   case res of
-       FormSuccess post -> do 
+       FormSuccess (post, tags) -> do 
          runDB $ do 
-           _post <- get404 articleId
-           update articleId [ ArticleTitle   =. articleTitle post
-                            , ArticleContent =. articleContent post
-                            , ArticleSlug    =. articleSlug post]
+           replace articleId post
+           deleteWhere [TagArticle ==. articleId]
+           forM_ tags $ \tag -> insert $ Tag tag articleId
          renderer <- getUrlRenderParams
          let html = [hamlet|<span .notice><h4>#{articleTitle post}</h4>
                                           <p> updated
@@ -142,7 +146,9 @@ postArticleEditR articleId = do
 getArticleDeleteR :: ArticleId -> Handler RepHtml
 getArticleDeleteR articleId = do
   article <- runDB $ get404 articleId
-  (postWidget, enctype) <- generateFormPost $ postForm $ Just article
+  oldTags <- map (\(Entity _ t) -> tagName t)
+                 <$> (runDB $ selectList [TagArticle ==. articleId] [])
+  (postWidget, enctype) <- generateFormPost $ (postForm (Just article) (Just oldTags))
   defaultLayout $ do
     setTitle "Delete"
     addStylesheet $ StaticR css_textarea_css
@@ -155,6 +161,7 @@ postArticleDeleteR articleId = do
     _post <- get404 articleId
     delete articleId
     deleteWhere [CommentArticle ==. articleId]
+    deleteWhere [TagArticle ==. articleId]
   renderer <- getUrlRenderParams
   let html = [hamlet|<span .notice><h4>#{articleTitle article}</h4>
                                    <p> deleted|]

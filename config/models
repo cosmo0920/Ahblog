@@ -25,4 +25,9 @@ Image
     date UTCTime default=CURRENT_TIMESTAMP
     deriving Show
 
+Tag
+    name    Text Eq
+    article ArticleId Eq
+    deriving Show Eq   
+
  -- By default this file is used in Model.hs (which is imported by Foundation.hs)

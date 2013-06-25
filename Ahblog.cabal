@@ -31,6 +31,7 @@ library
                      Helper.ImageForm
                      Helper.UserForm
                      Helper.Sidebar
+                     Helper.ArticleInfo
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT

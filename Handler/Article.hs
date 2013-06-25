@@ -7,6 +7,7 @@ import Import
 import Helper.Form
 import Helper.Sidebar
 import Data.Time
+import Data.List (sort, nub)
 import Data.Time.Format.Human
 import Yesod.Auth
 
@@ -15,6 +16,7 @@ getPermalinkR slug = do
   now <- liftIO $ getCurrentTime
   maid <- maybeAuthId
   Entity articleId Article {articleTitle, articleContent, articleAuthor, ..} <- runDB $ getBy404 $ UniqueSlug slug
+  tags <- sort . nub . map (tagName . entityVal) <$> runDB (selectList [TagArticle ==. articleId] [])
   (comments, author) <- runDB $ do
     comments <- map entityVal <$>
                 selectList [CommentArticle ==. articleId] [Asc CommentPosted]
