@@ -24,6 +24,8 @@
       <form method="post" enctype="#{enctype}">
             ^{commentWidget}
          <input type="submit" .btn .btn-primary value="Post">
-      <hr>
+    <div .span3>
+      ^{sidebarWidget}      
+    <hr>
   <a href=@{BlogViewR} class="btn">
     <i class="icon-circle-arrow-left"></i>Back

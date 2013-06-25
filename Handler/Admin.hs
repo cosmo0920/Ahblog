@@ -7,6 +7,7 @@ import Data.Time
 import Data.Time.Format.Human
 import Helper.Form
 import Helper.MakeBrief
+import Helper.Sidebar
 import Handler.Image
 
 getAdminR :: Handler RepHtml
