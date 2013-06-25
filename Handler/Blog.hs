@@ -2,7 +2,7 @@ module Handler.Blog where
 
 import Import
 import Yesod.Paginator
-import Helper.MakeBrief
+import Helper.Sidebar
 import Data.Time.Format.Human
 import Data.Time
 import Data.Maybe

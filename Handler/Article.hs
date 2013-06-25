@@ -5,6 +5,7 @@ module Handler.Article where
 
 import Import
 import Helper.Form
+import Helper.Sidebar
 import Data.Time
 import Data.Time.Format.Human
 import Yesod.Auth

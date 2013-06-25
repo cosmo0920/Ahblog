@@ -14,30 +14,7 @@
             <a href=@{PermalinkR $ articleSlug article}#comment>Comment</a>
             
     <div .span3>
-       <p align="right">
-         <a href=@{BlogFeedR}><img src=@{StaticR img_feed_icon_28x28_png}></a>
-       <ul ."nav nav-list well">
-          <li .nav-header><i class="icon-signal"></i>Recent Posts</li>
-          $if null articleArchives
-            <p> There are no articles in the blog
-          $else
-            $forall Entity _ articleArchive <- articleArchives
-              <li><a href=@{PermalinkR $ articleSlug articleArchive}> 
-                #{makeBrief 20 $ articleTitle articleArchive}</li></a>
-          <li .nav-header><i class="icon-share-alt"></i>Powered by</li>
-          <li><a href="http://www.yesodweb.com/">Yesod</a></li>
-          <li><a href="http://twitter.github.com/bootstrap">Bootstrap</a></li>
-          <li><a href="http://www.haskell.org/">Haskell</a></li>
-          <li><a href="http://code.google.com/p/google-code-prettify/">google-code-prettify</a></li>
-          <li><a href="https://github.com/yesodweb/yesod/wiki/Yesod-Libraries">some yesod library</a></li>
-          <li><a href="http://hackage.haskell.org/package/friendly-time">friendly-time</a></li>
-          <li .nav-header><i class="icon-time"></i>Archive</li>
-          <li><a href="@{ArchiveR}">archive</a></li>
-          <li .nav-header><i class="icon-search"></i>Search</li>
-          <form method="get" action=@{SearchR}>
-            <input #search-input .input-medium name="q" placeholder="SEARCH">
-            <button type="submit" .add-on>
-              <i class="icon-search"></i>Search
+      ^{sidebarWidget}
   <hr>
   <div .pagination>
     ^{widget}

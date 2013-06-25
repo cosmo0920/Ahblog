@@ -29,6 +29,8 @@
             <input type="submit" .btn .btn-primary value="Post">
         $nothing
           You must be <a href=@{AuthR LoginR}>logged in</a> to post a comment.
-        <hr>
+      <div .span3>
+         ^{sidebarWidget}
+      <hr>
     <a href=@{BlogViewR} class="btn">
       <i class="icon-circle-arrow-left"></i>Back
