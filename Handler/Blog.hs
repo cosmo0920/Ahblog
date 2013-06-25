@@ -13,7 +13,7 @@ import Yesod.Feed
 
 getBlogFeedR :: Handler RepAtomRss
 getBlogFeedR = do
-  articles <- runDB $ selectList [][Desc ArticleCreatedAt]
+  articles <- runDB $ selectList [][Desc ArticleCreatedAt, LimitTo 10]
   let entries = flip map articles $ \(Entity _ article) ->
         FeedEntry {
             feedEntryLink = PermalinkR $ articleSlug article
@@ -31,7 +31,9 @@ getBlogFeedR = do
         , feedUpdated = articleCreatedAt $ entityVal $ head articles
         , feedEntries = entries
         }
-  newsFeed feed
+  case articles of
+   [] -> notFound
+   _  -> newsFeed feed
 
 getBlogViewR :: Handler RepHtml
 getBlogViewR = do

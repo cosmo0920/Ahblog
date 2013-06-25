@@ -86,7 +86,6 @@ instance Yesod App where
         maid <- maybeAuthId
         pc <- widgetToPageContent $ do
             addScript $ StaticR js_jquery_min_js
-            addStylesheet $ StaticR css_bootstrap_and_override_css
             addStylesheet $ StaticR css_bootstrap_css
             addStylesheet $ StaticR css_desert_css
             addStylesheet $ StaticR css_markdown_css
