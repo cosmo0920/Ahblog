@@ -1,5 +1,5 @@
 <div .page-header>
-  <h1>Internal Blog</h1></div>
+  <h1>Blog Home</h1></div>
   <p>This is the homepage for the #
-      <a href=@{BlogViewR}>Internal Blog
+      <a href=@{BlogViewR}>Blog
   <hr>

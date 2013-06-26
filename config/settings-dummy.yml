@@ -4,6 +4,7 @@ Default: &defaults
   approot: "http://localhost:3000"
   copyright: copyright cosmo0920 all rights received.
   admins: ["default@example.com"]
+  title: Another Haskell Blog
   #analytics: UA-YOURCODE
 
 Development:

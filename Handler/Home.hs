@@ -13,5 +13,5 @@ import Import
 getHomeR :: Handler RepHtml
 getHomeR = do
   defaultLayout $ do
-    setTitle "Home"
+    setTitle "Blog Home"
     $(widgetFile "home")

@@ -22,6 +22,7 @@ import Text.Hamlet (hamletFile)
 import System.Log.FastLogger (Logger)
 import Data.Text
 import Data.Maybe (isNothing)
+import Control.Applicative
 
 -- | The site argument for your application. This can be a good place to
 -- keep settings and values requiring initialization before your application
@@ -77,6 +78,7 @@ instance Yesod App where
     defaultLayout widget = do
         master <- getYesod
         mmsg <- getMessage
+        blogTitle <- getBlogTitle
 
         -- We break up the default layout into two components:
         -- default-layout is the contents of the body tag, and
@@ -175,6 +177,9 @@ instance RenderMessage App FormMessage where
 --getExtra :: Handler Extra
 getExtra :: GHandler sub App Extra 
 getExtra = fmap (appExtra . settings) getYesod
+
+getBlogTitle :: GHandler sub App Text
+getBlogTitle = extraBlogTitle . appExtra . settings <$> getYesod
 
 -- is administrator?
 isAdmin :: GHandler s App AuthResult 
