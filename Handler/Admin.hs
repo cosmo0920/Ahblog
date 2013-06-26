@@ -1,3 +1,6 @@
+{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, FlexibleContexts #-}
+{-# LANGUAGE TemplateHaskell, OverloadedStrings, GADTs, MultiParamTypeClasses #-}
+{-# LANGUAGE NamedFieldPuns, RecordWildCards #-}
 module Handler.Admin where
 
 import Import
@@ -65,11 +68,15 @@ getNewBlogR = do
 getArticleR :: ArticleId -> Handler RepHtml
 getArticleR articleId = do
   now <- liftIO $ getCurrentTime
-  (comments, article) <- runDB $ do
+  (comments, article, author, tags) <- runDB $ do
     comments <- map entityVal <$>
                 selectList [CommentArticle ==. articleId] [Asc CommentPosted]
     article  <- get404 articleId
-    return (comments, article)
+    Entity key Article {articleAuthor, ..} <- getBy404 $ UniqueSlug (articleSlug article)
+    author <- get404 articleAuthor
+    tags <- map (tagName . entityVal) <$> selectList [TagArticle ==. key] []
+    return (comments, article, author, tags)
+  let screenAuthor = userScreenName author
   ((_, commentWidget), enctype) <- runFormPost $ commentForm articleId
   defaultLayout $ do
     setTitle $ toHtml $ articleTitle article
