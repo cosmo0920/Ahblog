@@ -16,4 +16,4 @@ articleInfo article = do
     tags <- map (tagName . entityVal) <$> selectList [TagArticle ==. key] []
     return (author, tags)
   let screenAuthor = userScreenName author
-  $(widgetFile "articleInfo")
+  $(widgetFile "inline/articleInfo")

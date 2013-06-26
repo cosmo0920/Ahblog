@@ -29,7 +29,7 @@ getAdminR = do
   defaultLayout $ do
     setTitle "Admin Page"
     addStylesheet $ StaticR css_textarea_css
-    $(widgetFile "admin")
+    $(widgetFile "admin/index")
 
 postAdminR :: Handler RepHtml
 postAdminR = do
@@ -47,7 +47,7 @@ postAdminR = do
       redirect $ ArticleR articleId
     _ -> defaultLayout $ do
             setTitle "Please correct your entry form"
-            $(widgetFile "articleAddError")
+            $(widgetFile "admin/articleAddError")
 
 getNewBlogR :: Handler RepHtml
 getNewBlogR = do
@@ -63,7 +63,7 @@ getNewBlogR = do
   defaultLayout $ do
     setTitle "Admin Page"
     addStylesheet $ StaticR css_textarea_css
-    $(widgetFile "new")
+    $(widgetFile "admin/new")
 
 getArticleR :: ArticleId -> Handler RepHtml
 getArticleR articleId = do
@@ -81,7 +81,7 @@ getArticleR articleId = do
   defaultLayout $ do
     setTitle $ toHtml $ articleTitle article
     addStylesheet $ StaticR css_commentarea_css
-    $(widgetFile "article")
+    $(widgetFile "admin/article")
 
 postArticleR :: ArticleId -> Handler RepHtml
 postArticleR articleId = do
@@ -112,7 +112,7 @@ postNewBlogR = do
       redirect $ ArticleR articleId
     _ -> defaultLayout $ do
             setTitle "Please correct your entry form"
-            $(widgetFile "articleAddError")
+            $(widgetFile "admin/articleAddError")
 
 getArticleEditR :: ArticleId -> Handler RepHtml
 getArticleEditR articleId = do
@@ -126,7 +126,7 @@ getArticleEditR articleId = do
   defaultLayout $ do
     setTitle "Edit Blog"
     addStylesheet $ StaticR css_textarea_css
-    $(widgetFile "edit")
+    $(widgetFile "admin/edit")
 
 postArticleEditR :: ArticleId -> Handler RepHtml
 postArticleEditR articleId = do 
@@ -150,7 +150,7 @@ postArticleEditR articleId = do
          redirect $ ArticleR articleId
        _ -> defaultLayout $ do
          setTitle "Please corrrect your entry form"
-         $(widgetFile "edit")
+         $(widgetFile "admin/edit")
 
 getArticleDeleteR :: ArticleId -> Handler RepHtml
 getArticleDeleteR articleId = do
@@ -161,7 +161,7 @@ getArticleDeleteR articleId = do
   defaultLayout $ do
     setTitle "Delete"
     addStylesheet $ StaticR css_textarea_css
-    $(widgetFile "delete")
+    $(widgetFile "admin/delete")
 
 postArticleDeleteR :: ArticleId -> Handler RepHtml
 postArticleDeleteR articleId = do

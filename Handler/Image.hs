@@ -15,7 +15,7 @@ getImagesR = do
     mmsg <- getMessage
     now <- liftIO $ getCurrentTime
     defaultLayout $ do
-      $(widgetFile "image")
+      $(widgetFile "admin/image")
 
 postImagesR :: Handler RepHtml
 postImagesR = do

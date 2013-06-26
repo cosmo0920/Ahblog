@@ -74,4 +74,4 @@ getTagR tag = do
   when (null articles) notFound
   defaultLayout $ do
     setTitle $ "Tagged Article"
-    $(widgetFile "tag")
+    $(widgetFile "inline/tag")
