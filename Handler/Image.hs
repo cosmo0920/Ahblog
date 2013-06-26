@@ -26,7 +26,7 @@ postImagesR = do
             -- save to image directory
             filename <- writeToServer file
             _ <- runDB $ insert (Image filename info date)
-            setMessage "Image saved"
+            setMessage "File saved"
             redirect ImagesR
         _ -> do
             setMessage "Something went wrong"
@@ -45,7 +45,7 @@ deleteImageR imageId = do
         False  -> redirect ImagesR
         True -> do
             runDB $ delete imageId
-            setMessage "Image has been deleted."
+            setMessage "File has been deleted."
             redirect ImagesR
 
 writeToServer :: FileInfo -> Handler FilePath
