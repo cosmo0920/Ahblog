@@ -44,10 +44,11 @@ getBlogViewR = do
   let page = 10
   (articles, widget) <- runDB $ selectPaginated page [] [Desc ArticleCreatedAt]
   articleArchives <- runDB $ selectList [] [Desc ArticleCreatedAt, LimitTo 10]
+  title <- getBlogTitle
   -- We'll need the two "objects": articleWidget and enctype
   -- to construct the form (see templates/articles.hamlet).
   defaultLayout $ do
-    setTitle "Internal Blog"
+    setTitle $ toHtml title
     $(widgetFile "view")
 
 getSearchR :: Handler RepHtml

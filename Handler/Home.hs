@@ -2,7 +2,7 @@
 module Handler.Home where
 
 import Import
-
+import Data.Text (append)
 -- This is a handler function for the GET request method on the HomeR
 -- resource pattern. All of your resource patterns are defined in
 -- config/routes
@@ -12,6 +12,8 @@ import Import
 -- inclined, or create a single monolithic file.
 getHomeR :: Handler RepHtml
 getHomeR = do
+  title <- getBlogTitle
+  let homeTitle = title `append` " Home"
   defaultLayout $ do
-    setTitle "Blog Home"
+    setTitle $ toHtml $ homeTitle
     $(widgetFile "home")
