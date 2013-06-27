@@ -31,7 +31,7 @@ postForm mart mtags html = do
     in (,) <$> art <*> tags
   return (r,widget)
 
-commentForm :: ArticleId -> Html -> MForm App App (FormResult Comment, Widget)
+commentForm :: ArticleId -> Form Comment
 commentForm articleId extra = do
   muser <- lift maybeAuth
   let mname = case muser of
