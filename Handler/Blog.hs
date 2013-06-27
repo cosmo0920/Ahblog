@@ -8,24 +8,26 @@ import Data.Maybe
 import Data.List (head, sortBy)
 import Data.Function
 import Control.Monad
-import qualified Data.Text as T (concat)
+import qualified Data.Text as T (concat, append)
 import Database.Persist.GenericSql
 import Yesod.Feed
 import Helper.Sidebar
 import Helper.ArticleInfo
+import Helper.MakeBrief
 
 getBlogFeedR :: Handler RepAtomRss
 getBlogFeedR = do
   articles <- runDB $ selectList [][Desc ArticleCreatedAt, LimitTo 10]
+  title <- getBlogTitle
   let entries = flip map articles $ \(Entity _ article) ->
         FeedEntry {
             feedEntryLink = PermalinkR $ articleSlug article
           , feedEntryUpdated = articleCreatedAt article
           , feedEntryTitle = articleTitle article
-          , feedEntryContent = toHtml $ articleContent article
+          , feedEntryContent = toHtml $ makeBrief 500 $ markdownToText $ articleContent article
           }
   let feed = Feed {
-          feedTitle = "Blog - InternalBlog"
+          feedTitle = "Blog - " `T.append` title
         , feedLinkSelf = BlogFeedR
         , feedLinkHome = BlogViewR
         , feedAuthor = "cosmo__"
