@@ -22,10 +22,11 @@ postImagesR = do
     ((result, _), _) <- runFormPost uploadForm
     case result of
         FormSuccess (file, info, date) -> do
-            -- TODO: check if image already exists
+            -- DONE: check if image already exists
+            -- use "insertBy" function and add UniqueImage filename constraint to config/models 
             -- save to image directory
             filename <- writeToServer file
-            _ <- runDB $ insert (Image filename info date)
+            _ <- runDB $ insertBy (Image filename info date)
             setMessage "File saved"
             redirect ImagesR
         _ -> do

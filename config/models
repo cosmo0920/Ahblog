@@ -23,6 +23,7 @@ Image
     filename String
     description Textarea Maybe
     date UTCTime default=CURRENT_TIMESTAMP
+    UniqueImage filename
     deriving Show
 
 Tag
