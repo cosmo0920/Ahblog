@@ -37,7 +37,7 @@
               ^{commentWidget}
             <input type="submit" .btn .btn-primary value="Post">
         $nothing
-          You must be <a href=@{AuthR LoginR}>logged in</a> to post a comment.
+         <h3 #comment>You must be <a href=@{AuthR LoginR}>logged in</a> to post a comment.
       <div .span3>
          ^{sidebarWidget}
       <hr>
