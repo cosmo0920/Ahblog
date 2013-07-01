@@ -8,17 +8,17 @@
 /archive ArchiveR GET
 /blog/post/#Text PermalinkR GET POST
 /blog BlogViewR GET
+/blog/tag/#Text TagR GET
+/blog/feed BlogFeedR GET
+/about AboutR GET
+/search SearchR GET
 /image ImagesR GET POST
 /image/admin/#ImageId ImageR DELETE
-/blog/admin/manage AdminR GET POST
-/blog/admin/new NewBlogR GET POST
-/blog/admin/article/#ArticleId ArticleR GET POST
-/blog/admin/edit/#ArticleId ArticleEditR GET POST
-/blog/admin/delete/#ArticleId ArticleDeleteR GET POST
-/blog/admin/commentdel/#CommentId CommentDeleteR GET
-/blog/admin/userdel/#UserId UserDeleteR GET
-/blog/tag/#Text TagR GET
-/about AboutR GET
+/admin/manage AdminR GET POST
+/admin/new NewBlogR GET POST
+/admin/article/#ArticleId ArticleR GET POST
+/admin/edit/#ArticleId ArticleEditR GET POST
+/admin/delete/#ArticleId ArticleDeleteR GET POST
+/admin/commentdel/#CommentId CommentDeleteR GET
+/admin/userdel/#UserId UserDeleteR GET
 /setting/user UserSettingR GET POST
-/search SearchR GET
-/blog/feed BlogFeedR GET
