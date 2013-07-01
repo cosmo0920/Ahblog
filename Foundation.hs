@@ -86,6 +86,8 @@ instance Yesod App where
         -- value passed to hamletToRepHtml cannot be a widget, this allows
         -- you to use normal widget features in default-layout.
         maid <- maybeAuthId
+        muser <- maybeAuth
+        admin <- maybe (return False) (isAdmin' . entityVal) muser
         pc <- widgetToPageContent $ do
             addScript $ StaticR js_jquery_min_js
             addStylesheet $ StaticR css_bootstrap_css
@@ -181,7 +183,7 @@ getExtra = fmap (appExtra . settings) getYesod
 getBlogTitle :: GHandler sub App Text
 getBlogTitle = extraBlogTitle . appExtra . settings <$> getYesod
 
--- is administrator?
+-- is administrator? return AuthResult ver.
 isAdmin :: GHandler s App AuthResult 
 isAdmin = do
   extra <- getExtra
@@ -191,6 +193,12 @@ isAdmin = do
     Just (Entity _ user)
       | userEmail user `elem` extraAdmins extra -> return Authorized
       | otherwise -> return $ Unauthorized ""
+
+-- is administrator? return Bool ver.
+isAdmin' :: User -> GHandler sub App Bool
+isAdmin' user = do
+  adminUser <- extraAdmins . appExtra . settings <$> getYesod
+  return $ userEmail user `elem` adminUser
 
 isAuthenticated :: YesodAuth master => GHandler sub master AuthResult
 isAuthenticated = do

@@ -33,7 +33,6 @@ getAdminR = do
 
 postAdminR :: Handler RepHtml
 postAdminR = do
-  (Entity userId user) <- requireAuth
   ((res,articleWidget),enctype) <- runFormPost entryForm
   case res of
     FormSuccess (article, tags) -> do

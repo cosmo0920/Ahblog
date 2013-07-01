@@ -37,7 +37,9 @@
                     <a href="#" .dropdown-toggle data-toggle="dropdown">Control<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                       $maybe _ <- maid
-                        <li><a href=@{AdminR}>Admin</a>
+                        $if admin
+                          <li><a href=@{AdminR}>Admin</a>
+
                         <li><a href=@{UserSettingR}>User Profile</a>
                         <li><a href=@{AuthR LogoutR}>Logout</a>
                       $nothing
