@@ -19,6 +19,7 @@
    <li><a href="@{ArchiveR}">archive</a></li>
    <li .nav-header><i class="icon-search"></i>Search</li>
    <form method="get" action=@{SearchR}>
-     <input #search-input .input-medium name="q" placeholder="SEARCH">
-     <button type="submit" .add-on>
-       <i class="icon-search"></i>Search
+    <div class="input-append">
+     <input #search-input type="text" .span2 name="q" placeholder="Search">
+     <button .btn type="submit">
+       <i class="icon-search"></i>
