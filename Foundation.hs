@@ -90,7 +90,8 @@ instance Yesod App where
         admin <- maybe (return False) (isAdmin' . entityVal) muser
         pc <- widgetToPageContent $ do
             addScript $ StaticR js_jquery_min_js
-            addStylesheet $ StaticR css_bootstrap_css
+            addStylesheet $ StaticR css_bootstrap_min_css
+            addStylesheet $ StaticR css_bootstrap_responsive_min_css
             addStylesheet $ StaticR css_desert_css
             addStylesheet $ StaticR css_markdown_css
             $(widgetFile "default-layout")
