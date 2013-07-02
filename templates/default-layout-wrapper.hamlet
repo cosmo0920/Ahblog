@@ -21,6 +21,16 @@
 
         <script>
           document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/,'js');
+        <script type="text/x-mathjax-config">
+          MathJax.Hub.Config({
+            tex2jax: {
+              inlineMath: [['$','$'], ["\\(","\\)"]],
+              displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+            }
+          });
+        <script type="text/javascript"
+          src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_SVG">
+        <meta http-equiv="X-UA-Compatible" CONTENT="IE=EmulateIE7" />
     <body>
         <div class="navbar navbar-inverse">
           <div class="navbar-inner">
