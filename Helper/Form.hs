@@ -23,13 +23,18 @@ postForm mart mtags html = do
   Entity userId _ <- lift requireAuth
   (r,widget) <- flip renderDivs html $
     let art = Article <$> pure userId
-                      <*> areq textField "Title" (articleTitle <$> mart)
-                      <*> areq markdownField "Content" (articleContent <$> mart)
-                      <*> areq textField "Slug" (articleSlug <$> mart)
+                      <*> areq textField     fsTitle   (articleTitle   <$> mart)
+                      <*> areq markdownField fsContent (articleContent <$> mart)
+                      <*> areq textField     fsSlug    (articleSlug    <$> mart)
                       <*> aformM (liftIO getCurrentTime)
-        tags = T.words . fromMaybe "" <$> aopt textField "Tags" (Just . T.unwords <$> mtags) 
+        tags = T.words . fromMaybe "" <$> aopt textField fsTag (Just . T.unwords <$> mtags)
     in (,) <$> art <*> tags
   return (r,widget)
+      where
+        fsTitle   = "Title"   { fsAttrs = [("class", "span8")] }
+        fsContent = "Content" { fsAttrs = [("class", "span8")] }
+        fsSlug    = "Slug"    { fsAttrs = [("class", "span8")] }
+        fsTag     = "Tag"     { fsAttrs = [("class", "span8")] }
 
 commentForm :: ArticleId -> Form Comment
 commentForm articleId extra = do
@@ -39,7 +44,10 @@ commentForm articleId extra = do
         Nothing -> "Anonymous"
   renderDivs (commentAForm mname) extra
   where commentAForm mname = Comment
-          <$> areq textField "Name" (Just mname)
-          <*> (unTextarea <$> areq textareaField "Content" Nothing)
+          <$> areq textField fsName (Just mname)
+          <*> (unTextarea <$> areq textareaField fsContent Nothing)
           <*> pure articleId
           <*> aformM (liftIO getCurrentTime)
+            where
+              fsName    = "Name"    { fsAttrs = [("class", "span7")] }
+              fsContent = "Content" { fsAttrs = [("class", "span7")] }
