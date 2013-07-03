@@ -61,14 +61,14 @@ getSearchR = do
        then selectArticles searchString
        else return (mempty)
 
-    --articles <- selectArticles searchString
     now <- liftIO $ getCurrentTime
     defaultLayout $ do
       $(widgetFile "search")
   where
     selectArticles :: Text -> Handler [Entity Article]
-    selectArticles t = runDB $ rawSql s [toPersistValue $ T.concat ["%", t, "%"]]
-      where s = "SELECT ?? FROM article WHERE content LIKE ? ORDER BY created_at DESC"
+    selectArticles t =
+      runDB $ rawSql s [toPersistValue $ T.concat ["%", t, "%"],toPersistValue $ T.concat ["%", t, "%"]]
+      where s = "SELECT ?? FROM article WHERE content LIKE ? OR title LIKE ? ORDER BY created_at DESC"
 
 getTagR :: Text -> Handler RepHtml
 getTagR tag = do
