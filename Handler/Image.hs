@@ -26,9 +26,14 @@ postImagesR = do
             -- use "insertBy" function and add UniqueImage filename constraint to config/models 
             -- save to image directory
             filename <- writeToServer file
-            _ <- runDB $ insertBy (Image filename info date)
-            setMessage "File saved"
-            redirect ImagesR
+            success <- runDB $ insertBy $ Image filename info date
+            case success of
+              Right _key -> do
+                setMessage "File saved"
+                redirect ImagesR
+              Left _ -> do
+                setMessage "You cannot register same filename image!!"
+                redirect ImagesR
         _ -> do
             setMessage "Something went wrong"
             redirect ImagesR
@@ -43,8 +48,10 @@ deleteImageR imageId = do
     stillExists <- liftIO $ doesFileExist path
 
     case (not stillExists) of 
-        False  -> redirect ImagesR
-        True -> do
+        False -> do
+            setMessage "Something went wrong."
+            redirect ImagesR
+        True  -> do
             runDB $ delete imageId
             setMessage "File has been deleted."
             redirect ImagesR
