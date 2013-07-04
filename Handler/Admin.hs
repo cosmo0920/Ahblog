@@ -19,9 +19,11 @@ getAdminR = do
   -- Get the list of articles inside the database
   let page = 10
   username <- userScreenName . entityVal <$> requireAuth
-  users <- runDB $ selectList [] [Desc UserScreenName]
-  (articles, widget) <- runDB $ selectPaginated page [] [Desc ArticleCreatedAt]
-  comments <- runDB $ selectList [] [Desc CommentPosted]
+  (articles, widget, users, comments) <- runDB $ do
+     (articles, widget) <- selectPaginated page [] [Desc ArticleCreatedAt]
+     users              <- selectList [] [Desc UserScreenName]
+     comments           <- selectList [] [Desc CommentPosted]
+     return (articles, widget, users, comments)
   -- We'll need the two "objects": articleWidget and enctype
   -- to construct the form (see templates/articles.hamlet).
   (articleWidget, enctype) <- generateFormPost entryForm
@@ -36,8 +38,10 @@ postAdminR = do
   ((res,articleWidget),enctype) <- runFormPost entryForm
   case res of
     FormSuccess (article, tags) -> do
-      articleId <- runDB $ insert article
-      forM_ tags $ \tag -> runDB $ insert $ Tag tag articleId
+      articleId <- runDB $ do
+        _article <- insert article
+        forM_ tags $ \tag -> insert $ Tag tag _article
+        return _article
       renderer <- getUrlRenderParams
       let html = [hamlet|<span .notice><h4>#{articleTitle article}</h4>
                                        <p> created
@@ -52,8 +56,10 @@ getNewBlogR :: Handler RepHtml
 getNewBlogR = do
   username <- userScreenName . entityVal <$> requireAuth
   -- Get the list of articles inside the database
-  articles <- runDB $ selectList [][Desc ArticleCreatedAt]
-  images <- runDB $ selectList [ImageFilename !=. ""] [Desc ImageDate]
+  (articles, images) <- runDB $ do
+    articles <- selectList [][Desc ArticleCreatedAt]
+    images   <- selectList [ImageFilename !=. ""] [Desc ImageDate]
+    return (articles, images)
   now <- liftIO $ getCurrentTime
   -- We'll need the two "objects": articleWidget and enctype
   -- to construct the form (see templates/articles.hamlet).
@@ -101,8 +107,10 @@ postNewBlogR = do
   ((res,articleWidget),enctype) <- runFormPost entryForm
   case res of
     FormSuccess (article, tags) -> do
-      articleId <- runDB $ insert article
-      forM_ tags $ \tag -> runDB $ insert $ Tag tag articleId
+      articleId <- runDB $ do
+        _article <- insert article
+        forM_ tags $ \tag -> insert $ Tag tag _article
+        return _article
       renderer <- getUrlRenderParams
       let html = [hamlet|<span .notice><h4>#{articleTitle article}</h4>
                                        <p> created
@@ -116,11 +124,13 @@ postNewBlogR = do
 getArticleEditR :: ArticleId -> Handler RepHtml
 getArticleEditR articleId = do
   (Entity _ user) <- requireAuth
-  oldTags <- map (\(Entity _ t) -> tagName t)
-                 <$> (runDB $ selectList [TagArticle ==. articleId] [])
+  (post, oldTags) <- runDB $ do
+    post <- get404 articleId
+    oldTags <- map (\(Entity _ t) -> tagName t)
+               <$> (selectList [TagArticle ==. articleId] [])
+    return (post, oldTags)
   let username = userScreenName user
   maid <- maybeAuthId
-  post <- runDB $ get404 articleId
   (postWidget, enctype) <- generateFormPost $ (postForm (Just post) (Just oldTags))
   defaultLayout $ do
     setTitle "Edit Blog"
@@ -153,9 +163,11 @@ postArticleEditR articleId = do
 
 getArticleDeleteR :: ArticleId -> Handler RepHtml
 getArticleDeleteR articleId = do
-  article <- runDB $ get404 articleId
-  oldTags <- map (\(Entity _ t) -> tagName t)
-                 <$> (runDB $ selectList [TagArticle ==. articleId] [])
+  (article, oldTags) <- runDB $ do
+    _article <- get404 articleId
+    oldTags <- map (\(Entity _ t) -> tagName t)
+                 <$> (selectList [TagArticle ==. articleId] [])
+    return (_article, oldTags)
   (postWidget, enctype) <- generateFormPost $ (postForm (Just article) (Just oldTags))
   defaultLayout $ do
     setTitle "Delete"
@@ -164,12 +176,12 @@ getArticleDeleteR articleId = do
 
 postArticleDeleteR :: ArticleId -> Handler RepHtml
 postArticleDeleteR articleId = do
-  article <- runDB $ get404 articleId
-  runDB $ do
+  article <- runDB $ do
     _post <- get404 articleId
     delete articleId
     deleteWhere [CommentArticle ==. articleId]
     deleteWhere [TagArticle ==. articleId]
+    return _post
   renderer <- getUrlRenderParams
   let html = [hamlet|<span .notice><h4>#{articleTitle article}</h4>
                                    <p> deleted|]
@@ -178,10 +190,10 @@ postArticleDeleteR articleId = do
 
 getCommentDeleteR :: CommentId -> Handler RepHtml
 getCommentDeleteR commentId = do
-  comment <- runDB $ get404 commentId
-  runDB $ do
+  comment <- runDB $ do
     _post <- get404 commentId
     delete commentId
+    return _post
   renderer <- getUrlRenderParams
   let html = [hamlet|<span .notice><h4>#{commentName comment}</h4>
                                    <p> deleted|]
@@ -190,10 +202,10 @@ getCommentDeleteR commentId = do
 
 getUserDeleteR :: UserId -> Handler RepHtml
 getUserDeleteR userId = do
-  user <- runDB $ get404 userId
-  runDB $ do
+  user <- runDB $ do
     _user <- get404 userId
     delete userId
+    return _user
   renderer <- getUrlRenderParams
   let html = [hamlet|<span .notice><h4>#{userScreenName user}</h4>
                                    <p> deleted|]
