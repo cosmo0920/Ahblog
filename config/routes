@@ -12,8 +12,8 @@
 /blog/feed BlogFeedR GET
 /about AboutR GET
 /search SearchR GET
-/image ImagesR GET POST
-/image/admin/#ImageId ImageR DELETE
+/file ImagesR GET POST
+/file/admin/#ImageId ImageR DELETE
 /admin/manage AdminR GET POST
 /admin/new NewBlogR GET POST
 /admin/article/#ArticleId ArticleR GET POST

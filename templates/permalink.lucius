@@ -8,3 +8,9 @@
   padding: 0px;
   list-style: none;
 }
+
+div#article {
+  border:1px solid #000000;
+  padding:15px;
+  border-radius: 5px;
+}

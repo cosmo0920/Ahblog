@@ -12,7 +12,7 @@ uploadDirectory = "static"
 uploadSubDirectory :: FilePath
 uploadSubDirectory = "files"
 
-uploadForm :: Html -> MForm App App (FormResult (FileInfo, Maybe Textarea, UTCTime), Widget)
+uploadForm :: Form (FileInfo, Maybe Textarea, UTCTime)
 uploadForm = renderDivs $ (,,)
     <$> fileAFormReq "Upload file"
     <*> aopt textareaField "file description" Nothing

@@ -2,12 +2,12 @@
   <h1>Post New Article</h1></div>
   $maybe _ <- maid
     <div .row>
-      <div .span9>
+      <div .span8>
         <p>Your username: #{username}</p>
         <form method=post enctype=#{enctype}>
           ^{articleWidget}
           <input type=submit .btn .btn-info value="Post New Article">
-      <div .span3>
+      <div .span4>
         <h4>Recent Files</h4>
         $if not $ null images
         <table .table>
@@ -22,12 +22,15 @@
             <tr>
               <td>
                 <a href=#{imageFilePath' $ imageFilename image}>
-                  #{imageFilename image}
+                  #{makeBrief 15 $ fromString $ imageFilename image}
               <td>
                 $maybe description <- imageDescription image
                   #{description}
               <td>
                 #{humanReadableTime' now $ imageDate image}
+        <a href=@{ImagesR} class="btn btn-success"><i class="icon-circle-arrow-up"></i> Admin Files</a>
+
+    <hr>
   $nothing
     <h2>Authorization required</h2>
       <a href=@{AuthR LoginR} class="btn">login

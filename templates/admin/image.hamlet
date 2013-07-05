@@ -15,7 +15,7 @@ $maybe msg <- mmsg
       <table .table>
         <tr>
           <th>
-            Image
+            File
           <th>
             Decription
           <th>
@@ -25,8 +25,7 @@ $maybe msg <- mmsg
         $forall Entity imageId image <- images
           <tr>
             <td>
-              <a href=#{imageFilePath $ imageFilename image}>
-                #{imageFilename image}
+              <a href=#{imageFilePath $ imageFilename image}> #{imageFilename image}
             <td>
               $maybe description <- imageDescription image
                 #{description}
@@ -35,3 +34,4 @@ $maybe msg <- mmsg
             <td>
               <a href=# .delete data-img-url=@{ImageR imageId}>
                 delete
+  <hr>

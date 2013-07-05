@@ -10,3 +10,6 @@ makeBrief len t | T.length t <= len = t
 
 markdownToText :: Markdown -> Text
 markdownToText (Markdown s) = s
+
+fromString :: String -> T.Text
+fromString = T.pack
