@@ -215,13 +215,19 @@ getCommentDeleteR commentId = do
   redirect $ AdminR
 
 getUserDeleteR :: UserId -> Handler RepHtml
-getUserDeleteR userId = do
-  user <- runDB $ do
-    _user <- get404 userId
-    delete userId
-    return _user
-  renderer <- getUrlRenderParams
-  let html = [hamlet|<span .notice><h4>#{userScreenName user}</h4>
-                                   <p> deleted|]
-  setMessage $ toHtml $ html renderer
-  redirect $ AdminR
+getUserDeleteR usrId = do
+  (Entity userId _) <- requireAuth
+  if usrId /= userId
+    then do
+      deleteuser <- runDB $ do
+        _user <- get404 usrId
+        delete usrId
+        return _user
+      renderer <- getUrlRenderParams
+      let html = [hamlet|<span .notice><h4>User:#{userScreenName deleteuser}</h4>
+                                       <p> deleted|]
+      setMessage $ toHtml $ html renderer
+      redirect $ AdminR
+   else do
+     setMessage "You cannot delete yourself!!"
+     redirect $ AdminR
