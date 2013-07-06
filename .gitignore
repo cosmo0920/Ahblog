@@ -1,10 +1,11 @@
 dist*
 static/tmp/
-static/upload/*.*
+static/files/*.*
 config/client_session_key.aes
 config/settings.yml
 *.hi
 *.o
 *.sqlite3
 .hsenv*
+cabal-dev/
 yesod-devel/
