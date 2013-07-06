@@ -1,0 +1,20 @@
+<div .page-header>
+  <h2>#{articleTitle article}</h2></div>
+  <div .row>
+    <div .span9>
+      <p><i class="icon-calendar"></i>#{humanReadableTime' now $ articleCreatedAt article}
+      <p><i class="icon-user"></i>Posted by #{username}
+        $if not (null tags)
+          <div .tags>
+            <i .icon-tags>
+            <ul .tag-list>
+              $forall tag <- tags
+                <li>
+                  <a href=@{TagR tag}>
+                    #{tag}
+      <div #article>
+        <article>#{articleContent article}<br/>
+    <div .span3>
+      ^{sidebarWidget}      
+    <hr>
+  <hr>

@@ -14,6 +14,9 @@ uploadSubDirectory = "files"
 
 uploadForm :: Form (FileInfo, Maybe Textarea, UTCTime)
 uploadForm = renderDivs $ (,,)
-    <$> fileAFormReq "Upload file"
-    <*> aopt textareaField "file description" Nothing
+    <$> fileAFormReq fsFile
+    <*> aopt textareaField fsFileDescr Nothing
     <*> aformM (liftIO getCurrentTime)
+        where
+          fsFile      = "Upload file"      { fsAttrs = [("class", "span5")]}
+          fsFileDescr = "file description" { fsAttrs = [("class", "span5")]}

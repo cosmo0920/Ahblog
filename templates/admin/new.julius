@@ -1,0 +1,16 @@
+$(document).ready(function() {
+    document.getElementById("postButton").onclick = function() {
+        submitAction("@{NewBlogR}", "_blank")
+    };
+
+    document.getElementById("previewButton").onclick = function() {
+        submitAction("@{PreviewR}", "_blank")
+    };
+
+    function submitAction(path, target) {
+        var form = document.getElementById("post");
+        form.action = path;
+        form.target = target;
+        form.submit();
+    };
+}) 

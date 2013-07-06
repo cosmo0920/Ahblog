@@ -4,9 +4,10 @@
     <div .row>
       <div .span8>
         <p>Your username: #{username}</p>
-        <form method=post enctype=#{enctype}>
+        <form method=post enctype=#{enctype} #post>
           ^{articleWidget}
-          <input type=submit .btn .btn-info value="Post New Article">
+          <input .btn .btn-info value="Post New Article" #postButton>
+          <input .btn .btn-primary value="Preview" #previewButton>
       <div .span4>
         <h4>Recent Files</h4>
         $if not $ null images

@@ -137,6 +137,20 @@ getArticleEditR articleId = do
     addStylesheet $ StaticR css_textarea_css
     $(widgetFile "admin/edit")
 
+postPreviewR :: Handler RepHtml
+postPreviewR = do
+  (Entity _ user) <- requireAuth
+  let username = userScreenName user
+  ((res,previewWidget),enctype) <- runFormPost entryForm
+  case res of
+    FormSuccess (article, tags) -> do
+      now <- liftIO $ getCurrentTime
+      defaultLayout $ do
+        $(widgetFile "admin/preview")
+    _ -> do
+      setMessage "Something went wrong."
+      redirect NewBlogR
+
 postArticleEditR :: ArticleId -> Handler RepHtml
 postArticleEditR articleId = do 
   maid <- maybeAuthId
