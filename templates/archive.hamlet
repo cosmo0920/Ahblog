@@ -1,5 +1,5 @@
 <div .page-header>
-  <h1>Article Archive
+  <h1>Article Archives
 
 <div .post-listing>
   <table .table .table-bordered .table-condensed>
@@ -12,6 +12,7 @@
       $forall Entity _ archive <- archives
         <tr>
           <td>
-            <a href="@{PermalinkR $ articleSlug archive}">#{articleTitle archive}
+            <a href="@{PermalinkR $ articleSlug archive}">
+              #{articleTitle archive}
 
           <td>#{humanReadableTime' now $ articleCreatedAt archive}

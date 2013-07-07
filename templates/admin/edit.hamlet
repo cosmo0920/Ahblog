@@ -5,7 +5,7 @@
     <p>Current login user: #{username}</p>
     <form method=post enctype=#{enctype} #post>
         ^{postWidget}
-      <input type=submit .btn .btn-info value="Update Post" #postButton>
+      <input type=submit .btn .btn-info .rbtn value="Update Post" #postButton>
   $nothing
     <h2>Authorization required</h2>
       <a href=@{AuthR LoginR} class="btn">login

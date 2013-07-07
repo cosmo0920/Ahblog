@@ -2,9 +2,9 @@
 <h3>Update Screen Name</h3>
   <form method=post action=@{UserSettingR} enctype=#{enctype}>
      ^{widget}
-     <input .btn .btn-info type=submit value="Update User Info">
+     <input .btn .btn-info .rbtn type=submit value="Update User Info">
   <hr>
-  <a href=@{HomeR} class="btn">
-    <i class="icon-circle-arrow-left"></i>Back Home
-  <a href=@{BlogViewR} class="btn">
+  <a href=@{HomeR} .btn .rbtn>
+    <i class="icon-circle-arrow-left"></i> Back Home
+  <a href=@{BlogViewR} .btn .rbtn>
     Go Blog <i class="icon-circle-arrow-right"></i>

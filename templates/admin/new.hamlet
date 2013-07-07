@@ -6,8 +6,8 @@
         <p>Your username: #{username}</p>
         <form method=post enctype=#{enctype} #post>
           ^{articleWidget}
-          <input .btn .btn-info value="Post New Article" #postButton>
-          <input .btn .btn-primary value="Preview" #previewButton>
+          <input .btn .btn-info .rbtn value="Post New Article" #postButton>
+          <input .btn .btn-primary .rbtn value="Preview" #previewButton>
       <div .span4>
         <h4>Recent Files</h4>
         $if not $ null images
@@ -29,7 +29,7 @@
                   #{description}
               <td>
                 #{humanReadableTime' now $ imageDate image}
-        <a href=@{ImagesR} class="btn btn-success"><i class="icon-circle-arrow-up"></i> Admin Files</a>
+        <a href=@{ImagesR} .btn .btn-success .rbtn><i class="icon-circle-arrow-up"></i> Admin Files</a>
 
     <hr>
   $nothing

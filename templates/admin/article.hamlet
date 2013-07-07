@@ -32,7 +32,7 @@
       <h3 #comment>Add Comment
       <form method="post" enctype="#{enctype}">
             ^{commentWidget}
-         <input type="submit" .btn .btn-primary value="Post">
+         <input type="submit" .btn .btn-primary .rbtn value="Post">
       <hr>
       <ul .pager .pull-left>
         <li .previous><a href=@{BlogViewR} .btn><i class="icon-circle-arrow-left"></i> Back Recent Post

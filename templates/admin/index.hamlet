@@ -26,9 +26,9 @@
                    <a href=@{ArticleDeleteR articleId}> Delete
            <div .pagination>
              ^{widget}
-        <a href=@{NewBlogR} class="btn btn-info"><i class="icon-pencil"></i> New Post</a>
-        <a href=@{ImagesR} class="btn btn-success"><i class="icon-circle-arrow-up"></i> Admin Files</a>
-      <div class="tab-pane" id="comment">
+        <a href=@{NewBlogR} .btn .btn-info .rbtn><i class="icon-pencil"></i> New Post</a>
+        <a href=@{ImagesR} .btn .btn-success .rbtn><i class="icon-circle-arrow-up"></i> Admin Files</a>
+      <div .tab-pane #comment>
         <h3>Index comment
         $if null comments
           <p> There are no comments in the blog
@@ -54,7 +54,7 @@
         <form method=post enctype=#{enctype}>
            ^{articleWidget}
            <div>
-              <input type=submit .btn .btn-info value="Post New Article">
+              <input type=submit .btn .btn-info .rbtn value="Post New Article">
 
       <div class="tab-pane" id="user">
         <h3>User</h3>
@@ -74,8 +74,8 @@
                  <td width="30">
                    <a href="@{UserDeleteR userId}"> Delete
 
-          <a href=@{AuthR LogoutR} class="btn">Logout</a>
-          <a href=@{UserSettingR} class="btn">Profile</a>
+          <a href=@{AuthR LogoutR} .btn .rbtn>Logout</a>
+          <a href=@{UserSettingR} .btn .rbtn>Profile</a>
   
       <hr>
   $nothing

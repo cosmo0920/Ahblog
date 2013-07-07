@@ -11,7 +11,7 @@ $maybe msg <- mmsg
       <div .form-actions>
         <form method=post enctype=#{enctype}>
           ^{widget}
-          <input .btn .btn-info type=submit value="Upload">
+          <input .btn .btn-info .rbtn type=submit value="Upload">
       $if not $ null images
         <table .table>
           <tr>

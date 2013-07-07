@@ -18,8 +18,8 @@
    <li .nav-header><i class="icon-time"></i>Archive</li>
    <li><a href="@{ArchiveR}">archive</a></li>
    <li .nav-header><i class="icon-search"></i>Search</li>
-   <form method="get" action=@{SearchR}>
+   <form .form-search method="get" action=@{SearchR}>
     <div class="input-append">
-     <input #search-input type="text" .span2 name="q" placeholder="Search">
+     <input #search-input type="text" .span2 .search-query name="q" placeholder="Search">
      <button .btn type="submit">
        <i class="icon-search"></i>
