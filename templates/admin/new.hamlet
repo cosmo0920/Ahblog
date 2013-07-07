@@ -9,7 +9,8 @@
           <input .btn .btn-info .rbtn value="Post New Article" #postButton>
           <input .btn .btn-primary .rbtn value="Preview" #previewButton>
       <div .span4>
-        <h4>Recent Files</h4>
+        <h4>
+          Recent Files
         $if not $ null images
         <table .table>
           <tr>

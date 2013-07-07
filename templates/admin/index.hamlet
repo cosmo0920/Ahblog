@@ -4,10 +4,18 @@
 
     <div class="tabbable">
       <ul class="nav nav-tabs">
-        <li class="active"><a href="#article" data-toggle="tab">Admin Article</a></li>
-        <li><a href="#comment" data-toggle="tab">Admin Comment</a></li>
-        <li><a href="#post" data-toggle="tab">Simple Post</a></li>
-        <li><a href="#user" data-toggle="tab">User</a></li>
+        <li class="active">
+          <a href="#article" data-toggle="tab">
+            Admin Article
+        <li>
+          <a href="#comment" data-toggle="tab">
+            Admin Comment
+        <li>
+          <a href="#post" data-toggle="tab">
+            Simple Post
+        <li>
+          <a href="#user" data-toggle="tab">
+            User
 
     <div class="tab-content">
       <div class="tab-pane active" id="article">
@@ -57,25 +65,28 @@
               <input type=submit .btn .btn-info .rbtn value="Post New Article">
 
       <div class="tab-pane" id="user">
-        <h3>User</h3>
-          <p>Current login user: #{username}</p>
-          <table .table .table-bordered .table-condensed>
-           <thead>
-             <tr>
-               <th>Email
-               <th>ScreenName
-               <th>Admin
+        <h3>
+          User
+        <p>Current login user: #{username}</p>
+        <table .table .table-bordered .table-condensed>
+         <thead>
+           <tr>
+             <th>Email
+             <th>ScreenName
+             <th>Admin
+         <tbody .link>
            <tbody .link>
-             <tbody .link>
-             $forall Entity userId user <- users
-               <tr>
-                 <td width="30">#{userEmail user}
-                 <td width="50">#{makeBrief 50 $ userScreenName user}
-                 <td width="30">
-                   <a href="@{UserDeleteR userId}"> Delete
+           $forall Entity userId user <- users
+             <tr>
+               <td width="30">#{userEmail user}
+               <td width="50">#{makeBrief 50 $ userScreenName user}
+               <td width="30">
+                 <a href="@{UserDeleteR userId}"> Delete
 
-          <a href=@{AuthR LogoutR} .btn .rbtn>Logout</a>
-          <a href=@{UserSettingR} .btn .rbtn>Profile</a>
+        <a href=@{AuthR LogoutR} .btn .rbtn>
+          Logout
+        <a href=@{UserSettingR} .btn .rbtn>
+          Profile
   
       <hr>
   $nothing

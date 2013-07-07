@@ -44,11 +44,13 @@
                   <li>
                     <a href=@{AboutR}>About
                   <li .dropdown>
-                    <a href="#" .dropdown-toggle data-toggle="dropdown">Control<b class="caret"></b></a>
+                    <a href="#" .dropdown-toggle data-toggle="dropdown">
+                      Control
                     <ul class="dropdown-menu">
                       $maybe _ <- maid
                         $if admin
-                          <li><a href=@{AdminR}>Admin</a>
+                          <li>
+                            <a href=@{AdminR}>Admin
 
                         <li><a href=@{UserSettingR}>User Profile</a>
                         <li><a href=@{AuthR LogoutR}>Logout</a>
