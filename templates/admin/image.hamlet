@@ -5,33 +5,36 @@ $maybe msg <- mmsg
       #{msg}
 <div .container>
   <div .row>
-    <h2>
-      Upload new file
-    <div .form-actions>
-      <form method=post enctype=#{enctype}>
-        ^{widget}
-        <input .btn .btn-info type=submit value="Upload">
-    $if not $ null images
-      <table .table>
-        <tr>
-          <th>
-            File
-          <th>
-            Decription
-          <th>
-            Uploaded
-          <th>
-            Action
-        $forall Entity imageId image <- images
+    <div .span12>
+      <h2>
+        Upload new file
+      <div .form-actions>
+        <form method=post enctype=#{enctype}>
+          ^{widget}
+          <input .btn .btn-info type=submit value="Upload">
+      $if not $ null images
+        <table .table>
           <tr>
-            <td>
-              <a href=#{imageFilePath $ imageFilename image}> #{imageFilename image}
-            <td>
-              $maybe description <- imageDescription image
-                #{description}
-            <td>
-              #{humanReadableTime' now $ imageDate image}
-            <td>
-              <a href=# .delete data-img-url=@{ImageR imageId}>
-                delete
+            <th>
+              File
+            <th>
+              Decription
+            <th>
+              Uploaded
+            <th>
+              Action
+          $forall Entity imageId image <- images
+            <tr>
+              <td>
+                <a href=#{imageFilePath $ imageFilename image}> #{imageFilename image}
+              <td>
+                $maybe description <- imageDescription image
+                  #{description}
+              <td>
+                #{humanReadableTime' now $ imageDate image}
+              <td>
+                <a href=# .delete data-img-url=@{ImageR imageId}>
+                  delete
   <hr>
+  <ul .pager .pull-left>
+    <li .previous><a href=@{AdminR} .btn>&larr; Back Admin

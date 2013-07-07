@@ -35,3 +35,4 @@
   $nothing
     <h2>Authorization required</h2>
       <a href=@{AuthR LoginR} class="btn">login
+  <ul .pager .pull-left><li .previous><a href=@{AdminR} .btn>&larr; Back Admin

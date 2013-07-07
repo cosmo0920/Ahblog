@@ -1,4 +1,7 @@
-<form method=post enctype=#{enctype}>
+<h2>
+  Error occurred!<br />Correct entry form
+<form method=post enctype=#{enctype} #post>
     ^{articleWidget}
     <div>
-        <input type=submit value="Post New Article">
+      <input type=submit .btn .btn-info value="Post New Article">
+<hr>

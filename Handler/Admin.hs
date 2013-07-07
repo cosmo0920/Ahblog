@@ -118,8 +118,9 @@ postNewBlogR = do
       setMessage $ toHtml $ html renderer
       redirect $ ArticleR articleId
     _ -> defaultLayout $ do
-            setTitle "Please correct your entry form"
-            $(widgetFile "admin/articleAddError")
+           addStylesheet $ StaticR css_textarea_css
+           setTitle "Please correct your entry form"
+           $(widgetFile "admin/articleAddError")
 
 getArticleEditR :: ArticleId -> Handler RepHtml
 getArticleEditR articleId = do

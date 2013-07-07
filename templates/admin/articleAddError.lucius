@@ -1,0 +1,7 @@
+#previewButton {
+  width: auto;
+}
+
+#postButton {
+  width: auto;
+} 
