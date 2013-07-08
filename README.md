@@ -44,6 +44,20 @@ Blogのタイトルはyamlのtitle:に指定します。
 
 AboutページはMarkdownで記述でき、自由に差し替えられます。
 
+## Try it
+
+when you use __Linux OS__
+
+```bash
+$ git clone https://github.com/cosmo0920/Ahblog.git
+$ cd Ahblog
+$ cabal update
+$ cabal install cabal-dev
+$ ~/.cabal/bin/cabal-dev install --dry-run --only-dependencies #prevent dependency hell
+$ ~/.cabal/bin/cabal-dev install --only-dependencies
+$ dist/build/bin/yesod --dev devel
+```
+
 * * * *
 
 ライセンスはMITライセンスとします。
