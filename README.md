@@ -46,16 +46,17 @@ AboutページはMarkdownで記述でき、自由に差し替えられます。
 
 ## Try it
 
-when you use __Linux OS__
+when you use __Debian and related distributions...__
 
 ```bash
 $ git clone https://github.com/cosmo0920/Ahblog.git
 $ cd Ahblog
 $ cabal update
+$ cabal install happy [or $ sudo apt-get install happy]
 $ cabal install cabal-dev
 $ ~/.cabal/bin/cabal-dev install --dry-run --only-dependencies #prevent dependency hell
 $ ~/.cabal/bin/cabal-dev install --only-dependencies
-$ dist/build/bin/yesod --dev devel
+$ cabal-dev/bin/yesod --dev devel
 ```
 
 * * * *
