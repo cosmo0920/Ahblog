@@ -8,6 +8,6 @@ userForm html = do
   Entity _ user <- lift requireAuth
   let email      = userEmail user
       screenName = userScreenName user
-  flip renderDivs html $ User
+  flip renderBootstrap html $ User
     <$> pure email
     <*> areq textField "screen_name" (Just screenName)

@@ -13,7 +13,7 @@ uploadSubDirectory :: FilePath
 uploadSubDirectory = "files"
 
 uploadForm :: Form (FileInfo, Maybe Textarea, UTCTime)
-uploadForm = renderDivs $ (,,)
+uploadForm = renderBootstrap $ (,,)
     <$> fileAFormReq fsFile
     <*> aopt textareaField fsFileDescr Nothing
     <*> aformM (liftIO getCurrentTime)

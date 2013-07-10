@@ -21,7 +21,7 @@ modifyForm art oldTags = postForm (Just art) (Just oldTags)
 postForm :: Maybe Article -> Maybe [Text] -> Form (Article, [Text])
 postForm mart mtags html = do
   Entity userId _ <- lift requireAuth
-  (r,widget) <- flip renderDivs html $
+  (r,widget) <- flip renderBootstrap html $
     let art = Article <$> pure userId
                       <*> areq textField     fsTitle   (articleTitle   <$> mart)
                       <*> areq markdownField fsContent (articleContent <$> mart)
@@ -42,7 +42,7 @@ commentForm articleId extra = do
   let mname = case muser of
         Just entity -> userScreenName $ entityVal entity
         Nothing -> "Anonymous"
-  renderDivs (commentAForm mname) extra
+  renderBootstrap (commentAForm mname) extra
   where commentAForm mname = Comment
           <$> areq textField fsName (Just mname)
           <*> (unTextarea <$> areq textareaField fsContent Nothing)
