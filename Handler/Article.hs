@@ -13,15 +13,15 @@ import Yesod.Auth
 
 getPermalinkR :: Text -> Handler RepHtml
 getPermalinkR slug = do
-  now <- liftIO $ getCurrentTime
   maid <- maybeAuthId
   Entity articleId Article {articleTitle, articleContent, articleAuthor, ..} <- runDB $ getBy404 $ UniqueSlug slug
   tags <- sort . nub . map (tagName . entityVal) <$> runDB (selectList [TagArticle ==. articleId] [])
   (comments, author) <- runDB $ do
-    comments <- map entityVal <$>
+    comments' <- map entityVal <$>
                 selectList [CommentArticle ==. articleId] [Asc CommentPosted]
-    author <- get404 articleAuthor
-    return (comments, author)
+    author' <- get404 articleAuthor
+    return (comments', author')
+  published <- liftIO $ humanReadableTime $ articleCreatedAt
   let screenAuthor = userScreenName author
   ((_, commentWidget), enctype) <- runFormPost $ commentForm articleId
   defaultLayout $ do

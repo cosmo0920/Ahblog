@@ -2,7 +2,7 @@
   <h2>#{articleTitle}</h2></div>
   <div .row>
     <div .span9>
-      <p><i class="icon-calendar"></i>#{humanReadableTime' now $ articleCreatedAt}
+      <p><i class="icon-calendar"></i>#{published}
       <p><i class="icon-user"></i>Posted by #{screenAuthor}
       $if not (null tags)
         <div .tags>
