@@ -30,7 +30,6 @@ getAdminR = do
   maid <- maybeAuthId
   defaultLayout $ do
     setTitle "Admin Page"
-    addStylesheet $ StaticR css_textarea_css
     $(widgetFile "admin/index")
 
 postAdminR :: Handler RepHtml
@@ -67,7 +66,6 @@ getNewBlogR = do
   maid <- maybeAuthId
   defaultLayout $ do
     setTitle "Admin Page"
-    addStylesheet $ StaticR css_textarea_css
     $(widgetFile "admin/new")
 
 getArticleR :: ArticleId -> Handler RepHtml
@@ -117,7 +115,6 @@ postNewBlogR = do
       setMessage $ toHtml $ html renderer
       redirect $ ArticleR articleId
     _ -> defaultLayout $ do
-           addStylesheet $ StaticR css_textarea_css
            setTitle "Please correct your entry form"
            $(widgetFile "admin/articleAddError")
 
@@ -134,7 +131,6 @@ getArticleEditR articleId = do
   (postWidget, enctype) <- generateFormPost $ (postForm (Just post) (Just oldTags))
   defaultLayout $ do
     setTitle "Edit Blog"
-    addStylesheet $ StaticR css_textarea_css
     $(widgetFile "admin/edit")
 
 postPreviewR :: Handler RepHtml
@@ -185,7 +181,6 @@ getArticleDeleteR articleId = do
   (postWidget, enctype) <- generateFormPost $ (postForm (Just article) (Just oldTags))
   defaultLayout $ do
     setTitle "Delete"
-    addStylesheet $ StaticR css_textarea_css
     $(widgetFile "admin/delete")
 
 postArticleDeleteR :: ArticleId -> Handler RepHtml

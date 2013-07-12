@@ -4,4 +4,9 @@
 
 #postButton {
   width: auto;
-} 
+}
+
+textarea {
+  width: 640px;
+  height: 25em;
+}
