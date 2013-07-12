@@ -85,7 +85,6 @@ getArticleR articleId = do
   ((_, commentWidget), enctype) <- runFormPost $ commentForm articleId
   defaultLayout $ do
     setTitle $ toHtml $ articleTitle article
-    addStylesheet $ StaticR css_commentarea_css
     $(widgetFile "admin/article")
 
 postArticleR :: ArticleId -> Handler RepHtml

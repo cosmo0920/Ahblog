@@ -26,7 +26,6 @@ getPermalinkR slug = do
   ((_, commentWidget), enctype) <- runFormPost $ commentForm articleId
   defaultLayout $ do
     setTitle $ toHtml $ articleTitle
-    addStylesheet $ StaticR css_commentarea_css
     $(widgetFile "permalink")
 
 postPermalinkR :: Text -> Handler RepHtml
