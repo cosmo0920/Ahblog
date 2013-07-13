@@ -6,9 +6,6 @@ before_script:
 script:
   - cabal configure && cabal build
 
-before_install:
-  - cabal update
-
 install:
   - cabal install --dry-run --only-dependencies
   - cabal install --only-dependencies
