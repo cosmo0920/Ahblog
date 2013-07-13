@@ -5,7 +5,7 @@ Ahblog
 
 Haskellしたいがために作った執筆者が主に一人の場合のブログエンジン。
 
-* 一応管理者権限は複数人に与えらるようには作っています。 
+* 一応管理者権限は複数人に与えられるようには作っています。 
 
 ```bash
 cp config/settings-dummy.yml config/settings.yml
