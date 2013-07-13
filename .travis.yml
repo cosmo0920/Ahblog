@@ -1,5 +1,8 @@
 language: haskell
 
+before_script:
+  - mv config/settings-dummy.yml config/settings.yml
+
 script:
   - cabal configure && cabal build
 
