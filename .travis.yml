@@ -1,11 +1,11 @@
 language: haskell
+
+script:
+  - cabal configure && cabal build
+
 before_install:
   - cabal update
 
 install:
   - cabal install --dry-run --only-dependencies
   - cabal install --only-dependencies
-  - cabal build
-
-script:
-    echo success 
