@@ -1,6 +1,8 @@
 Ahblog
 ======
 
+[![Build Status](https://travis-ci.org/cosmo0920/Ahblog.png)](https://travis-ci.org/cosmo0920/Ahblog)
+
 Haskellしたいがために作った執筆者が主に一人の場合のブログエンジン。
 
 * 一応管理者権限は複数人に与えらるようには作っています。 
