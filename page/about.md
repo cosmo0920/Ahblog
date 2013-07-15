@@ -16,7 +16,7 @@ Welcome to About Page.
 
 #####Name: *コスモ*
 
- <img src="https://secure.gravatar.com/userimage/16919991/d315fbbfc93ea4d7abcc65aca8f025f4.jpg?size=200">
+ <img src=http://gravatar.com/avatar/42cc565b7cc0ea14ebab3a3840bf1ba9?size=200>
 
 #### Accounts   
 
