@@ -1,6 +1,14 @@
 <h1>"#{tag}" Tagged Articles
-<ul>
-  $forall art <- sortBy (flip $ on compare articleCreatedAt) articles
-    <li>
-      <a href=@{PermalinkR $ articleSlug art}>#{articleTitle art}
- 
+<div .tag-listing>
+  <table .table .table-bordered .table-condensed>
+    <thead>
+      <tr>
+        <th>Title
+        <th>Posted
+
+    <tbody .link>  
+    $forall art <- sortBy (flip $ on compare articleCreatedAt) articles
+      <tr>
+        <td>
+          <a href=@{PermalinkR $ articleSlug art}>#{articleTitle art}
+        <td>#{show $ articleCreatedAt art}

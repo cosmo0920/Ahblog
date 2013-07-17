@@ -81,7 +81,7 @@
                <td width="30">#{userEmail user}
                <td width="50">#{makeBrief 50 $ userScreenName user}
                <td width="30">
-                 <a href="@{UserDeleteR userId}"> Delete
+                 <a href="@{UserDeleteR userId}" #userdel> Delete
 
         <a href=@{AuthR LogoutR} .btn .rbtn>
           Logout
