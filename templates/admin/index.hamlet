@@ -55,7 +55,8 @@
                  <td width="30">#{makeBrief 20 $ commentName comment}
                  <td width="280">#{makeBrief 100 $ commentContent comment}
                  <td width="30">
-                   <a href="@{CommentDeleteR commentId}"> Delete
+                   <a href="@{CommentDeleteR commentId}" #commentdel> 
+                     Delete
 
       <div class="tab-pane" id="post">
         <h3>simply post
