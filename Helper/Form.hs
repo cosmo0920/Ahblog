@@ -23,7 +23,7 @@ postForm mart mtags html = do
                       <*> areq textField     fsTitle   (articleTitle   <$> mart)
                       <*> areq markdownField fsContent (articleContent <$> mart)
                       <*> areq textField     fsSlug    (articleSlug    <$> mart)
-                      <*> aformM (liftIO getCurrentTime)
+                      <*> lift (liftIO getCurrentTime)
         tags = T.words . fromMaybe "" <$> aopt textField fsTag (Just . T.unwords <$> mtags)
     in (,) <$> art <*> tags
   return (r,widget)
@@ -44,7 +44,7 @@ commentForm articleId extra = do
           <$> areq textField fsName (Just mname)
           <*> (unTextarea <$> areq textareaField fsContent Nothing)
           <*> pure articleId
-          <*> aformM (liftIO getCurrentTime)
+          <*> lift (liftIO getCurrentTime)
             where
               fsName    = "Name"    { fsAttrs = [("class", "span7")] }
               fsContent = "Content" { fsAttrs = [("class", "span7")] }

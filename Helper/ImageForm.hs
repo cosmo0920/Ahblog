@@ -13,7 +13,7 @@ uploadForm :: Form (FileInfo, Maybe Textarea, UTCTime)
 uploadForm = renderBootstrap $ (,,)
     <$> fileAFormReq fsFile
     <*> aopt textareaField fsFileDescr Nothing
-    <*> aformM (liftIO getCurrentTime)
+    <*> lift (liftIO getCurrentTime)
         where
           fsFile      = "Upload file"      { fsAttrs = [("class", "span5")]}
           fsFileDescr = "file description" { fsAttrs = [("class", "span5")]}
