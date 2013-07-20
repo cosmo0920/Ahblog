@@ -1,13 +1,10 @@
-{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, FlexibleContexts #-}
-{-# LANGUAGE TemplateHaskell, OverloadedStrings, GADTs, MultiParamTypeClasses #-}
-{-# LANGUAGE NamedFieldPuns, RecordWildCards #-}
 module Helper.ArticleInfo where
 
 import Import
 import Data.Time
 import Data.Time.Format.Human
 
-articleInfo :: Article -> GWidget sub App ()
+articleInfo :: Article -> Widget
 articleInfo article = do
   now <- liftIO $ getCurrentTime
   (author, tags) <- lift $ runDB $ do

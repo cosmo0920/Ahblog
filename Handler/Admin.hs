@@ -1,6 +1,3 @@
-{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, FlexibleContexts #-}
-{-# LANGUAGE TemplateHaskell, OverloadedStrings, GADTs, MultiParamTypeClasses #-}
-{-# LANGUAGE NamedFieldPuns, RecordWildCards #-}
 module Handler.Admin where
 
 import Import
