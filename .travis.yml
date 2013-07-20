@@ -4,14 +4,8 @@ before_script:
   - mv config/settings-dummy.yml config/settings.yml
 
 script:
-  - cabal configure && cabal build
-
-after_success:
-  - cabal install yesod-test-0.3.5 --dry-run
-  - cabal install yesod-test-0.3.5 --force-reinstalls
-  - cabal configure --enable-tests
-  - cabal test
+  - ~/.cabal/bin/cabal-dev configure && ~/.cabal/bin/cabal-dev build
 
 install:
-  - cabal install --dry-run --only-dependencies
-  - cabal install --only-dependencies
+  - cabal install cabal-dev
+  - ~/.cabal/bin/cabal-dev install --only-dependencies
