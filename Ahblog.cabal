@@ -112,10 +112,10 @@ test-suite test
 
     build-depends: base
                  , Ahblog
-                 , yesod-test >= 0.3 && < 0.4
-                 , yesod-default
-                 , yesod-core
-                 , persistent
-                 , persistent-sqlite
+                 , yesod-test                    >= 0.3        && < 0.4
+                 , yesod-default                 >= 1.1        && < 1.2
+                 , yesod-core                    >= 1.1.7      && < 1.2
+                 , persistent                    >= 1.1        && < 1.2
+                 , persistent-sqlite             >= 1.1        && < 1.2
                  , resourcet
-                 , monad-logger
+                 , monad-logger                  >= 0.3
