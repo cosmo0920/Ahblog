@@ -6,6 +6,12 @@ before_script:
 script:
   - cabal configure && cabal build
 
+after_success:
+  - cabal install yesod-test-0.3.5 --dry-run
+  - cabal install yesod-test-0.3.5 --force-reinstalls
+  - cabal configure --enable-tests
+  - cabal test
+
 install:
   - cabal install --dry-run --only-dependencies
   - cabal install --only-dependencies

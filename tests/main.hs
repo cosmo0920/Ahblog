@@ -10,10 +10,22 @@ import Yesod.Test
 import Application (makeFoundation)
 
 import HomeTest
+import AboutTest
+import InitDBTest
+import AdminTest
+import UserProfileTest
+import RssTest
 
 main :: IO ()
 main = do
     conf <- loadConfig $ (configSettings Testing) { csParseExtra = parseExtra }
     foundation <- makeFoundation conf
     app <- toWaiAppPlain foundation
-    runTests app (connPool foundation) homeSpecs
+    runTests app (connPool foundation) $ do
+      initDBSpecs
+      homeSpecs
+      aboutSpecs
+      adminSpecs
+      admintoolsSpecs
+      userProfileSpecs
+      rssSpecs
