@@ -15,6 +15,7 @@ import InitDBTest
 import AdminTest
 import UserProfileTest
 import RssTest
+import VisitUserTest
 
 main :: IO ()
 main = do
@@ -29,3 +30,4 @@ main = do
       admintoolsSpecs
       userProfileSpecs
       rssSpecs
+      visitUserSpecs
