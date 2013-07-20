@@ -1,7 +1,7 @@
 Ahblog
 ======
 
-[![Build Status](https://travis-ci.org/cosmo0920/Ahblog.png)](https://travis-ci.org/cosmo0920/Ahblog)
+[![Build Status](https://travis-ci.org/cosmo0920/Ahblog.png?branch=master)](https://travis-ci.org/cosmo0920/Ahblog)
 
 Haskellしたいがために作った執筆者が主に一人の場合のブログエンジン。
 

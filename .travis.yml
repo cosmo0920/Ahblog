@@ -4,8 +4,8 @@ before_script:
   - mv config/settings-dummy.yml config/settings.yml
 
 script:
-  - cabal configure && cabal build
+  - ~/.cabal/bin/cabal-dev configure && ~/.cabal/bin/cabal-dev build
 
 install:
-  - cabal install --dry-run --only-dependencies
-  - cabal install --only-dependencies
+  - cabal install cabal-dev
+  - ~/.cabal/bin/cabal-dev install --only-dependencies
