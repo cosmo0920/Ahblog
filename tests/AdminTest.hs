@@ -8,12 +8,12 @@ import TestImport
 
 adminSpecs :: Specs
 adminSpecs =
-  describe "GET /auth" $ do
-    it "/login" $ do
+  describe "website has auth page" $ do
+    it "GET /auth/login" $ do
       get_ "/auth/login"
       statusIs 200
     
-    it "/logout" $ do
+    it "GET /auth/logout" $ do
       get_ "/auth/logout"
       statusIs 200
 
