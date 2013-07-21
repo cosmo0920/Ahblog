@@ -23,6 +23,8 @@ import System.Log.FastLogger (Logger)
 import Data.Text
 import Data.Maybe (isNothing)
 import Control.Applicative
+import System.IO (openFile, IOMode (..))
+import System.Log.FastLogger (mkLogger)
 
 -- | The site argument for your application. This can be a good place to
 -- keep settings and values requiring initialization before your application
@@ -128,7 +130,12 @@ instance Yesod App where
     shouldLog _ _source level =
         development || level == LevelWarn || level == LevelError
 
-    getLogger                         = return . appLogger
+    --getLogger                         = return . appLogger
+    --App log output into file
+    getLogger app = do
+      handle <- openFile (extraLogFile $ appExtra $ settings app) AppendMode
+      mkLogger True handle
+
     isAuthorized AdminR _             = isAdmin
     isAuthorized NewBlogR _           = isAdmin
     isAuthorized (ArticleDeleteR _) _ = isAdmin

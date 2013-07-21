@@ -9,3 +9,4 @@ config/settings.yml
 .hsenv*
 cabal-dev/
 yesod-devel/
+log/*

@@ -70,6 +70,7 @@ data Extra = Extra
     , extraAnalytics :: Maybe Text -- ^ Google Analytics
     , extraAdmins    :: [Text]
     , extraBlogTitle :: Text
+    , extraLogFile   :: FilePath
     } deriving Show
 
 parseExtra :: DefaultEnv -> Object -> Parser Extra
@@ -78,3 +79,4 @@ parseExtra _ o = Extra
     <*> o .:? "analytics"
     <*> o .:  "admins"
     <*> o .:  "title"
+    <*> o .:  "logfile"
