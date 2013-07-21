@@ -25,6 +25,7 @@ main = do
     runTests app (connPool foundation) $ do
       initDBSpecs
       homeSpecs
+      navbarSpecs
       aboutSpecs
       adminSpecs
       admintoolsSpecs
