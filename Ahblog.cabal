@@ -120,3 +120,4 @@ test-suite test
                  , resourcet
                  , monad-logger                  >= 0.3
                  , lifted-base
+                 , time

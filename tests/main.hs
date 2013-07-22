@@ -34,3 +34,4 @@ main = do
       rssSpecs
       visitUserSpecs
       persistUserSpecs
+      persistImageSpecs
