@@ -1,4 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE NoMonomorphismRestriction #-}
 module RunDBInsertTest
     ( persistUserSpecs
     , persistImageSpecs
@@ -28,12 +29,15 @@ persistUserSpecs :: Specs
 persistUserSpecs = do
   describe "User Persist Spec" $ do
     it "User table can insert and setup/teardown" $ withDeleteUserTable $ do
+      let email = "test@example.com"
+          name  = "test user"
       key <- runDB $ P.insert $ User {
-        userEmail = "test@example.com", userScreenName = "test user"
+        userEmail      = email 
+      , userScreenName = name
       }
       user <- runDB $ P.get key
-      assertEqual "userScreenName" (user >>= return . userScreenName) (Just "test user")
-      assertEqual "userEmail" (user >>= return . userEmail) (Just "test@example.com")
+      assertEqual "userScreenName" (user >>= return . userScreenName) (Just name)
+      assertEqual "userEmail" (user >>= return . userEmail) (Just email)
 
 persistImageSpecs :: Specs
 persistImageSpecs = do
@@ -42,9 +46,9 @@ persistImageSpecs = do
       let imageDateAt = (read "2013-06-23 07:24:26.539965 UTC")::UTCTime
           imageName   = "test.png"
       key <- runDB $ P.insert $ Image {
-          imageFilename    = imageName
-        , imageDescription = Nothing -- #=> Maybe Textarea
-        , imageDate        = imageDateAt
+        imageFilename    = imageName
+      , imageDescription = Nothing -- #=> Maybe Textarea
+      , imageDate        = imageDateAt
       }
       image <- runDB $ P.get key
       assertEqual "image" (image >>= return . imageFilename) (Just imageName)
