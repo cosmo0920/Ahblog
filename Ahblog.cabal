@@ -119,3 +119,4 @@ test-suite test
                  , persistent-sqlite             >= 1.1        && < 1.2
                  , resourcet
                  , monad-logger                  >= 0.3
+                 , lifted-base

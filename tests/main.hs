@@ -16,6 +16,7 @@ import AdminTest
 import UserProfileTest
 import RssTest
 import VisitUserTest
+import RunDBInsertTest
 
 main :: IO ()
 main = do
@@ -32,3 +33,4 @@ main = do
       userProfileSpecs
       rssSpecs
       visitUserSpecs
+      persistUserSpecs
