@@ -38,4 +38,4 @@ yesodTest = do
       visitUserSpecs
       persistUserSpecs
       persistImageSpecs
-      --persistArticleSpecs
+      persistArticleSpecs
