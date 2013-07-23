@@ -7,8 +7,8 @@ import TestImport
 
 visitUserSpecs :: Specs
 visitUserSpecs =
-  describe "visit /blog" $ do
-    describe "initilal Blog has no contents" $ do
+  describe "visit initilal /blog" $ do
+    describe "has no contents" $ do 
       it "one can GET /blog" $ do
         get_ "/blog"
         statusIs 200

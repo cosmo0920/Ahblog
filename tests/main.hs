@@ -16,9 +16,13 @@ import AdminTest
 import UserProfileTest
 import RssTest
 import VisitUserTest
+import RunDBInsertTest
 
 main :: IO ()
-main = do
+main = yesodTest
+
+yesodTest :: IO ()
+yesodTest = do
     conf <- loadConfig $ (configSettings Testing) { csParseExtra = parseExtra }
     foundation <- makeFoundation conf
     app <- toWaiAppPlain foundation
@@ -32,3 +36,6 @@ main = do
       userProfileSpecs
       rssSpecs
       visitUserSpecs
+      persistUserSpecs
+      persistImageSpecs
+      --persistArticleSpecs

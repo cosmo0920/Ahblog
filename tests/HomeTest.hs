@@ -13,9 +13,10 @@ homeSpecs =
       get_ "/"
       statusIs 200
 
-    it "loads the index and checks it looks right at Home" $ do
+    it "Home html contains class=\"page-header\"" $ do 
       get_ "/"
-      htmlAllContain "h1" "Internal Blog"
+      htmlAllContain "body" "div class=\"page-header\""
+      htmlCount "h1" 1 
 
     it "Home html contains hr" $ do
       get_ "/"
