@@ -11,7 +11,7 @@ import Database.Persist.GenericSql (Connection)
 import qualified Database.Persist as P
 import Control.Exception.Lifted (bracket_)
 import Data.Time (getCurrentTime)
-import Control.Monad.IO.Class
+import Control.Monad.IO.Class (liftIO)
 
 withDeleteUserTable :: OneSpec Connection a -> OneSpec Connection a
 withDeleteUserTable = bracket_ setUpUserTable tearDownUserTable
