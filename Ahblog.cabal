@@ -121,3 +121,4 @@ test-suite test
                  , monad-logger                  >= 0.3
                  , lifted-base
                  , time
+                 , transformers                  >= 0.3        && < 0.4
