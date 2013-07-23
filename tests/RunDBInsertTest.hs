@@ -54,8 +54,8 @@ persistImageSpecs :: Specs
 persistImageSpecs = do
   describe "Image Persist Spec" $ do
     it "Image table can insert and setup/teardown" $ withDeleteImageTable $ do
-      now <- liftIO $ getCurrentTime
-      let imageDateAt = now
+      createTime <- liftIO $ getCurrentTime
+      let imageDateAt = createTime
           imageName   = "test.png"
       key <- runDB $ P.insert $ Image {
         imageFilename    = imageName
@@ -70,11 +70,11 @@ persistArticleSpecs :: Specs
 persistArticleSpecs = do
    describe "Article Persist Spec" $ do
     it "Article table can insert and setup/teardown" $ withDeleteArticleTable $ do
-      now <- liftIO $ getCurrentTime
+      createTime <- liftIO $ getCurrentTime
       let title       = "test"
           content     = "test post"
           slug        = "testSlug"
-          createdTime = now
+          createdTime = createTime
 
       key <- runDB $ do
         --when Article has "UserId", then before create User data
@@ -95,3 +95,4 @@ persistArticleSpecs = do
       assertEqual "article" (article >>= return . articleTitle) (Just title)
       assertEqual "article" (article >>= return . articleContent) (Just content)
       assertEqual "article" (article >>= return . articleSlug) (Just slug)
+      assertEqual "article" (article >>= return . articleCreatedAt) (Just createTime)
