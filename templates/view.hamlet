@@ -8,14 +8,11 @@
     $else
       $forall Entity _ article <- articles
         <div .well>
-          ^{articleInfo article}
           <a href=@{PermalinkR $ articleSlug article}>
             Permalink |
           <a href=@{PermalinkR $ articleSlug article}#comment>
             Comment
 
-  <div .span3>
-    ^{sidebarWidget}
 <hr>
 <div .pagination>
   ^{widget}
