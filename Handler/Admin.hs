@@ -8,7 +8,7 @@ import Data.Time.Format.Human
 import Control.Monad
 import Helper.Form
 import Helper.MakeBrief
---import Helper.Sidebar
+import Helper.Sidebar
 import Handler.Image
 
 getAdminR :: Handler RepHtml

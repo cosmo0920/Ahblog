@@ -1,7 +1,7 @@
 <div .page-header>
   <h2>#{articleTitle}</h2></div>
   <div .row>
-    <div .span9>
+    <div .span12>
       <p><i class="icon-calendar"></i>#{published}
       <p><i class="icon-user"></i>Posted by #{screenAuthor}
       $if not (null tags)
@@ -36,6 +36,8 @@
           <input type="submit" .btn .btn-primary .rbtn value="Post">
       $nothing
         <h3 #comment>You must be <a href=@{AuthR LoginR}>logged in</a> to post a comment.
+    <div .span3>
+     ^{sidebarWidget}
       <hr>
       <ul .pager .pull-left>
         <li .previous><a href=@{BlogViewR} .btn><i class="icon-circle-arrow-left"></i> Back Recent Post

@@ -2,17 +2,19 @@
   <h1>
     Articles
 <div .row>
-  <div .span9>
+  <div .span12>
     $if null articles
       <h3> There are no articles in the blog
     $else
       $forall Entity _ article <- articles
         <div .well>
+          ^{articleInfo article}
           <a href=@{PermalinkR $ articleSlug article}>
             Permalink |
           <a href=@{PermalinkR $ articleSlug article}#comment>
             Comment
-
+  <div .span3>
+   ^{sidebarWidget}
 <hr>
 <div .pagination>
   ^{widget}
