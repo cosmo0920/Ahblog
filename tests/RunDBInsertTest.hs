@@ -3,13 +3,15 @@
 module RunDBInsertTest
     ( persistUserSpecs
     , persistImageSpecs
+    , persistArticleSpecs
     ) where
 
 import TestImport
 import Database.Persist.GenericSql (Connection)
 import qualified Database.Persist as P
 import Control.Exception.Lifted (bracket_)
-import Data.Time (UTCTime)
+import Data.Time (getCurrentTime)
+import Control.Monad.IO.Class (liftIO)
 
 withDeleteUserTable :: OneSpec Connection a -> OneSpec Connection a
 withDeleteUserTable = bracket_ setUpUserTable tearDownUserTable
@@ -24,6 +26,15 @@ withDeleteImageTable = bracket_ setUpImageTable tearDownImageTable
     setUpImageTable = deleteImageTable
     tearDownImageTable = deleteImageTable
     deleteImageTable = runDB $ P.deleteWhere ([] :: [P.Filter Image])
+
+withDeleteArticleTable :: OneSpec Connection a -> OneSpec Connection a
+withDeleteArticleTable = bracket_ setUpArticleTable tearDownArticleTable
+  where
+    setUpArticleTable = deleteArticleTable
+    tearDownArticleTable = deleteArticleTable
+    deleteArticleTable = runDB $ do
+      P.deleteWhere ([] :: [P.Filter Article])
+      P.deleteWhere ([] :: [P.Filter User])
 
 persistUserSpecs :: Specs
 persistUserSpecs = do
@@ -43,7 +54,8 @@ persistImageSpecs :: Specs
 persistImageSpecs = do
   describe "Image Persist Spec" $ do
     it "Image table can insert and setup/teardown" $ withDeleteImageTable $ do
-      let imageDateAt = (read "2013-06-23 07:24:26.539965 UTC")::UTCTime
+      createTime <- liftIO $ getCurrentTime
+      let imageDateAt = createTime
           imageName   = "test.png"
       key <- runDB $ P.insert $ Image {
         imageFilename    = imageName
@@ -53,3 +65,34 @@ persistImageSpecs = do
       image <- runDB $ P.get key
       assertEqual "image" (image >>= return . imageFilename) (Just imageName)
       assertEqual "image" (image >>= return . imageDate) (Just imageDateAt)
+
+persistArticleSpecs :: Specs
+persistArticleSpecs = do
+   describe "Article Persist Spec" $ do
+    it "Article table can insert and setup/teardown" $ withDeleteArticleTable $ do
+      createTime <- liftIO $ getCurrentTime
+      let title       = "test"
+          content     = "test post"
+          slug        = "testSlug"
+          createdTime = createTime
+
+      key <- runDB $ do
+        --when Article has "UserId", then before create User data
+        let email = "test@example.com"
+            name  = "test user"
+        userId <- P.insert $ User {
+          userEmail      = email
+        , userScreenName = name
+        }
+        P.insert $ Article {
+          articleAuthor    = userId
+        , articleTitle     = title
+        , articleContent   = content
+        , articleSlug      = slug
+        , articleCreatedAt = createdTime
+        }
+      article <- runDB $ P.get key
+      assertEqual "article" (article >>= return . articleTitle) (Just title)
+      assertEqual "article" (article >>= return . articleContent) (Just content)
+      assertEqual "article" (article >>= return . articleSlug) (Just slug)
+      assertEqual "article" (article >>= return . articleCreatedAt) (Just createTime)

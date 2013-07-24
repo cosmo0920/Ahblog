@@ -115,10 +115,10 @@ test-suite test
                  , yesod-test                    >= 0.3        && < 0.4
                  , yesod-default                 >= 1.1        && < 1.2
                  , yesod-core                    >= 1.1.7      && < 1.2
-                 , yesod-markdown                >= 0.7        && < 0.8
                  , persistent                    >= 1.1        && < 1.2
                  , persistent-sqlite             >= 1.1        && < 1.2
                  , resourcet
                  , monad-logger                  >= 0.3
                  , lifted-base
                  , time
+                 , transformers                  >= 0.3        && < 0.4
