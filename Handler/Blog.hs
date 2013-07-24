@@ -12,8 +12,8 @@ import qualified Data.Text as T (concat, append)
 import Text.Shakespeare.Text (st)
 import Database.Persist.Sql
 import Yesod.RssFeed
-import Helper.Sidebar
-import Helper.ArticleInfo
+--import Helper.Sidebar
+--import Helper.ArticleInfo
 import Helper.MakeBrief
 
 getBlogFeedR :: Handler RepRss
