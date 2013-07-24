@@ -14,4 +14,6 @@
                     #{tag}
       <div #article>
         <article>#{articleContent article}<br/>
+    <div .span3>
+      ^{sidebarWidget}
   <hr>

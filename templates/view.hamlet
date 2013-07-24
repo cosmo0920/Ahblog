@@ -2,7 +2,7 @@
   <h1>
     Articles
 <div .row>
-  <div .span12>
+  <div .span9>
     $if null articles
       <h3> There are no articles in the blog
     $else
@@ -14,7 +14,7 @@
           <a href=@{PermalinkR $ articleSlug article}#comment>
             Comment
   <div .span3>
-   ^{sidebarWidget}
+    ^{sidebarWidget}
 <hr>
 <div .pagination>
   ^{widget}

@@ -1,7 +1,7 @@
 <div .page-header>
   <h2>#{articleTitle article}</h2></div>
   <div .row>
-    <div .span12>
+    <div .span9>
       <p><i class="icon-calendar"></i>#{humanReadableTime' now $ articleCreatedAt article}
       <p><i class="icon-user"></i>Posted by #{screenAuthor}
         $if not (null tags)
@@ -35,8 +35,8 @@
          <input type="submit" .btn .btn-primary .rbtn value="Post">
 
       <hr>
-    <div .span3>
-     ^{sidebarWidget}
       <ul .pager .pull-left>
         <li .previous><a href=@{BlogViewR} .btn><i class="icon-circle-arrow-left"></i> Back Recent Post
+    <div .span3>
+      ^{sidebarWidget}
     <hr>
