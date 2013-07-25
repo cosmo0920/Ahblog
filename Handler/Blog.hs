@@ -9,14 +9,14 @@ import Data.List (head, sortBy)
 import Data.Function
 import Control.Monad
 import qualified Data.Text as T (concat, append)
-import Database.Persist.GenericSql
 import Text.Shakespeare.Text (st)
-import Yesod.Feed
+import Database.Persist.Sql
+import Yesod.RssFeed
 import Helper.Sidebar
 import Helper.ArticleInfo
 import Helper.MakeBrief
 
-getBlogFeedR :: Handler RepAtomRss
+getBlogFeedR :: Handler RepRss
 getBlogFeedR = do
   articles <- runDB $ selectList [][Desc ArticleCreatedAt, LimitTo 10]
   title <- getBlogTitle
@@ -39,7 +39,7 @@ getBlogFeedR = do
         }
   case articles of
    [] -> notFound
-   _  -> newsFeed feed
+   _  -> rssFeed feed
 
 getBlogViewR :: Handler RepHtml
 getBlogViewR = do

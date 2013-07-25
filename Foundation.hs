@@ -11,9 +11,9 @@ import Yesod.Default.Util (addStaticContentExternal)
 import Network.HTTP.Conduit (Manager)
 import qualified Settings
 import Settings.Development (development)
-import qualified Database.Persist.Store
+import qualified Database.Persist
 import Settings.StaticFiles
-import Database.Persist.GenericSql
+import Database.Persist.Sql (SqlPersistT) 
 import Settings (widgetFile, Extra (..))
 import Model
 import Text.Jasmine (minifym)
@@ -33,9 +33,9 @@ import System.Log.FastLogger (mkLogger)
 data App = App
     { settings :: AppConfig DefaultEnv Extra
     , getStatic :: Static -- ^ Settings for static file serving.
-    , connPool :: Database.Persist.Store.PersistConfigPool Settings.PersistConfig -- ^ Database connection pool.
+    , connPool :: Database.Persist.PersistConfigPool Settings.PersistConf -- ^ Database connection pool.
     , httpManager :: Manager
-    , persistConfig :: Settings.PersistConfig
+    , persistConfig :: Settings.PersistConf
     , appLogger :: Logger
     }
 
@@ -63,7 +63,7 @@ mkMessage "App" "messages" "en"
 -- split these actions into two functions and place them in separate files.
 mkYesodData "App" $(parseRoutesFile "config/routes")
 
-type Form x = Html -> MForm App App (FormResult x, Widget)
+type Form x = Html -> MForm (HandlerT App IO) (FormResult x, Widget)
 -- Please see the documentation for the Yesod typeclass. There are a number
 -- of settings which can be configured by overriding methods here.
 instance Yesod App where
@@ -75,7 +75,7 @@ instance Yesod App where
         key <- getKey "config/client_session_key.aes"
         let timeout = 60 * 60 * 24 * 7 -- 1 week
         (getCachedDate, _closeDateCache) <- clientSessionDateCacher timeout
-        return . Just $ clientSessionBackend2 key getCachedDate
+        return . Just $ clientSessionBackend key getCachedDate
 
     defaultLayout widget = do
         master <- getYesod
@@ -99,7 +99,7 @@ instance Yesod App where
             addStylesheet $ StaticR css_markdown_css
             $(widgetFile "default-layout")
             $(widgetFile "normalize")
-        hamletToRepHtml $(hamletFile "templates/default-layout-wrapper.hamlet")
+        giveUrlRenderer $(hamletFile "templates/default-layout-wrapper.hamlet")
 
     -- This is done to provide an optimization for serving static files from
     -- a separate domain. Please see the staticRoot setting in Settings.hs
@@ -132,7 +132,7 @@ instance Yesod App where
 
     --getLogger                         = return . appLogger
     --App log output into file
-    getLogger app = do
+    makeLogger app = do
       handle <- openFile (extraLogFile $ appExtra $ settings app) AppendMode
       mkLogger True handle
 
@@ -150,10 +150,10 @@ instance Yesod App where
 
 -- How to run database actions.
 instance YesodPersist App where
-    type YesodPersistBackend App = SqlPersist
+    type YesodPersistBackend App = SqlPersistT
     runDB f = do
         master <- getYesod
-        Database.Persist.Store.runPool
+        Database.Persist.runPool
             (persistConfig master)
             f
             (connPool master)
@@ -175,7 +175,7 @@ instance YesodAuth App where
                   User (credsIdent creds) (credsIdent creds)
 
     -- You can add other plugins like BrowserID, email or OAuth here
-    authPlugins _ = [authBrowserId, authGoogleEmail]
+    authPlugins _ = [authBrowserId def, authGoogleEmail]
 
     authHttpManager = httpManager
 
@@ -186,14 +186,14 @@ instance RenderMessage App FormMessage where
 
 -- | Get the 'Extra' value, used to hold data from the settings.yml file.
 --getExtra :: Handler Extra
-getExtra :: GHandler sub App Extra 
+getExtra :: HandlerT App IO Extra
 getExtra = fmap (appExtra . settings) getYesod
 
-getBlogTitle :: GHandler sub App Text
+getBlogTitle :: HandlerT App IO Text
 getBlogTitle = extraBlogTitle . appExtra . settings <$> getYesod
 
 -- is administrator? return AuthResult ver.
-isAdmin :: GHandler s App AuthResult 
+isAdmin :: HandlerT App IO AuthResult
 isAdmin = do
   extra <- getExtra
   mauth <- maybeAuth
@@ -204,12 +204,12 @@ isAdmin = do
       | otherwise -> return $ Unauthorized ""
 
 -- is administrator? return Bool ver.
-isAdmin' :: User -> GHandler sub App Bool
+isAdmin' :: User -> HandlerT App IO Bool
 isAdmin' user = do
   adminUser <- extraAdmins . appExtra . settings <$> getYesod
   return $ userEmail user `elem` adminUser
 
-isAuthenticated :: YesodAuth master => GHandler sub master AuthResult
+isAuthenticated :: YesodAuth master => HandlerT master IO AuthResult
 isAuthenticated = do
     maid <- maybeAuthId
     if isNothing maid

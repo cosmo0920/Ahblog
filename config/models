@@ -2,7 +2,7 @@ User
     email Text
     UniqueUser email
     screenName Text
-    deriving Show
+    deriving Show Typeable
 
 Comment
     name Text

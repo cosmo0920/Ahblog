@@ -13,7 +13,6 @@
             Permalink |
           <a href=@{PermalinkR $ articleSlug article}#comment>
             Comment
-
   <div .span3>
     ^{sidebarWidget}
 <hr>
