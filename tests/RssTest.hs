@@ -5,12 +5,12 @@ module RssTest
 
 import TestImport
 
-rssSpecs :: Specs
+rssSpecs :: Spec
 rssSpecs =
-  describe "GET /blog/feed" $ do
-    describe "feed empty" $ do
-      it "should be notFound" $ do
-        get_ "/blog/feed"
+  ydescribe "GET /blog/feed" $ do
+    ydescribe "feed empty" $ do
+      yit "should be notFound" $ do
+        get BlogFeedR
         statusIs 404
     -- describe "feed can read" $ do
     --   it "should be ...?" $ do

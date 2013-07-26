@@ -2,24 +2,25 @@
 module TestImport
     ( module Yesod.Test
     , module Model
+    , module Foundation
     , module Database.Persist
     , runDB
-    , Specs
+    , Spec
+    , Example
     ) where
 
 import Yesod.Test
 import Database.Persist hiding (get)
-import Database.Persist.GenericSql (runSqlPool, SqlPersist, Connection)
-import Control.Monad.Trans.Resource (ResourceT, runResourceT)
-import Control.Monad.Logger (NoLoggingT, runNoLoggingT)
+import Database.Persist.Sql (SqlPersistM, runSqlPersistMPool)
+import Control.Monad.IO.Class (liftIO)
 
+import Foundation
 import Model
 
-type Specs = SpecsConn Connection
+type Spec = YesodSpec App
+type Example = YesodExample App
 
-runDB :: SqlPersist (NoLoggingT (ResourceT IO)) a -> OneSpec Connection a
-runDB = runDBRunner poolRunner
-  where
-    poolRunner query pool = runResourceT
-                          $ runNoLoggingT
-                          $ runSqlPool query pool
+runDB :: SqlPersistM a -> Example a
+runDB query = do
+    pool <- fmap connPool getTestYesod
+    liftIO $ runSqlPersistMPool query pool

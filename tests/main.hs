@@ -7,6 +7,7 @@ module Main where
 import Import
 import Yesod.Default.Config
 import Yesod.Test
+import Test.Hspec (hspec)
 import Application (makeFoundation)
 
 import HomeTest
@@ -23,19 +24,21 @@ main = yesodTest
 
 yesodTest :: IO ()
 yesodTest = do
-    conf <- loadConfig $ (configSettings Testing) { csParseExtra = parseExtra }
+    conf <- Yesod.Default.Config.loadConfig $ (configSettings Testing)
+	            { csParseExtra = parseExtra
+                }
     foundation <- makeFoundation conf
-    app <- toWaiAppPlain foundation
-    runTests app (connPool foundation) $ do
-      initDBSpecs
-      homeSpecs
-      navbarSpecs
-      aboutSpecs
-      adminSpecs
-      admintoolsSpecs
-      userProfileSpecs
-      rssSpecs
-      visitUserSpecs
-      persistUserSpecs
-      persistImageSpecs
-      persistArticleSpecs
+    hspec $ do
+      yesodSpec foundation $ do
+        initDBSpecs
+        homeSpecs
+        navbarSpecs
+        aboutSpecs
+        adminSpecs
+        admintoolsSpecs
+        userProfileSpecs
+        rssSpecs
+        visitUserSpecs
+        persistUserSpecs
+        persistImageSpecs
+        persistArticleSpecs

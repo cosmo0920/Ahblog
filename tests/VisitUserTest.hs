@@ -5,42 +5,42 @@ module VisitUserTest
 
 import TestImport
 
-visitUserSpecs :: Specs
+visitUserSpecs :: Spec
 visitUserSpecs =
-  describe "visit initilal /blog" $ do
-    describe "has no contents" $ do 
-      it "one can GET /blog" $ do
-        get_ "/blog"
+  ydescribe "visit initilal /blog" $ do
+    ydescribe "has no contents" $ do
+      yit "one can GET /blog" $ do
+        get BlogViewR
         statusIs 200
 
-      it "GET /blog" $ do
-          get_ "/blog"
-          htmlAllContain "h1" "Article"
-          htmlAllContain "h3" "no articles"
+      yit "GET /blog" $ do
+        get BlogViewR
+        htmlAllContain "h1" "Article"
+        htmlAllContain "h3" "no articles"
 
-    describe "Blog has rss Feed img" $ do
-      it "GET /blog then html has img tag which contains feed-icon" $ do
-        get_ "/blog"
-        htmlAllContain "img" "feed-icon"
+    ydescribe "Blog has rss Feed img" $ do
+      yit "GET /blog then html has img tag which contains feed-icon" $ do
+        get BlogViewR
+	htmlAllContain "img" "feed-icon"
 
-    describe "Blog has search form" $ do
-      it "GET /blog then html has .form-search" $ do
-        get_ "/blog"
+    ydescribe "Blog has search form" $ do
+      yit "GET /blog then html has .form-search" $ do
+        get BlogViewR
         htmlAllContain "form" "form-search"
 
-    describe "Blog has sidebar" $ do
-      it "GET /blog then html has .span3" $ do
-        get_ "/blog"
+    ydescribe "Blog has sidebar" $ do
+      yit "GET /blog then html has .span3" $ do
+        get BlogViewR
         htmlAllContain "body" "span3"
         htmlAllContain "body" "align=\"right\""
 
-    describe "/blog contains footer" $ do
-     it "footer contains Code" $ do
-        get_ "/blog"
+    ydescribe "/blog contains footer" $ do
+      yit "footer contains Code" $ do
+        get BlogViewR
         let source = "Code"
         htmlAllContain "footer" source
 
-     it "footer contains License" $ do
-        get_ "/blog"
+      yit "footer contains License" $ do
+        get BlogViewR
         let license = "MIT License"
         htmlAllContain "footer" license

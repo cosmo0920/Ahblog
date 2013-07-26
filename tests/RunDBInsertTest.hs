@@ -7,27 +7,29 @@ module RunDBInsertTest
     ) where
 
 import TestImport
-import Database.Persist.GenericSql (Connection)
 import qualified Database.Persist as P
 import Control.Exception.Lifted (bracket_)
 import Data.Time (getCurrentTime)
 import Control.Monad.IO.Class (liftIO)
+import Control.Monad.Trans.State.Lazy
 
-withDeleteUserTable :: OneSpec Connection a -> OneSpec Connection a
+--WIP
+--Yesod Test 1.2 type?
+--withDeleteUserTable :: Spec Connection a -> Spec Connection a
 withDeleteUserTable = bracket_ setUpUserTable tearDownUserTable
   where
     setUpUserTable = deleteUserTable
     tearDownUserTable = deleteUserTable
     deleteUserTable = runDB $ P.deleteWhere ([] :: [P.Filter User])
 
-withDeleteImageTable :: OneSpec Connection a -> OneSpec Connection a
+--withDeleteImageTable :: Spec Connection a -> Spec Connection a
 withDeleteImageTable = bracket_ setUpImageTable tearDownImageTable
   where
     setUpImageTable = deleteImageTable
     tearDownImageTable = deleteImageTable
     deleteImageTable = runDB $ P.deleteWhere ([] :: [P.Filter Image])
 
-withDeleteArticleTable :: OneSpec Connection a -> OneSpec Connection a
+--withDeleteArticleTable :: Spec Connection a -> Spec Connection a
 withDeleteArticleTable = bracket_ setUpArticleTable tearDownArticleTable
   where
     setUpArticleTable = deleteArticleTable
@@ -36,10 +38,10 @@ withDeleteArticleTable = bracket_ setUpArticleTable tearDownArticleTable
       P.deleteWhere ([] :: [P.Filter Article])
       P.deleteWhere ([] :: [P.Filter User])
 
-persistUserSpecs :: Specs
+persistUserSpecs :: Spec
 persistUserSpecs = do
-  describe "User Persist Spec" $ do
-    it "User table can insert and setup/teardown" $ withDeleteUserTable $ do
+  ydescribe "User Persist Spec" $ do
+    yit "User table can insert and setup/teardown" $ withDeleteUserTable $ do
       let email = "test@example.com"
           name  = "test user"
       key <- runDB $ P.insert $ User {
@@ -50,10 +52,10 @@ persistUserSpecs = do
       assertEqual "userScreenName" (user >>= return . userScreenName) (Just name)
       assertEqual "userEmail" (user >>= return . userEmail) (Just email)
 
-persistImageSpecs :: Specs
+persistImageSpecs :: Spec
 persistImageSpecs = do
-  describe "Image Persist Spec" $ do
-    it "Image table can insert and setup/teardown" $ withDeleteImageTable $ do
+  ydescribe "Image Persist Spec" $ do
+    yit "Image table can insert and setup/teardown" $ withDeleteImageTable $ do
       createTime <- liftIO $ getCurrentTime
       let imageDateAt = createTime
           imageName   = "test.png"
@@ -66,10 +68,10 @@ persistImageSpecs = do
       assertEqual "image" (image >>= return . imageFilename) (Just imageName)
       assertEqual "image" (image >>= return . imageDate) (Just imageDateAt)
 
-persistArticleSpecs :: Specs
+persistArticleSpecs :: Spec
 persistArticleSpecs = do
-   describe "Article Persist Spec" $ do
-    it "Article table can insert and setup/teardown" $ withDeleteArticleTable $ do
+  ydescribe "Article Persist Spec" $ do
+    yit "Article table can insert and setup/teardown" $ withDeleteArticleTable $ do
       createTime <- liftIO $ getCurrentTime
       let title       = "test"
           content     = "test post"
