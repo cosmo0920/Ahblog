@@ -4,13 +4,14 @@ module RunDBInsertTest
     ( persistUserSpecs
     , persistImageSpecs
     , persistArticleSpecs
+    , persistCommentSpecs
+    , persistTagSpecs
     ) where
 
 import TestImport
 import qualified Database.Persist as P
 import Data.Time (getCurrentTime)
 import Control.Monad.IO.Class (liftIO)
-import Control.Monad.Trans.State.Lazy
 import HelperDB
 
 persistUserSpecs :: Spec
@@ -73,3 +74,73 @@ persistArticleSpecs = do
       assertEqual "article" (article >>= return . articleContent) (Just content)
       assertEqual "article" (article >>= return . articleSlug) (Just slug)
       assertEqual "article" (article >>= return . articleCreatedAt) (Just createTime)
+
+persistCommentSpecs :: Spec
+persistCommentSpecs = do
+  ydescribe "Comment Persist Spec" $ do
+    yit "Comment table can insert and setup/teardown" $ withDeleteCommentTable $ do
+      createTime <- liftIO $ getCurrentTime
+      let name           = "Anonymous"
+          writtenContent = "test comment"
+          createdTime    = createTime
+      key <- runDB $ do
+        --when Article has "UserId", then before create User data
+        let email = "test@example.com"
+            userDisplayname  = "test user"
+        userId <- P.insert $ User {
+          userEmail      = email
+        , userScreenName = userDisplayname
+        }
+        let title              = "test"
+            content            = "test post"
+            slug               = "testSlug"  
+            articleCreatedTime = createdTime    
+        articleId <- P.insert $ Article {
+          articleAuthor    = userId
+        , articleTitle     = title
+        , articleContent   = content
+        , articleSlug      = slug
+        , articleCreatedAt = articleCreatedTime
+        }
+        P.insert $ Comment {
+          commentName    = name
+        , commentContent = writtenContent
+        , commentArticle = articleId
+        , commentPosted  = createdTime
+        }
+      comment <- runDB $ P.get key
+      assertEqual "comment" (comment >>= return . commentName) (Just name)
+      assertEqual "comment" (comment >>= return . commentContent) (Just writtenContent)
+
+persistTagSpecs :: Spec
+persistTagSpecs = do
+  ydescribe "Tag Persist Spec" $ do
+    yit "Tag table can insert and setup/teardown" $ withDeleteTagTable $ do
+      createTime <- liftIO $ getCurrentTime
+      let name           = "testTag"
+          createdTime    = createTime
+      key <- runDB $ do
+        --when Article has "UserId", then before create User data
+        let email = "test@example.com"
+            userDisplayname  = "test user"
+        userId <- P.insert $ User {
+          userEmail      = email
+        , userScreenName = userDisplayname
+        }
+        let title              = "test"
+            content            = "test post"
+            slug               = "testSlug"  
+            articleCreatedTime = createdTime    
+        articleId <- P.insert $ Article {
+          articleAuthor    = userId
+        , articleTitle     = title
+        , articleContent   = content
+        , articleSlug      = slug
+        , articleCreatedAt = articleCreatedTime
+        }
+        P.insert $ Tag {
+          tagName    = name
+        , tagArticle = articleId
+        }
+      tag <- runDB $ P.get key
+      assertEqual "tag" (tag >>= return . tagName) (Just name)

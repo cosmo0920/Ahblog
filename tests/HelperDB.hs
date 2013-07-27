@@ -4,12 +4,13 @@ module HelperDB
     ( withDeleteUserTable
     , withDeleteImageTable
     , withDeleteArticleTable
+    , withDeleteCommentTable
+    , withDeleteTagTable
     ) where
 
 import TestImport
 import qualified Database.Persist as P
 import Control.Exception.Lifted (bracket_)
-
 
 --WIP
 --Yesod Test 1.2 type?
@@ -35,3 +36,21 @@ withDeleteArticleTable = bracket_ setUpArticleTable tearDownArticleTable
     deleteArticleTable = runDB $ do
       P.deleteWhere ([] :: [P.Filter Article])
       P.deleteWhere ([] :: [P.Filter User])
+
+withDeleteCommentTable = bracket_ setUpCommentTable tearDownCommentTable
+  where
+    setUpCommentTable = deleteCommentTable
+    tearDownCommentTable = deleteCommentTable
+    deleteCommentTable = runDB $ do
+      P.deleteWhere ([] :: [P.Filter Comment])
+      P.deleteWhere ([] :: [P.Filter Article])
+      P.deleteWhere ([] :: [P.Filter User])
+
+withDeleteTagTable = bracket_ setUpTagTable tearDownTagTable
+  where
+   setUpTagTable = deleteTagTable
+   tearDownTagTable = deleteTagTable
+   deleteTagTable = runDB $ do
+     P.deleteWhere ([] :: [P.Filter Tag])
+     P.deleteWhere ([] :: [P.Filter Article])
+     P.deleteWhere ([] :: [P.Filter User]) 
