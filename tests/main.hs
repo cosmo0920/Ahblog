@@ -39,3 +39,5 @@ yesodTest = do
       persistUserSpecs
       persistImageSpecs
       persistArticleSpecs
+      persistCommentSpecs
+      persistTagSpecs
