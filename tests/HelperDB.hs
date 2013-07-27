@@ -12,23 +12,21 @@ import TestImport
 import qualified Database.Persist as P
 import Control.Exception.Lifted (bracket_)
 
---WIP
---Yesod Test 1.2 type?
---withDeleteUserTable :: Spec Connection a -> Spec Connection a
+withDeleteUserTable :: YesodExample App a -> YesodExample App a
 withDeleteUserTable = bracket_ setUpUserTable tearDownUserTable
   where
     setUpUserTable = deleteUserTable
     tearDownUserTable = deleteUserTable
     deleteUserTable = runDB $ P.deleteWhere ([] :: [P.Filter User])
 
---withDeleteImageTable :: Spec Connection a -> Spec Connection a
+withDeleteImageTable :: YesodExample App a -> YesodExample App a
 withDeleteImageTable = bracket_ setUpImageTable tearDownImageTable
   where
     setUpImageTable = deleteImageTable
     tearDownImageTable = deleteImageTable
     deleteImageTable = runDB $ P.deleteWhere ([] :: [P.Filter Image])
 
---withDeleteArticleTable :: Spec Connection a -> Spec Connection a
+withDeleteArticleTable :: YesodExample App a -> YesodExample App a
 withDeleteArticleTable = bracket_ setUpArticleTable tearDownArticleTable
   where
     setUpArticleTable = deleteArticleTable
@@ -37,6 +35,7 @@ withDeleteArticleTable = bracket_ setUpArticleTable tearDownArticleTable
       P.deleteWhere ([] :: [P.Filter Article])
       P.deleteWhere ([] :: [P.Filter User])
 
+withDeleteCommentTable :: YesodExample App a -> YesodExample App a
 withDeleteCommentTable = bracket_ setUpCommentTable tearDownCommentTable
   where
     setUpCommentTable = deleteCommentTable
@@ -46,6 +45,7 @@ withDeleteCommentTable = bracket_ setUpCommentTable tearDownCommentTable
       P.deleteWhere ([] :: [P.Filter Article])
       P.deleteWhere ([] :: [P.Filter User])
 
+withDeleteTagTable :: YesodExample App a -> YesodExample App a
 withDeleteTagTable = bracket_ setUpTagTable tearDownTagTable
   where
    setUpTagTable = deleteTagTable
