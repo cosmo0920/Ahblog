@@ -5,28 +5,28 @@ module AboutTest
 
 import TestImport
 
-aboutSpecs :: Specs
+aboutSpecs :: Spec
 aboutSpecs =
-  describe "/about tests" $ do
-    it "loads the index and checks it looks right at About" $ do
-      get_ "/about"
+  ydescribe "/about tests" $ do
+    yit "loads the index and checks it looks right at About" $ do
+      get AboutR
       statusIs 200
       htmlAllContain "h1" "About"
 
-    it "about.md contain img" $ do
-      get_ "/about"
+    yit "about.md contain img" $ do
+      get AboutR
       statusIs 200
       htmlAllContain "img" "gravatar.com"
     
-    describe "/about contains footer" $ do
-      it "footer contains Code" $ do
-        get_ "/about"
+    ydescribe "/about contains footer" $ do
+      yit "footer contains Code" $ do
+        get AboutR
         statusIs 200
         let source = "Code"
         htmlAllContain "footer" source
 
-      it "footer contains License" $ do
-        get_ "/about"
+      yit "footer contains License" $ do
+        get AboutR
         statusIs 200
         let license = "MIT License"
         htmlAllContain "footer" license

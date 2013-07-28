@@ -5,9 +5,9 @@ module UserProfileTest
 
 import TestImport
 
-userProfileSpecs :: Specs
+userProfileSpecs :: Spec
 userProfileSpecs =
-  describe "not logged in user GET /setting/user" $ do
-    it "should be redirect" $ do
-      get_ "/setting/user"
+  ydescribe "not logged in user GET /setting/user" $ do
+    yit "should be redirect" $ do
+      get UserSettingR
       statusIs 303

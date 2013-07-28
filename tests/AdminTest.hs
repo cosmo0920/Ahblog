@@ -5,29 +5,30 @@ module AdminTest
     ) where
 
 import TestImport
+import Yesod.Auth
 
-adminSpecs :: Specs
+adminSpecs :: Spec
 adminSpecs =
-  describe "website has auth page" $ do
-    it "GET /auth/login" $ do
-      get_ "/auth/login"
+  ydescribe "website has auth page" $ do
+    yit "GET /auth/login" $ do
+      get $ AuthR LoginR
       statusIs 200
     
-    it "GET /auth/logout" $ do
-      get_ "/auth/logout"
+    yit "GET /auth/logout" $ do
+      get $ AuthR LogoutR
       statusIs 200
 
-admintoolsSpecs :: Specs
+admintoolsSpecs :: Spec
 admintoolsSpecs =
-  describe "not admin user" $ do
-    it "GET /admin/manage should redirect" $ do
-      get_ "/admin/manage"
+  ydescribe "not admin user" $ do
+    yit "GET /admin/manage should redirect" $ do
+      get AdminR
       statusIs 303
 
-    it "GET /admin/new should redirect" $ do
-      get_ "/admin/new"
+    yit "GET /admin/new should redirect" $ do
+      get NewBlogR
       statusIs 303
 
-    it "GET /file should redirect" $ do
-      get_ "/file"
-      statusIs 303 
+    yit "GET /file should redirect" $ do
+      get ImagesR
+      statusIs 303
