@@ -51,6 +51,68 @@ visitUserSpecs =
         htmlAllContain "h2" "test"
         htmlAllContain "article" "test post"
 
+    ydescribe "has one content" $ do
+      yit "when article has no comment" $ withDeleteCommentTable $ do
+        createTime <- liftIO $ getCurrentTime
+        let title       = "test"
+            content     = "test post"
+            slug        = "testSlug"
+            createdTime = createTime
+
+        _ <- runDB $ do
+          --when Article has "UserId", then before create User data
+          let email = "test@example.com"
+              name  = "test user"
+          userId <- P.insert $ User {
+            userEmail      = email
+          , userScreenName = name
+          }
+          P.insert $ Article {
+            articleAuthor    = userId
+          , articleTitle     = title
+          , articleContent   = content
+          , articleSlug      = slug
+          , articleCreatedAt = createdTime
+          }
+        --when blog has article, one can get BlogArticle
+        get $ PermalinkR slug
+        statusIs 200
+        htmlAnyContain "h3" "There are no comment in this article"
+
+      yit "when article has one comment" $ withDeleteCommentTable $ do
+        createTime <- liftIO $ getCurrentTime
+        let title       = "test"
+            content     = "test post"
+            slug        = "testSlug"
+            createdTime = createTime
+
+        _ <- runDB $ do
+          --when Article has "UserId", then before create User data
+          let email = "test@example.com"
+              name  = "test user"
+          userId <- P.insert $ User {
+            userEmail      = email
+          , userScreenName = name
+          }
+          articleId <- P.insert $ Article {
+            articleAuthor    = userId
+          , articleTitle     = title
+          , articleContent   = content
+          , articleSlug      = slug
+          , articleCreatedAt = createdTime
+          }
+          let cname    = "Anonymous"
+              ccontent = "test comment"
+          P.insert $ Comment {
+            commentName    = cname
+          , commentContent = ccontent
+          , commentArticle = articleId
+          , commentPosted  = createdTime
+          }
+        get $ PermalinkR slug
+        statusIs 200
+        htmlAnyContain "article" "test comment"
+
     ydescribe "Blog has rss Feed img" $ do
       yit "GET /blog then html has img tag which contains feed-icon" $ do
         get BlogViewR
