@@ -50,6 +50,8 @@ AboutページはMarkdownで記述でき、自由に差し替えられます。
 
 when you use __Debian and related distributions...__
 
+Install dependent libraries
+
 ```bash
 $ git clone https://github.com/cosmo0920/Ahblog.git
 $ cd Ahblog
@@ -58,7 +60,20 @@ $ cabal install happy [or $ sudo apt-get install happy]
 $ cabal install cabal-dev
 $ ~/.cabal/bin/cabal-dev install --dry-run --only-dependencies #prevent dependency hell
 $ ~/.cabal/bin/cabal-dev install --only-dependencies
-$ cabal-dev/bin/yesod --dev devel
+```
+
+build application
+
+```bash
+$ ~/.cabal/bin/cabal-dev configure
+$ ~/.cabal/bin/cabal-dev build
+```
+
+or
+
+```bash
+$ ~/.cabal/bin/cabal-dev install yesod-bin
+$ ~/.cabal/bin/cabal-dev --dev devel
 ```
 
 * * * *
