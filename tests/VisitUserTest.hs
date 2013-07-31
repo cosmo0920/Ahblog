@@ -123,6 +123,46 @@ visitUserSpecs =
         get_ "/blog"
         htmlAllContain "form" "form-search"
 
+      describe "Blog has search path" $ do
+        describe "Blog has no contents" $ do
+          it "GET /search" $ do
+            get_ "/search"
+            statusIs 200
+            htmlAnyContain "p" "no match"
+
+          it "GET /search?q=test" $ do
+            get_ "/search?q=test post"
+            statusIs 200
+            htmlAnyContain "p" "no match"
+
+        describe "Blog has one contents" $ do
+          it "one can get search result" $ withDeleteArticleTable $ do
+            createTime <- liftIO $ getCurrentTime
+            let title       = "test"
+                content     = "test post"
+                slug        = "testSlug"
+                createdTime = createTime
+             
+            _ <- runDB $ do
+              --when Article has "UserId", then before create User data
+              let email = "test@example.com"
+                  name  = "test user"
+              userId <- P.insert $ User {
+                userEmail      = email
+              , userScreenName = name
+              }
+              P.insert $ Article {
+                articleAuthor    = userId
+              , articleTitle     = title
+              , articleContent   = content
+              , articleSlug      = slug
+              , articleCreatedAt = createdTime
+              }
+            --when blog has article, one can get BlogArticle
+            get_ "/search?q=test post"
+            statusIs 200
+            htmlAnyContain "p" "test post"
+
     describe "Blog has sidebar" $ do
       it "GET /blog then html has .span3" $ do
         get_ "/blog"
