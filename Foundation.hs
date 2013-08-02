@@ -13,7 +13,7 @@ import qualified Settings
 import Settings.Development (development)
 import qualified Database.Persist
 import Settings.StaticFiles
-import Database.Persist.Sql (SqlPersistT) 
+import Database.Persist.Sql (SqlPersistT)
 import Settings (widgetFile, Extra (..))
 import Model
 import Text.Jasmine (minifym)
@@ -165,7 +165,7 @@ instance YesodAuth App where
         case x of
             Just (Entity uid _) -> return $ Just uid
             Nothing -> do
-                fmap Just $ insert $ 
+                fmap Just $ insert $
                   User (credsIdent creds) (credsIdent creds)
 
     -- You can add other plugins like BrowserID, email or OAuth here
@@ -195,7 +195,7 @@ isAdmin = do
     Nothing -> return AuthenticationRequired
     Just (Entity _ user)
       | userEmail user `elem` extraAdmins extra -> return Authorized
-      | otherwise -> return $ Unauthorized ""
+      | otherwise -> unauthorizedI MsgNotAnAdmin
 
 -- is administrator? return Bool ver.
 isAdmin' :: User -> HandlerT App IO Bool

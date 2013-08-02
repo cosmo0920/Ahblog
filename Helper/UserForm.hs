@@ -10,4 +10,4 @@ userForm html = do
       screenName = userScreenName user
   flip renderBootstrap html $ User
     <$> pure email
-    <*> areq textField "screen_name" (Just screenName)
+    <*> areq textField (fieldSettingsLabel MsgFormUserName) (Just screenName)

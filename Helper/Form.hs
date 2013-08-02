@@ -28,10 +28,10 @@ postForm mart mtags html = do
     in (,) <$> art <*> tags
   return (r,widget)
       where
-        fsTitle   = "Title"   { fsAttrs = [("class", "span8")] }
-        fsContent = "Content" { fsAttrs = [("class", "span8")] }
-        fsSlug    = "Slug"    { fsAttrs = [("class", "span8")] }
-        fsTag     = "Tag"     { fsAttrs = [("class", "span8")] }
+        fsTitle   = (fieldSettingsLabel MsgFormArticleTitle)   { fsAttrs = [("class", "span8")] }
+        fsContent = (fieldSettingsLabel MsgFormArticleContent) { fsAttrs = [("class", "span8")] }
+        fsSlug    = (fieldSettingsLabel MsgFormArticleSlug)    { fsAttrs = [("class", "span8")] }
+        fsTag     = (fieldSettingsLabel MsgFormArticleTag)     { fsAttrs = [("class", "span8")] }
 
 commentForm :: ArticleId -> Form Comment
 commentForm articleId extra = do
@@ -46,5 +46,5 @@ commentForm articleId extra = do
           <*> pure articleId
           <*> lift (liftIO getCurrentTime)
             where
-              fsName    = "Name"    { fsAttrs = [("class", "span7")] }
-              fsContent = "Content" { fsAttrs = [("class", "span7")] }
+              fsName    = (fieldSettingsLabel MsgFormCommentName)    { fsAttrs = [("class", "span7")] }
+              fsContent = (fieldSettingsLabel MsgFormCommentContent) { fsAttrs = [("class", "span7")] }
