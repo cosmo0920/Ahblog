@@ -9,7 +9,7 @@ getUserSettingR = do
   Entity key user <- requireAuth
   (widget, enctype) <- generateFormPost userForm
   defaultLayout $ do
-    setTitle "Settings"
+    setTitleI MsgUserSetting
     $(widgetFile "user-setting")
 
 postUserSettingR :: Handler RepHtml
