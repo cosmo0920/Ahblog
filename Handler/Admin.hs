@@ -26,7 +26,7 @@ getAdminR = do
   (articleWidget, enctype) <- generateFormPost entryForm
   maid <- maybeAuthId
   defaultLayout $ do
-    setTitle "Admin Page"
+    setTitleI MsgAdminPageTitle
     $(widgetFile "admin/index")
 
 postAdminR :: Handler RepHtml
@@ -45,7 +45,7 @@ postAdminR = do
       setMessage $ toHtml $ html renderer
       redirect $ ArticleR articleId
     _ -> defaultLayout $ do
-            setTitle "Please correct your entry form"
+            setTitleI MsgPostArticleFailure
             $(widgetFile "admin/articleAddError")
 
 getNewBlogR :: Handler RepHtml
@@ -62,7 +62,7 @@ getNewBlogR = do
   (articleWidget, enctype) <- generateFormPost entryForm
   maid <- maybeAuthId
   defaultLayout $ do
-    setTitle "Admin Page"
+    setTitleI MsgAdminPageTitle
     $(widgetFile "admin/new")
 
 getArticleR :: ArticleId -> Handler RepHtml
@@ -88,10 +88,10 @@ postArticleR articleId = do
   case res of
     FormSuccess comment -> do
       _ <- runDB $ insert comment
-      setMessage "Your comment was posted"
+      setMessageI MsgPostArticleCommentSuccess
       redirect $ ArticleR articleId
     _ -> do
-      setMessage "Error occurred"
+      setMessageI MsgPostArticleCommentFailure
       redirect $ ArticleR articleId
 
 postNewBlogR :: Handler RepHtml
@@ -112,7 +112,7 @@ postNewBlogR = do
       setMessage $ toHtml $ html renderer
       redirect $ ArticleR articleId
     _ -> defaultLayout $ do
-           setTitle "Please correct your entry form"
+           setTitleI MsgPostArticleFailure
            $(widgetFile "admin/articleAddError")
 
 getArticleEditR :: ArticleId -> Handler RepHtml
@@ -127,7 +127,7 @@ getArticleEditR articleId = do
   maid <- maybeAuthId
   (postWidget, enctype) <- generateFormPost $ (postForm (Just post) (Just oldTags))
   defaultLayout $ do
-    setTitle "Edit Blog"
+    setTitleI MsgArticleEdit
     $(widgetFile "admin/edit")
 
 postPreviewR :: Handler RepHtml
@@ -141,18 +141,18 @@ postPreviewR = do
       defaultLayout $ do
         $(widgetFile "admin/preview")
     _ -> do
-      setMessage "Something went wrong."
+      setMessageI MsgArticleSomethingWentWrong
       redirect NewBlogR
 
 postArticleEditR :: ArticleId -> Handler RepHtml
-postArticleEditR articleId = do 
+postArticleEditR articleId = do
   maid <- maybeAuthId
   (Entity _ user) <- requireAuth
   let username = userScreenName user
   ((res, postWidget), enctype) <- runFormPost entryForm
   case res of
-       FormSuccess (post, tags) -> do 
-         runDB $ do 
+       FormSuccess (post, tags) -> do
+         runDB $ do
            update articleId [ ArticleTitle =. articleTitle post
                             , ArticleContent =. articleContent post
                             , ArticleSlug =. articleSlug post]
@@ -165,7 +165,7 @@ postArticleEditR articleId = do
          setMessage $ toHtml $ html renderer
          redirect $ ArticleR articleId
        _ -> defaultLayout $ do
-         setTitle "Please corrrect your entry form"
+         setTitleI MsgPostArticleFailure
          $(widgetFile "admin/edit")
 
 getArticleDeleteR :: ArticleId -> Handler RepHtml
@@ -177,7 +177,7 @@ getArticleDeleteR articleId = do
     return (_article, oldTags)
   (postWidget, enctype) <- generateFormPost $ (postForm (Just article) (Just oldTags))
   defaultLayout $ do
-    setTitle "Delete"
+    setTitleI MsgArticleDelete
     $(widgetFile "admin/delete")
 
 postArticleDeleteR :: ArticleId -> Handler RepHtml
@@ -221,5 +221,5 @@ getUserDeleteR usrId = do
       setMessage $ toHtml $ html renderer
       redirect $ AdminR
    else do
-     setMessage "You cannot delete yourself!!"
+     setMessageI MsgDeleteOneselfError
      redirect $ AdminR

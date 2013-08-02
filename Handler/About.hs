@@ -8,7 +8,7 @@ getAboutR :: Handler RepHtml
 getAboutR = do
   fileData <- liftIO $ markdownFromFile aboutPage
   defaultLayout $ do
-    setTitle "About"
+    setTitleI MsgAboutTitle
     [whamlet|$newline never
      #{fileData}
      |]

@@ -81,5 +81,5 @@ getTagR tag = do
     mapM (get404 . tagArticle . entityVal) =<< selectList [TagName ==. tag] []
   when (null articles) notFound
   defaultLayout $ do
-    setTitle $ "Tagged Article"
+    setTitleI MsgTaggedArticle
     $(widgetFile "inline/tag")

@@ -32,10 +32,10 @@ postPermalinkR slug = do
   case res of
     FormSuccess comment -> do
       _ <- runDB $ insert comment
-      setMessage "Your comment was posted"
+      setMessageI MsgArticleCommentPost
       redirect $ PermalinkR slug
     _ -> do
-      setMessage "Error occurred"
+      setMessageI MsgArticleErrorOccurred
       redirect $ PermalinkR slug
 
 getArchiveR :: Handler RepHtml
@@ -43,5 +43,5 @@ getArchiveR = do
   now <- liftIO $ getCurrentTime
   archives <- runDB $ selectList [] [Desc ArticleCreatedAt]
   defaultLayout $ do
-    setTitle "Article Archive"
+    setTitleI MsgArticleArchive
     $(widgetFile "archive")
