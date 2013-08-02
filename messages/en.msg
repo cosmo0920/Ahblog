@@ -1,4 +1,7 @@
 Hello: Hello
+## Handler
+#Foundation.hs
+NotAnAdmin: You have not permission to access this page.
 #Image.hs
 FileSaved: File saved
 FileDeleted: File has been deleted.
@@ -23,3 +26,16 @@ TaggedArticle: Tagged Article
 UserSetting: Settings
 #About.hs
 AboutTitle: About
+## Helper
+#Form.hs
+FormArticleTitle: Title
+FormArticleContent: Content
+FormArticleSlug: Slug
+FormArticleTag: Tag
+FormCommentName: Name
+FormCommentContent: Comment
+#Image.hs
+FormFileUpload: Upload file
+FormFileDescription: file description
+#UserForm.hs
+FormUserName: Screen Name

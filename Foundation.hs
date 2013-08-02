@@ -165,7 +165,7 @@ instance YesodAuth App where
         case x of
             Just (Entity uid _) -> return $ Just uid
             Nothing -> do
-                fmap Just $ insert $ 
+                fmap Just $ insert $
                   User (credsIdent creds) (credsIdent creds)
 
     -- You can add other plugins like BrowserID, email or OAuth here
@@ -180,14 +180,14 @@ instance RenderMessage App FormMessage where
 
 -- | Get the 'Extra' value, used to hold data from the settings.yml file.
 --getExtra :: Handler Extra
-getExtra :: GHandler sub App Extra 
+getExtra :: GHandler sub App Extra
 getExtra = fmap (appExtra . settings) getYesod
 
 getBlogTitle :: GHandler sub App Text
 getBlogTitle = extraBlogTitle . appExtra . settings <$> getYesod
 
 -- is administrator? return AuthResult ver.
-isAdmin :: GHandler s App AuthResult 
+isAdmin :: GHandler s App AuthResult
 isAdmin = do
   extra <- getExtra
   mauth <- maybeAuth
@@ -195,7 +195,7 @@ isAdmin = do
     Nothing -> return AuthenticationRequired
     Just (Entity _ user)
       | userEmail user `elem` extraAdmins extra -> return Authorized
-      | otherwise -> return $ Unauthorized ""
+      | otherwise -> unauthorizedI MsgNotAnAdmin
 
 -- is administrator? return Bool ver.
 isAdmin' :: User -> GHandler sub App Bool
