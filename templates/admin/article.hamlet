@@ -16,10 +16,10 @@
         <article>#{articleContent article}<br/>
       <hr>
       $if null comments
-        <h3>There are no comment in this article
+        <h3>_{MsgArticleNoComment}
       $else
         <div>
-        <h3>Comment</h3>
+        <h3>_{MsgComment}</h3>
           $forall Comment name content _ posted <- comments
             <article>
               <div .name>
@@ -29,13 +29,13 @@
                 #{content}
 
       <hr>
-      <h3 #comment>Add Comment
+      <h3 #comment>_{MsgAddComment}
       <form method="post" enctype="#{enctype}">
             ^{commentWidget}
-         <input type="submit" .btn .btn-primary .rbtn value="Post">
+         <input type="submit" .btn .btn-primary .rbtn value=_{MsgArticleCommentPostButton}>
       <hr>
       <ul .pager .pull-left>
-        <li .previous><a href=@{BlogViewR} .btn><i class="icon-circle-arrow-left"></i> Back Recent Post
+        <li .previous><a href=@{BlogViewR} .btn><i class="icon-circle-arrow-left"></i>_{MsgBackToRecentPost}
     <div .span3>
-      ^{sidebarWidget}      
+      ^{sidebarWidget}
     <hr>

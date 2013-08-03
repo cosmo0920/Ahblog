@@ -1,16 +1,17 @@
 <div .page-header>
-  <h1>Search Result</h1>
+  <h1>
+    _{MsgSearchResult}
 $if null articles
   <p>There is no match <b>#{searchString}</b> in this blog articles.
   <hr>
 $else
-  <p>Search result for <b>#{searchString}</b> in this blog articles as follows:
+  <p>There is no match <b>#{searchString}</b> in this blog articles as follows:
   <div .post-listing>
     <table .table .table-bordered .table-condensed>
       <thead>
         <tr>
-          <th>Title
-          <th>Posted
+          <th>_{MsgArticleSearchTitle}
+          <th>_{MsgArticleSearchPosted}
 
       <tbody .link>
         $forall Entity _ article <- articles

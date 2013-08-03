@@ -1,12 +1,12 @@
 <div .page-header>
-  <h1>Article Archives
+  <h1>_{MsgArticleArchive}
 
 <div .post-listing>
   <table .table .table-bordered .table-condensed>
     <thead>
       <tr>
-        <th>Title
-        <th>Posted
+        <th>_{MsgArchiveTitle}
+        <th>_{MsgArchivePosted}
 
     <tbody .link>
       $forall Entity _ archive <- archives

@@ -1,27 +1,27 @@
 <div .page-header>
   $maybe _ <- maid
-    <h1>Blog Admin</h1></div>
+    <h1>_{MsgAdminTitle}</h1></div>
 
     <div class="tabbable">
       <ul class="nav nav-tabs">
         <li class="active">
           <a href="#article" data-toggle="tab">
-            Admin Article
+            _{MsgAdminArticle}
         <li>
           <a href="#comment" data-toggle="tab">
-            Admin Comment
+            _{MsgAdminComment}
         <li>
           <a href="#post" data-toggle="tab">
-            Simple Post
+            _{MsgAdminSimplePost}
         <li>
           <a href="#user" data-toggle="tab">
-            User
+            _{MsgAdminUser}
 
     <div class="tab-content">
       <div class="tab-pane active" id="article">
-        <h3>Index article
+        <h3>_{MsgAdminIndex}
         $if null articles
-          <p> There are no articles in the blog
+          <p>_{MsgNoArticle}
         $else
            $forall Entity articleId article <- articles
              <table .table-condensed>
@@ -29,24 +29,24 @@
                  <td width="280">
                    <a href=@{ArticleR articleId}>#{makeBrief 25 $ articleTitle article}
                  <td width="30">
-                   <a href=@{ArticleEditR articleId}> Edit
+                   <a href=@{ArticleEditR articleId}>_{MsgAdminEdit}
                  <td width="30">
-                   <a href=@{ArticleDeleteR articleId}> Delete
+                   <a href=@{ArticleDeleteR articleId}>_{MsgAdminDelete}
            <div .pagination>
              ^{widget}
-        <a href=@{NewBlogR} .btn .btn-info .rbtn><i class="icon-pencil"></i> New Post</a>
-        <a href=@{ImagesR} .btn .btn-success .rbtn><i class="icon-circle-arrow-up"></i> Admin Files</a>
+        <a href=@{NewBlogR} .btn .btn-info .rbtn><i class="icon-pencil"></i> _{MsgAdminNewPost}</a>
+        <a href=@{ImagesR} .btn .btn-success .rbtn><i class="icon-circle-arrow-up"></i> _{MsgAdminFile}</a>
       <div .tab-pane #comment>
-        <h3>Index comment
+        <h3>_{MsgAdminIndexComment}
         $if null comments
-          <p> There are no comments in the blog
+          <p>_{MsgNoComment}
         $else
           <table .table .table-bordered .table-condensed>
            <thead>
              <tr>
-               <th>Name
-               <th>Abstract
-               <th>Admin
+               <th>_{MsgAdminName}
+               <th>_{MsgAdminAbstract}
+               <th>_{MsgAdminContent}
 
            <tbody .link>
              <tbody .link>
@@ -55,26 +55,26 @@
                  <td width="30">#{makeBrief 20 $ commentName comment}
                  <td width="280">#{makeBrief 100 $ commentContent comment}
                  <td width="30">
-                   <a href="@{CommentDeleteR commentId}" #commentdel> 
-                     Delete
+                   <a href="@{CommentDeleteR commentId}" #commentdel>
+                     _{MsgAdminDelete}
 
       <div class="tab-pane" id="post">
-        <h3>simply post
+        <h3>_{MsgAdminSimplePost}
         <form method=post enctype=#{enctype}>
            ^{articleWidget}
            <div>
-              <input type=submit .btn .btn-info .rbtn value="Post New Article">
+              <input type=submit .btn .btn-info .rbtn value=_{MsgAdminNewPost}>
 
       <div class="tab-pane" id="user">
         <h3>
-          User
-        <p>Current login user: #{username}</p>
+          _{MsgAdminUser}
+        <p>_{MsgAdminLoginUser}: #{username}</p>
         <table .table .table-bordered .table-condensed>
          <thead>
            <tr>
-             <th>Email
-             <th>ScreenName
-             <th>Admin
+             <th>_{MsgAdminEmail}
+             <th>_{MsgAdminScreenName}
+             <th>_{MsgAdminContent}
          <tbody .link>
            <tbody .link>
            $forall Entity userId user <- users
@@ -82,14 +82,14 @@
                <td width="30">#{userEmail user}
                <td width="50">#{makeBrief 50 $ userScreenName user}
                <td width="30">
-                 <a href="@{UserDeleteR userId}" #userdel> Delete
+                 <a href="@{UserDeleteR userId}" #userdel> _{MsgAdminDelete}
 
         <a href=@{AuthR LogoutR} .btn .rbtn>
-          Logout
+          _{MsgLogout}
         <a href=@{UserSettingR} .btn .rbtn>
-          Profile
-  
+          _{MsgProfile}
+
       <hr>
   $nothing
-    <h2>Authorization required</h2>
-      <a href=@{AuthR LoginR} class="btn">login 
+    <h2>_{MsgAuthorizationRequired}</h2>
+      <a href=@{AuthR LoginR} class="btn">_{MsgLogin}

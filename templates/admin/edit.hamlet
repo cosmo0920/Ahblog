@@ -1,12 +1,12 @@
 \<!doctype html>
 <div .page-header>
-  <h1>Edit blog page
-  $maybe _ <- maid 
-    <p>Current login user: #{username}</p>
+  <h1>_{MsgAdminEditArticlePageTitle}
+  $maybe _ <- maid
+    <p>_{MsgAdminLoginUser}: #{username}</p>
     <form method=post enctype=#{enctype} #post>
         ^{postWidget}
-      <input type=submit .btn .btn-info .rbtn value="Update Post" #postButton>
+      <input type=submit .btn .btn-info .rbtn value=_{MsgAdminArticleUpdate} #postButton>
   $nothing
-    <h2>Authorization required</h2>
-      <a href=@{AuthR LoginR} class="btn">login
-<ul .pager .pull-left><li .previous><a href=@{AdminR} .btn>&larr; Back Admin
+    <h2>_{MsgNotAnAdmin}</h2>
+      <a href=@{AuthR LoginR} class="btn">_{MsgLogin}
+<ul .pager .pull-left><li .previous><a href=@{AdminR} .btn>_{MsgAdminBackTo}
