@@ -9,7 +9,7 @@ getUserSettingR = do
   Entity key user <- requireAuth
   (widget, enctype) <- generateFormPost userForm
   defaultLayout $ do
-    setTitle "Settings"
+    setTitleI MsgUserSetting
     $(widgetFile "user-setting")
 
 postUserSettingR :: Handler RepHtml
@@ -21,4 +21,10 @@ postUserSettingR = do
     FormSuccess newUser -> do
          runDB $ replace key newUser
          redirect UserSettingR
-    _ -> permissionDenied "You have not permission."
+    _ -> permissionDeniedI MsgUserHaveNotPermission
+
+postLangR :: Handler ()
+postLangR = do
+    lang <- runInputPost $ ireq textField "lang"
+    setLanguage lang
+    redirect UserSettingR

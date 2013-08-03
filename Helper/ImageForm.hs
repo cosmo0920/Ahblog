@@ -15,5 +15,5 @@ uploadForm = renderBootstrap $ (,,)
     <*> aopt textareaField fsFileDescr Nothing
     <*> lift (liftIO getCurrentTime)
         where
-          fsFile      = "Upload file"      { fsAttrs = [("class", "span5")]}
-          fsFileDescr = "file description" { fsAttrs = [("class", "span5")]}
+          fsFile      = (fieldSettingsLabel MsgFormFileUpload)      { fsAttrs = [("class", "span5")]}
+          fsFileDescr = (fieldSettingsLabel MsgFormFileDescription) { fsAttrs = [("class", "span5")]}

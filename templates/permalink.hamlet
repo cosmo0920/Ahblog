@@ -3,7 +3,7 @@
   <div .row>
     <div .span9>
       <p><i class="icon-calendar"></i>#{published}
-      <p><i class="icon-user"></i>Posted by #{screenAuthor}
+      <p><i class="icon-user"></i>Posted By #{screenAuthor}
       $if not (null tags)
         <div .tags>
           <i .icon-tags>
@@ -17,7 +17,7 @@
         <article>#{articleContent}<br/>
       <hr>
       $if null comments
-        <h3>There are no comment in this article
+        <h3>_{MsgArticleNoComment}
       $else
         <div>
         <h3>Comment</h3>
@@ -30,15 +30,16 @@
                 #{content}
       <hr>
       $maybe _ <- maid
-        <h3 #comment>Add Comment
+        <h3 #comment>_{MsgAddComment}
         <form method="post" enctype="#{enctype}">
             ^{commentWidget}
-          <input type="submit" .btn .btn-primary .rbtn value="Post">
+          <input type="submit" .btn .btn-primary .rbtn value=_{MsgArticleCommentPostButton}>
       $nothing
-        <h3 #comment>You must be <a href=@{AuthR LoginR}>logged in</a> to post a comment.
+        <h3 #comment>
+         _{MsgMustBeLoggedIn} <a href=@{AuthR LoginR}>_{MsgLogin}</a>
       <hr>
       <ul .pager .pull-left>
-        <li .previous><a href=@{BlogViewR} .btn><i class="icon-circle-arrow-left"></i> Back Recent Post
+        <li .previous><a href=@{BlogViewR} .btn><i class="icon-circle-arrow-left"></i>_{MsgBackToRecentPost}
     <div .span3>
        ^{sidebarWidget}
     <hr>

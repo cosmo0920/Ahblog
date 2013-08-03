@@ -23,19 +23,19 @@ postImagesR = do
     case result of
         FormSuccess (file, info, date) -> do
             -- DONE: check if image already exists
-            -- use "insertBy" function and add UniqueImage filename constraint to config/models 
+            -- use "insertBy" function and add UniqueImage filename constraint to config/models
             -- save to image directory
             filename <- writeToServer file
             success <- runDB $ insertBy $ Image filename info date
             case success of
               Right _key -> do
-                setMessage "File saved"
+                setMessageI MsgFileSaved
                 redirect ImagesR
               Left _ -> do
-                setMessage "You cannot register same filename image!!"
+                setMessageI MsgCannotRegisterImage
                 redirect ImagesR
         _ -> do
-            setMessage "Something went wrong"
+            setMessageI MsgSomethingWentWrong
             redirect ImagesR
 
 deleteImageR :: ImageId -> Handler ()
@@ -47,13 +47,13 @@ deleteImageR imageId = do
     -- only delete from database if file has been removed from server
     stillExists <- liftIO $ doesFileExist path
 
-    case (not stillExists) of 
+    case (not stillExists) of
         False -> do
-            setMessage "Something went wrong."
+            setMessageI MsgCannotRegisterImage
             redirect ImagesR
         True  -> do
             runDB $ delete imageId
-            setMessage "File has been deleted."
+            setMessageI MsgFileDeleted
             redirect ImagesR
 
 writeToServer :: FileInfo -> Handler FilePath

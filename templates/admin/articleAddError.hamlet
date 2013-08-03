@@ -1,7 +1,7 @@
 <h2>
-  Error occurred!<br />Correct entry form
+  _{MsgArticleAddErrorTitle}
 <form method=post enctype=#{enctype} #post>
     ^{articleWidget}
     <div>
-      <input type=submit .btn .btn-info value="Post New Article">
+      <input type=submit .btn .btn-info .rbtn value=_{MsgAdminNewPostArticle}>
 <hr>

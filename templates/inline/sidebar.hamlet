@@ -4,7 +4,7 @@
 <ul ."nav nav-list well">
    <li .nav-header><i class="icon-signal"></i>Recent Posts
    $if null articleArchives
-     <p> There are no articles in the blog
+     <p>_{MsgNoArticle}
    $else
      $forall Entity _ articleArchive <- articleArchives
        <li>
@@ -36,6 +36,6 @@
    <li .nav-header><i class="icon-search"></i>Search
    <form .form-search method="get" action=@{SearchR}>
     <div class="input-append">
-     <input #search-input type="text" .span2 .search-query name="q" placeholder="Search">
+     <input #search-input type="text" .span2 .search-query name="q" placeholder=_{MsgSearchPlaceHolder}>
      <button .btn type="submit">
        <i class="icon-search">

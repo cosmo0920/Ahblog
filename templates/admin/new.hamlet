@@ -1,25 +1,25 @@
 <div .page-header>
-  <h1>Post New Article</h1></div>
+  <h1>_{MsgAdminNewPostArticle}</h1></div>
   $maybe _ <- maid
     <div .row>
       <div .span8>
-        <p>Your username: #{username}</p>
+        <p>_{MsgAdminPostUserName}: #{username}</p>
         <form method=post enctype=#{enctype} #post>
           ^{articleWidget}
-          <input .btn .btn-info .rbtn value="Post New Article" #postButton>
-          <input .btn .btn-primary .rbtn value="Preview" #previewButton>
+          <input .btn .btn-info .rbtn value=_{MsgAdminNewPost} #postButton>
+          <input .btn .btn-primary .rbtn value=_{MsgAdminArticlePreview} #previewButton>
       <div .span4>
         <h4>
-          Recent Files
+          _{MsgAdminRecentFile}
         $if not $ null images
         <table .table>
           <tr>
             <th>
-              File
+              _{MsgAdminFileName}
             <th>
-              Decription
+              _{MsgAdminFileDescription}
             <th>
-              Uploaded
+              _{MsgAdminFileUploaded}
           $forall Entity _ image <- images
             <tr>
               <td>
@@ -30,10 +30,10 @@
                   #{description}
               <td>
                 #{humanReadableTime' now $ imageDate image}
-        <a href=@{ImagesR} .btn .btn-success .rbtn><i class="icon-circle-arrow-up"></i> Admin Files</a>
+        <a href=@{ImagesR} .btn .btn-success .rbtn><i class="icon-circle-arrow-up"></i> _{MsgAdminFile}</a>
 
     <hr>
   $nothing
-    <h2>Authorization required</h2>
-      <a href=@{AuthR LoginR} class="btn">login
-  <ul .pager .pull-left><li .previous><a href=@{AdminR} .btn>&larr; Back Admin
+    <h2>_{MsgNotAnAdmin}</h2>
+      <a href=@{AuthR LoginR} class="btn">_{MsgLogin}
+  <ul .pager .pull-left><li .previous><a href=@{AdminR} .btn>_{MsgAdminBackTo}
