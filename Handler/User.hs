@@ -21,4 +21,10 @@ postUserSettingR = do
     FormSuccess newUser -> do
          runDB $ replace key newUser
          redirect UserSettingR
-    _ -> permissionDenied "You have not permission."
+    _ -> permissionDeniedI MsgUserHaveNotPermission
+
+postLangR :: Handler ()
+postLangR = do
+    lang <- runInputPost $ ireq textField "lang"
+    setLanguage lang
+    redirect UserSettingR
