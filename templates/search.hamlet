@@ -5,7 +5,7 @@ $if null articles
   <p>There is no match <b>#{searchString}</b> in this blog articles.
   <hr>
 $else
-  <p>There is no match <b>#{searchString}</b> in this blog articles as follows:
+  <p>Search result for <b>#{searchString}</b> in this blog articles as follows:
   <div .post-listing>
     <table .table .table-bordered .table-condensed>
       <thead>
