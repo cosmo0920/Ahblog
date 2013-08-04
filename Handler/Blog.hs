@@ -41,7 +41,7 @@ getBlogFeedR = do
    [] -> notFound
    _  -> rssFeed feed
 
-getBlogViewR :: Handler RepHtml
+getBlogViewR :: Handler Html
 getBlogViewR = do
   -- Get the list of articles inside the database
   let page = 10
@@ -56,7 +56,7 @@ getBlogViewR = do
     setTitle $ toHtml title
     $(widgetFile "view")
 
-getSearchR :: Handler RepHtml
+getSearchR :: Handler Html
 getSearchR = do
     searchString <- runInputGet $ fromMaybe "" <$> iopt (searchField True) "q"
     articles <-
@@ -75,7 +75,7 @@ getSearchR = do
                           OR title LIKE ?
                           ORDER BY created_at DESC|] [toPersistValue $ T.concat ["%", t, "%"],toPersistValue $ T.concat ["%", t, "%"]]
 
-getTagR :: Text -> Handler RepHtml
+getTagR :: Text -> Handler Html
 getTagR tag = do
   articles <- runDB $ do
     mapM (get404 . tagArticle . entityVal) =<< selectList [TagName ==. tag] []

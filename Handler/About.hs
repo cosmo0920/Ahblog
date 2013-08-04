@@ -4,7 +4,7 @@ import Import
 import Yesod.Markdown
 import System.FilePath
 
-getAboutR :: Handler RepHtml
+getAboutR :: Handler Html
 getAboutR = do
   fileData <- liftIO $ markdownFromFile aboutPage
   defaultLayout $ do

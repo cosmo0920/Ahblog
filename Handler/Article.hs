@@ -8,7 +8,7 @@ import Data.List (sort, nub)
 import Data.Time.Format.Human
 import Yesod.Auth
 
-getPermalinkR :: Text -> Handler RepHtml
+getPermalinkR :: Text -> Handler Html
 getPermalinkR slug = do
   maid <- maybeAuthId
   Entity articleId Article {articleTitle, articleContent, articleAuthor, ..} <- runDB $ getBy404 $ UniqueSlug slug
@@ -25,7 +25,7 @@ getPermalinkR slug = do
     setTitle $ toHtml $ articleTitle
     $(widgetFile "permalink")
 
-postPermalinkR :: Text -> Handler RepHtml
+postPermalinkR :: Text -> Handler Html
 postPermalinkR slug = do
   Entity articleId _ <- runDB $ getBy404 $ UniqueSlug slug
   ((res, _), _) <- runFormPost (commentForm articleId)
@@ -38,7 +38,7 @@ postPermalinkR slug = do
       setMessageI MsgArticleErrorOccurred
       redirect $ PermalinkR slug
 
-getArchiveR :: Handler RepHtml
+getArchiveR :: Handler Html
 getArchiveR = do
   now <- liftIO $ getCurrentTime
   archives <- runDB $ selectList [] [Desc ArticleCreatedAt]
