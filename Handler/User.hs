@@ -4,7 +4,7 @@ import Import
 import Yesod.Auth
 import Helper.UserForm
 
-getUserSettingR :: Handler RepHtml
+getUserSettingR :: Handler Html
 getUserSettingR = do
   Entity key user <- requireAuth
   (widget, enctype) <- generateFormPost userForm
@@ -12,7 +12,7 @@ getUserSettingR = do
     setTitleI MsgUserSetting
     $(widgetFile "user-setting")
 
-postUserSettingR :: Handler RepHtml
+postUserSettingR :: Handler Html
 postUserSettingR = do
   Entity key _ <- requireAuth
   ((result, _), _) <- runFormPost userForm

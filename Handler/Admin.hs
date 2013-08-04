@@ -11,7 +11,7 @@ import Helper.MakeBrief
 import Helper.Sidebar
 import Handler.Image
 
-getAdminR :: Handler RepHtml
+getAdminR :: Handler Html
 getAdminR = do
   -- Get the list of articles inside the database
   let page = 10
@@ -29,7 +29,7 @@ getAdminR = do
     setTitleI MsgAdminPageTitle
     $(widgetFile "admin/index")
 
-postAdminR :: Handler RepHtml
+postAdminR :: Handler Html
 postAdminR = do
   ((res,articleWidget),enctype) <- runFormPost entryForm
   case res of
@@ -48,7 +48,7 @@ postAdminR = do
             setTitleI MsgPostArticleFailure
             $(widgetFile "admin/articleAddError")
 
-getNewBlogR :: Handler RepHtml
+getNewBlogR :: Handler Html
 getNewBlogR = do
   username <- userScreenName . entityVal <$> requireAuth
   -- Get the list of articles inside the database
@@ -65,7 +65,7 @@ getNewBlogR = do
     setTitleI MsgAdminPageTitle
     $(widgetFile "admin/new")
 
-getArticleR :: ArticleId -> Handler RepHtml
+getArticleR :: ArticleId -> Handler Html
 getArticleR articleId = do
   now <- liftIO $ getCurrentTime
   (comments, article, author, tags) <- runDB $ do
@@ -82,7 +82,7 @@ getArticleR articleId = do
     setTitle $ toHtml $ articleTitle article
     $(widgetFile "admin/article")
 
-postArticleR :: ArticleId -> Handler RepHtml
+postArticleR :: ArticleId -> Handler Html
 postArticleR articleId = do
   ((res,_), _) <- runFormPost $ commentForm articleId
   case res of
@@ -94,7 +94,7 @@ postArticleR articleId = do
       setMessageI MsgPostArticleCommentFailure
       redirect $ ArticleR articleId
 
-postNewBlogR :: Handler RepHtml
+postNewBlogR :: Handler Html
 postNewBlogR = do
   (Entity _ user) <- requireAuth
   let username = userScreenName user
@@ -115,7 +115,7 @@ postNewBlogR = do
            setTitleI MsgPostArticleFailure
            $(widgetFile "admin/articleAddError")
 
-getArticleEditR :: ArticleId -> Handler RepHtml
+getArticleEditR :: ArticleId -> Handler Html
 getArticleEditR articleId = do
   (Entity _ user) <- requireAuth
   (post, oldTags) <- runDB $ do
@@ -130,7 +130,7 @@ getArticleEditR articleId = do
     setTitleI MsgArticleEdit
     $(widgetFile "admin/edit")
 
-postPreviewR :: Handler RepHtml
+postPreviewR :: Handler Html
 postPreviewR = do
   (Entity _ user) <- requireAuth
   let username = userScreenName user
@@ -144,7 +144,7 @@ postPreviewR = do
       setMessageI MsgArticleSomethingWentWrong
       redirect NewBlogR
 
-postArticleEditR :: ArticleId -> Handler RepHtml
+postArticleEditR :: ArticleId -> Handler Html
 postArticleEditR articleId = do
   maid <- maybeAuthId
   (Entity _ user) <- requireAuth
@@ -168,7 +168,7 @@ postArticleEditR articleId = do
          setTitleI MsgPostArticleFailure
          $(widgetFile "admin/edit")
 
-getArticleDeleteR :: ArticleId -> Handler RepHtml
+getArticleDeleteR :: ArticleId -> Handler Html
 getArticleDeleteR articleId = do
   (article, oldTags) <- runDB $ do
     _article <- get404 articleId
@@ -180,7 +180,7 @@ getArticleDeleteR articleId = do
     setTitleI MsgArticleDelete
     $(widgetFile "admin/delete")
 
-postArticleDeleteR :: ArticleId -> Handler RepHtml
+postArticleDeleteR :: ArticleId -> Handler Html
 postArticleDeleteR articleId = do
   article <- runDB $ do
     _post <- get404 articleId
@@ -194,7 +194,7 @@ postArticleDeleteR articleId = do
   setMessage $ toHtml $ html renderer
   redirect $ AdminR
 
-getCommentDeleteR :: CommentId -> Handler RepHtml
+getCommentDeleteR :: CommentId -> Handler Html
 getCommentDeleteR commentId = do
   comment <- runDB $ do
     _post <- get404 commentId
@@ -206,7 +206,7 @@ getCommentDeleteR commentId = do
   setMessage $ toHtml $ html renderer
   redirect $ AdminR
 
-getUserDeleteR :: UserId -> Handler RepHtml
+getUserDeleteR :: UserId -> Handler Html
 getUserDeleteR usrId = do
   (Entity userId _) <- requireAuth
   if usrId /= userId

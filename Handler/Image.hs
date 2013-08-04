@@ -8,7 +8,7 @@ import Data.Time
 import Data.Time.Format.Human
 import Helper.ImageForm
 
-getImagesR :: Handler RepHtml
+getImagesR :: Handler Html
 getImagesR = do
     ((_, widget), enctype) <- runFormPost uploadForm
     images <- runDB $ selectList [ImageFilename !=. ""] [Desc ImageDate]
@@ -17,7 +17,7 @@ getImagesR = do
     defaultLayout $ do
       $(widgetFile "admin/image")
 
-postImagesR :: Handler RepHtml
+postImagesR :: Handler Html
 postImagesR = do
     ((result, _), _) <- runFormPost uploadForm
     case result of
