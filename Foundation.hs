@@ -61,7 +61,7 @@ mkMessage "App" "messages" "en"
 -- split these actions into two functions and place them in separate files.
 mkYesodData "App" $(parseRoutesFile "config/routes")
 
-type Form x = Html -> MForm (HandlerT App IO) (FormResult x, Widget)
+type Form x = Html -> MForm Handler (FormResult x, Widget)
 -- Please see the documentation for the Yesod typeclass. There are a number
 -- of settings which can be configured by overriding methods here.
 instance Yesod App where
@@ -180,14 +180,14 @@ instance RenderMessage App FormMessage where
 
 -- | Get the 'Extra' value, used to hold data from the settings.yml file.
 --getExtra :: Handler Extra
-getExtra :: HandlerT App IO Extra
+getExtra :: Handler Extra
 getExtra = fmap (appExtra . settings) getYesod
 
-getBlogTitle :: HandlerT App IO Text
+getBlogTitle :: Handler Text
 getBlogTitle = extraBlogTitle . appExtra . settings <$> getYesod
 
 -- is administrator? return AuthResult ver.
-isAdmin :: HandlerT App IO AuthResult
+isAdmin :: Handler AuthResult
 isAdmin = do
   extra <- getExtra
   mauth <- maybeAuth
@@ -198,7 +198,7 @@ isAdmin = do
       | otherwise -> unauthorizedI MsgNotAnAdmin
 
 -- is administrator? return Bool ver.
-isAdmin' :: User -> HandlerT App IO Bool
+isAdmin' :: User -> Handler Bool
 isAdmin' user = do
   adminUser <- extraAdmins . appExtra . settings <$> getYesod
   return $ userEmail user `elem` adminUser
