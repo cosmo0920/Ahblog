@@ -5,7 +5,6 @@ Default: &defaults
   copyright: copyright cosmo0920 all rights received.
   admins: ["default@example.com"]
   title: Another Haskell Blog
-  logfile: "./log/default-app.log"
   #analytics: UA-YOURCODE
 
 Development:
