@@ -71,9 +71,12 @@ getSearchR = do
     selectArticles :: Text -> Handler [Entity Article]
     selectArticles t =
       runDB $ rawSql [st| SELECT ?? FROM article
-                          WHERE content LIKE ?
-                          OR title LIKE ?
-                          ORDER BY created_at DESC|] [toPersistValue $ T.concat ["%", t, "%"],toPersistValue $ T.concat ["%", t, "%"]]
+                          WHERE article.draft = ?
+                          AND (content LIKE ? OR title LIKE ?)
+                          ORDER BY created_at DESC|]
+                     [ toPersistValue False
+                     , toPersistValue $ T.concat ["%", t, "%"]
+                     , toPersistValue $ T.concat ["%", t, "%"]]
 
 getTagR :: Text -> Handler Html
 getTagR tag = do
