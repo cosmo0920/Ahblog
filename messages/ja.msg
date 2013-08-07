@@ -32,6 +32,7 @@ FormArticleTitle: タイトル
 FormArticleContent: 内容
 FormArticleSlug: スラグ
 FormArticleTag: タグ
+FormArticleDraft: 下書き
 FormCommentName: 名前
 FormCommentContent: コメント
 #Image.hs
