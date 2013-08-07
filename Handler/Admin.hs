@@ -153,9 +153,10 @@ postArticleEditR articleId = do
   case res of
        FormSuccess (post, tags) -> do
          runDB $ do
-           update articleId [ ArticleTitle =. articleTitle post
+           update articleId [ ArticleTitle   =. articleTitle   post
                             , ArticleContent =. articleContent post
-                            , ArticleSlug =. articleSlug post]
+                            , ArticleSlug    =. articleSlug    post
+                            , ArticleDraft   =. articleDraft   post]
            deleteWhere [TagArticle ==. articleId]
            forM_ tags $ \tag -> insert $ Tag tag articleId
          renderer <- getUrlRenderParams
