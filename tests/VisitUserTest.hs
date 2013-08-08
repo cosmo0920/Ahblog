@@ -175,6 +175,36 @@ visitUserSpecs =
             statusIs 200
             htmlAnyContain "p" "test post"
 
+    ydescribe "Article has tag" $ do
+      yit "GET TagR 'tag'" $ withDeleteTagTable $ do
+        createTime <- liftIO $ getCurrentTime
+        let title       = "test"
+            content     = "test post"
+            slug        = "testSlug"
+            createdTime = createTime
+        _ <- runDB $ do
+          --when Article has "UserId", then before create User data
+          let email = "test@example.com"
+              name  = "test user"
+          userId <- P.insert $ User {
+            userEmail      = email
+          , userScreenName = name
+          }
+          articleId <- P.insert $ Article {
+            articleAuthor    = userId
+          , articleTitle     = title
+          , articleContent   = content
+          , articleSlug      = slug
+          , articleDraft     = False
+          , articleCreatedAt = createdTime
+          }
+          P.insert $ Tag {
+            tagName = "tag"
+          , tagArticle = articleId
+          }
+        get $ TagR "tag"
+        statusIs 200
+
     ydescribe "Blog has sidebar" $ do
       yit "GET /blog then html has .span3" $ do
         get BlogViewR
