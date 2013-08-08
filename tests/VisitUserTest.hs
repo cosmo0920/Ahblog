@@ -43,6 +43,7 @@ visitUserSpecs =
           , articleTitle     = title
           , articleContent   = content
           , articleSlug      = slug
+          , articleDraft     = False
           , articleCreatedAt = createdTime
           }
         --when blog has article, one can get BlogArticle
@@ -72,6 +73,7 @@ visitUserSpecs =
           , articleTitle     = title
           , articleContent   = content
           , articleSlug      = slug
+          , articleDraft     = False
           , articleCreatedAt = createdTime
           }
         --when blog has article, one can get BlogArticle
@@ -99,6 +101,7 @@ visitUserSpecs =
           , articleTitle     = title
           , articleContent   = content
           , articleSlug      = slug
+          , articleDraft     = False
           , articleCreatedAt = createdTime
           }
           let cname    = "Anonymous"
@@ -135,7 +138,7 @@ visitUserSpecs =
               setMethod "GET"
               setUrl SearchR
               addGetParam "q" "test post"
- 
+
             statusIs 200
             htmlAnyContain "p" "no match"
 
@@ -146,7 +149,7 @@ visitUserSpecs =
                 content     = "test post"
                 slug        = "testSlug"
                 createdTime = createTime
-             
+
             _ <- runDB $ do
               --when Article has "UserId", then before create User data
               let email = "test@example.com"
@@ -160,6 +163,7 @@ visitUserSpecs =
               , articleTitle     = title
               , articleContent   = content
               , articleSlug      = slug
+              , articleDraft     = False
               , articleCreatedAt = createdTime
               }
             --when blog has article, one can get BlogArticle
@@ -167,7 +171,7 @@ visitUserSpecs =
               setMethod "GET"
               setUrl SearchR
               addGetParam "q" "test post"
- 
+
             statusIs 200
             htmlAnyContain "p" "test post"
 
