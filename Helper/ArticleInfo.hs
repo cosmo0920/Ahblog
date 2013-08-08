@@ -10,7 +10,7 @@ articleInfo article = do
   (author, tags) <- handlerToWidget $ runDB $ do
     Entity key Article {articleAuthor, ..} <- getBy404 $ UniqueSlug (articleSlug article)
     author <- get404 articleAuthor
-    tags <- map (tagName . entityVal) <$> selectList [TagArticle ==. key] []
+    tags <- map (tagName . entityVal) <$> selectList [TagArticle ==. key] [Asc TagName]
     return (author, tags)
   let screenAuthor = userScreenName author
   $(widgetFile "inline/articleInfo")
