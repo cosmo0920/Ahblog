@@ -124,5 +124,6 @@ test-suite test
                  , monad-logger                  >= 0.3
                  , lifted-base
                  , time
+                 , text                          >= 0.11       && < 0.12
                  , transformers                  >= 0.3        && < 0.4
                  , hspec
