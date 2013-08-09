@@ -21,7 +21,7 @@ persistUserSpecs = do
       let email = "test@example.com"
           name  = "test user"
       key <- runDB $ P.insert $ User {
-        userEmail      = email 
+        userEmail      = email
       , userScreenName = name
       }
       user <- runDB $ P.get key
@@ -67,6 +67,7 @@ persistArticleSpecs = do
         , articleTitle     = title
         , articleContent   = content
         , articleSlug      = slug
+        , articleDraft     = False
         , articleCreatedAt = createdTime
         }
       article <- runDB $ P.get key
@@ -93,13 +94,14 @@ persistCommentSpecs = do
         }
         let title              = "test"
             content            = "test post"
-            slug               = "testSlug"  
-            articleCreatedTime = createdTime    
+            slug               = "testSlug"
+            articleCreatedTime = createdTime
         articleId <- P.insert $ Article {
           articleAuthor    = userId
         , articleTitle     = title
         , articleContent   = content
         , articleSlug      = slug
+        , articleDraft     = False
         , articleCreatedAt = articleCreatedTime
         }
         P.insert $ Comment {
@@ -129,13 +131,14 @@ persistTagSpecs = do
         }
         let title              = "test"
             content            = "test post"
-            slug               = "testSlug"  
-            articleCreatedTime = createdTime    
+            slug               = "testSlug"
+            articleCreatedTime = createdTime
         articleId <- P.insert $ Article {
           articleAuthor    = userId
         , articleTitle     = title
         , articleContent   = content
         , articleSlug      = slug
+        , articleDraft     = False
         , articleCreatedAt = articleCreatedTime
         }
         P.insert $ Tag {

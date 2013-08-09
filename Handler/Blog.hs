@@ -18,7 +18,7 @@ import Helper.MakeBrief
 
 getBlogFeedR :: Handler RepRss
 getBlogFeedR = do
-  articles <- runDB $ selectList [][Desc ArticleCreatedAt, LimitTo 10]
+  articles <- runDB $ selectList [ArticleDraft !=. True][Desc ArticleCreatedAt, LimitTo 10]
   title <- getBlogTitle
   let entries = flip map articles $ \(Entity _ article) ->
         FeedEntry {
@@ -46,8 +46,8 @@ getBlogViewR = do
   -- Get the list of articles inside the database
   let page = 10
   (articles, widget, articleArchives) <- runDB $ do
-    (articles, widget) <- selectPaginated page [] [Desc ArticleCreatedAt]
-    articleArchives    <- selectList [] [Desc ArticleCreatedAt, LimitTo 10]
+    (articles, widget) <- selectPaginated page [ArticleDraft !=. True] [Desc ArticleCreatedAt]
+    articleArchives    <- selectList [ArticleDraft !=. True] [Desc ArticleCreatedAt, LimitTo 10]
     return (articles, widget, articleArchives)
   title <- getBlogTitle
   -- We'll need the two "objects": articleWidget and enctype
@@ -71,9 +71,12 @@ getSearchR = do
     selectArticles :: Text -> Handler [Entity Article]
     selectArticles t =
       runDB $ rawSql [st| SELECT ?? FROM article
-                          WHERE content LIKE ?
-                          OR title LIKE ?
-                          ORDER BY created_at DESC|] [toPersistValue $ T.concat ["%", t, "%"],toPersistValue $ T.concat ["%", t, "%"]]
+                          WHERE article.draft = ?
+                          AND (content LIKE ? OR title LIKE ?)
+                          ORDER BY created_at DESC|]
+                     [ toPersistValue False
+                     , toPersistValue $ T.concat ["%", t, "%"]
+                     , toPersistValue $ T.concat ["%", t, "%"]]
 
 getTagR :: Text -> Handler Html
 getTagR tag = do

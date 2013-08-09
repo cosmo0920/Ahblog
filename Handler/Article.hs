@@ -41,7 +41,7 @@ postPermalinkR slug = do
 getArchiveR :: Handler Html
 getArchiveR = do
   now <- liftIO $ getCurrentTime
-  archives <- runDB $ selectList [] [Desc ArticleCreatedAt]
+  archives <- runDB $ selectList [ArticleDraft !=. True] [Desc ArticleCreatedAt]
   defaultLayout $ do
     setTitleI MsgArticleArchive
     $(widgetFile "archive")

@@ -23,6 +23,7 @@ postForm mart mtags html = do
                       <*> areq textField     fsTitle   (articleTitle   <$> mart)
                       <*> areq markdownField fsContent (articleContent <$> mart)
                       <*> areq textField     fsSlug    (articleSlug    <$> mart)
+                      <*> areq checkBoxField fsDraft   (articleDraft   <$> mart)
                       <*> lift (liftIO getCurrentTime)
         tags = T.words . fromMaybe "" <$> aopt textField fsTag (Just . T.unwords <$> mtags)
     in (,) <$> art <*> tags
@@ -32,6 +33,7 @@ postForm mart mtags html = do
         fsContent = (fieldSettingsLabel MsgFormArticleContent) { fsAttrs = [("class", "span8")] }
         fsSlug    = (fieldSettingsLabel MsgFormArticleSlug)    { fsAttrs = [("class", "span8")] }
         fsTag     = (fieldSettingsLabel MsgFormArticleTag)     { fsAttrs = [("class", "span8")] }
+        fsDraft   = (fieldSettingsLabel MsgFormArticleDraft)   { fsAttrs = [("class", "span8")] }
 
 commentForm :: ArticleId -> Form Comment
 commentForm articleId extra = do

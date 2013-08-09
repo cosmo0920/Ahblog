@@ -15,6 +15,7 @@ Article
     title   Text
     content Markdown
     slug Text
+    draft Bool default=false
     createdAt  UTCTime default=CURRENT_TIMESTAMP
     UniqueSlug slug
     deriving Show

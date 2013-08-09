@@ -32,6 +32,7 @@ FormArticleTitle: Title
 FormArticleContent: Content
 FormArticleSlug: Slug
 FormArticleTag: Tag
+FormArticleDraft: Draft
 FormCommentName: Name
 FormCommentContent: Comment
 #Image.hs

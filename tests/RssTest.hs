@@ -16,7 +16,7 @@ rssSpecs =
       yit "should be notFound" $ do
         get BlogFeedR
         statusIs 404
-    ydescribe "feed can read" $ do
+    ydescribe "feed can read when article is not Draft" $ do
       yit "should be Found" $ withDeleteArticleTable $ do
         createTime <- liftIO $ getCurrentTime
         let title       = "test"
@@ -37,6 +37,7 @@ rssSpecs =
           , articleTitle     = title
           , articleContent   = content
           , articleSlug      = slug
+          , articleDraft     = False
           , articleCreatedAt = createdTime
           }
         --when blog has article, one can get BlogFeedR
