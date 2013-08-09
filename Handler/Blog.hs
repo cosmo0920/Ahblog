@@ -71,7 +71,7 @@ getSearchR = do
     selectArticles :: Text -> Handler [Entity Article]
     selectArticles t =
       runDB $ rawSql [st| SELECT ?? FROM article
-                          WHERE article.draft = ?
+                          WHERE draft = ?
                           AND (content LIKE ? OR title LIKE ?)
                           ORDER BY created_at DESC|]
                      [ toPersistValue False
