@@ -9,6 +9,11 @@ module RunDBInsertTest
     ) where
 
 import TestImport
+import Factory.User
+import Factory.Image
+import Factory.Article
+import Factory.Comment
+import Factory.Tag
 import qualified Database.Persist as P
 import Data.Time (getCurrentTime)
 import Control.Monad.IO.Class (liftIO)
@@ -20,10 +25,8 @@ persistUserSpecs = do
     yit "User table can insert and setup/teardown" $ withDeleteUserTable $ do
       let email = "test@example.com"
           name  = "test user"
-      key <- runDB $ P.insert $ User {
-        userEmail      = email
-      , userScreenName = name
-      }
+
+      key <- insertUserTable' email name
       user <- runDB $ P.get key
       assertEqual "userScreenName" (user >>= return . userScreenName) (Just name)
       assertEqual "userEmail" (user >>= return . userEmail) (Just email)
@@ -35,11 +38,8 @@ persistImageSpecs = do
       createTime <- liftIO $ getCurrentTime
       let imageDateAt = createTime
           imageName   = "test.png"
-      key <- runDB $ P.insert $ Image {
-        imageFilename    = imageName
-      , imageDescription = Nothing -- #=> Maybe Textarea
-      , imageDate        = imageDateAt
-      }
+
+      key <- insertImageTable' imageName imageDateAt
       image <- runDB $ P.get key
       assertEqual "image" (image >>= return . imageFilename) (Just imageName)
       assertEqual "image" (image >>= return . imageDate) (Just imageDateAt)
@@ -52,24 +52,8 @@ persistArticleSpecs = do
       let title       = "test"
           content     = "test post"
           slug        = "testSlug"
-          createdTime = createTime
 
-      key <- runDB $ do
-        --when Article has "UserId", then before create User data
-        let email = "test@example.com"
-            name  = "test user"
-        userId <- P.insert $ User {
-          userEmail      = email
-        , userScreenName = name
-        }
-        P.insert $ Article {
-          articleAuthor    = userId
-        , articleTitle     = title
-        , articleContent   = content
-        , articleSlug      = slug
-        , articleDraft     = False
-        , articleCreatedAt = createdTime
-        }
+      key <- insertArticleTable' title content slug createTime
       article <- runDB $ P.get key
       assertEqual "article" (article >>= return . articleTitle) (Just title)
       assertEqual "article" (article >>= return . articleContent) (Just content)
@@ -80,36 +64,10 @@ persistCommentSpecs :: Spec
 persistCommentSpecs = do
   ydescribe "Comment Persist Spec" $ do
     yit "Comment table can insert and setup/teardown" $ withDeleteCommentTable $ do
-      createTime <- liftIO $ getCurrentTime
       let name           = "Anonymous"
           writtenContent = "test comment"
-          createdTime    = createTime
-      key <- runDB $ do
-        --when Article has "UserId", then before create User data
-        let email = "test@example.com"
-            userDisplayname  = "test user"
-        userId <- P.insert $ User {
-          userEmail      = email
-        , userScreenName = userDisplayname
-        }
-        let title              = "test"
-            content            = "test post"
-            slug               = "testSlug"
-            articleCreatedTime = createdTime
-        articleId <- P.insert $ Article {
-          articleAuthor    = userId
-        , articleTitle     = title
-        , articleContent   = content
-        , articleSlug      = slug
-        , articleDraft     = False
-        , articleCreatedAt = articleCreatedTime
-        }
-        P.insert $ Comment {
-          commentName    = name
-        , commentContent = writtenContent
-        , commentArticle = articleId
-        , commentPosted  = createdTime
-        }
+
+      key <- insertCommentTable' name writtenContent
       comment <- runDB $ P.get key
       assertEqual "comment" (comment >>= return . commentName) (Just name)
       assertEqual "comment" (comment >>= return . commentContent) (Just writtenContent)
@@ -118,32 +76,8 @@ persistTagSpecs :: Spec
 persistTagSpecs = do
   ydescribe "Tag Persist Spec" $ do
     yit "Tag table can insert and setup/teardown" $ withDeleteTagTable $ do
-      createTime <- liftIO $ getCurrentTime
       let name           = "testTag"
-          createdTime    = createTime
-      key <- runDB $ do
-        --when Article has "UserId", then before create User data
-        let email = "test@example.com"
-            userDisplayname  = "test user"
-        userId <- P.insert $ User {
-          userEmail      = email
-        , userScreenName = userDisplayname
-        }
-        let title              = "test"
-            content            = "test post"
-            slug               = "testSlug"
-            articleCreatedTime = createdTime
-        articleId <- P.insert $ Article {
-          articleAuthor    = userId
-        , articleTitle     = title
-        , articleContent   = content
-        , articleSlug      = slug
-        , articleDraft     = False
-        , articleCreatedAt = articleCreatedTime
-        }
-        P.insert $ Tag {
-          tagName    = name
-        , tagArticle = articleId
-        }
+
+      key <- insertTagTable' name
       tag <- runDB $ P.get key
       assertEqual "tag" (tag >>= return . tagName) (Just name)

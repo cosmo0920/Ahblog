@@ -5,9 +5,9 @@ module VisitUserTest
 
 import TestImport
 import HelperDB
-import qualified Database.Persist as P
-import Data.Time (getCurrentTime)
-import Control.Monad.IO.Class (liftIO)
+import Factory.Tag
+import Factory.Article
+import Factory.Comment
 
 visitUserSpecs :: Spec
 visitUserSpecs =
@@ -24,28 +24,8 @@ visitUserSpecs =
 
     ydescribe "has one contents" $ do
       yit "one can GET /blog" $ withDeleteArticleTable $ do
-        createTime <- liftIO $ getCurrentTime
-        let title       = "test"
-            content     = "test post"
-            slug        = "testSlug"
-            createdTime = createTime
-
-        _ <- runDB $ do
-          --when Article has "UserId", then before create User data
-          let email = "test@example.com"
-              name  = "test user"
-          userId <- P.insert $ User {
-            userEmail      = email
-          , userScreenName = name
-          }
-          P.insert $ Article {
-            articleAuthor    = userId
-          , articleTitle     = title
-          , articleContent   = content
-          , articleSlug      = slug
-          , articleDraft     = False
-          , articleCreatedAt = createdTime
-          }
+        let slug = "testSlug"
+        insertArticleTable slug
         --when blog has article, one can get BlogArticle
         get $ PermalinkR slug
         statusIs 200
@@ -54,64 +34,16 @@ visitUserSpecs =
 
     ydescribe "has one content" $ do
       yit "when article has no comment" $ withDeleteCommentTable $ do
-        createTime <- liftIO $ getCurrentTime
-        let title       = "test"
-            content     = "test post"
-            slug        = "testSlug"
-            createdTime = createTime
-
-        _ <- runDB $ do
-          --when Article has "UserId", then before create User data
-          let email = "test@example.com"
-              name  = "test user"
-          userId <- P.insert $ User {
-            userEmail      = email
-          , userScreenName = name
-          }
-          P.insert $ Article {
-            articleAuthor    = userId
-          , articleTitle     = title
-          , articleContent   = content
-          , articleSlug      = slug
-          , articleDraft     = False
-          , articleCreatedAt = createdTime
-          }
+        let slug = "testSlug"
+        insertArticleTable slug
         --when blog has article, one can get BlogArticle
         get $ PermalinkR slug
         statusIs 200
         htmlAnyContain "h3" "There are no comment in this article"
 
       yit "when article has one comment" $ withDeleteCommentTable $ do
-        createTime <- liftIO $ getCurrentTime
-        let title       = "test"
-            content     = "test post"
-            slug        = "testSlug"
-            createdTime = createTime
-
-        _ <- runDB $ do
-          --when Article has "UserId", then before create User data
-          let email = "test@example.com"
-              name  = "test user"
-          userId <- P.insert $ User {
-            userEmail      = email
-          , userScreenName = name
-          }
-          articleId <- P.insert $ Article {
-            articleAuthor    = userId
-          , articleTitle     = title
-          , articleContent   = content
-          , articleSlug      = slug
-          , articleDraft     = False
-          , articleCreatedAt = createdTime
-          }
-          let cname    = "Anonymous"
-              ccontent = "test comment"
-          P.insert $ Comment {
-            commentName    = cname
-          , commentContent = ccontent
-          , commentArticle = articleId
-          , commentPosted  = createdTime
-          }
+        let slug = "testSlug"
+        insertCommentTable slug
         get $ PermalinkR slug
         statusIs 200
         htmlAnyContain "article" "test comment"
@@ -119,7 +51,7 @@ visitUserSpecs =
     ydescribe "Blog has rss Feed img" $ do
       yit "GET /blog then html has img tag which contains feed-icon" $ do
         get BlogViewR
-	htmlAllContain "img" "feed-icon"
+        htmlAllContain "img" "feed-icon"
 
     ydescribe "Blog has search form" $ do
       yit "GET /blog then html has .form-search" $ do
@@ -144,28 +76,8 @@ visitUserSpecs =
 
         ydescribe "Blog has one contents" $ do
           yit "one can get search result" $ withDeleteArticleTable $ do
-            createTime <- liftIO $ getCurrentTime
-            let title       = "test"
-                content     = "test post"
-                slug        = "testSlug"
-                createdTime = createTime
-
-            _ <- runDB $ do
-              --when Article has "UserId", then before create User data
-              let email = "test@example.com"
-                  name  = "test user"
-              userId <- P.insert $ User {
-                userEmail      = email
-              , userScreenName = name
-              }
-              P.insert $ Article {
-                articleAuthor    = userId
-              , articleTitle     = title
-              , articleContent   = content
-              , articleSlug      = slug
-              , articleDraft     = False
-              , articleCreatedAt = createdTime
-              }
+            let slug = "testSlug"
+            insertArticleTable slug
             --when blog has article, one can get BlogArticle
             request $ do
               setMethod "GET"
@@ -177,31 +89,7 @@ visitUserSpecs =
 
     ydescribe "Article has tag" $ do
       yit "GET TagR 'tag'" $ withDeleteTagTable $ do
-        createTime <- liftIO $ getCurrentTime
-        let title       = "test"
-            content     = "test post"
-            slug        = "testSlug"
-            createdTime = createTime
-        _ <- runDB $ do
-          --when Article has "UserId", then before create User data
-          let email = "test@example.com"
-              name  = "test user"
-          userId <- P.insert $ User {
-            userEmail      = email
-          , userScreenName = name
-          }
-          articleId <- P.insert $ Article {
-            articleAuthor    = userId
-          , articleTitle     = title
-          , articleContent   = content
-          , articleSlug      = slug
-          , articleDraft     = False
-          , articleCreatedAt = createdTime
-          }
-          P.insert $ Tag {
-            tagName = "tag"
-          , tagArticle = articleId
-          }
+        insertTagTable
         get $ TagR "tag"
         statusIs 200
 
