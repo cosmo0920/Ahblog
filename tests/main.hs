@@ -12,12 +12,12 @@ import Application (makeFoundation)
 
 import HomeTest
 import AboutTest
-import InitDBTest
 import AdminTest
 import UserProfileTest
 import RssTest
 import VisitUserTest
-import RunDBInsertTest
+import Model.InitDB
+import Model.DBInsert
 
 main :: IO ()
 main = yesodTest

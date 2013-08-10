@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE NoMonomorphismRestriction #-}
-module RunDBInsertTest
+module Model.DBInsert
     ( persistUserSpecs
     , persistImageSpecs
     , persistArticleSpecs
