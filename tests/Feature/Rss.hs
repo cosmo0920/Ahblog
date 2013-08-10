@@ -1,5 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
-module RssTest
+module Feature.Rss
     ( rssSpecs
     ) where
 

@@ -10,11 +10,11 @@ import Yesod.Test
 import Test.Hspec (hspec)
 import Application (makeFoundation)
 
-import HomeTest
-import AboutTest
-import AdminTest
-import UserProfileTest
-import RssTest
+import Handler.Home
+import Handler.About
+import Handler.Admin
+import Feature.UserProfile
+import Feature.Rss
 import VisitUserTest
 import Model.InitDB
 import Model.DBInsert

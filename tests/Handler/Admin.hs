@@ -1,5 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
-module AdminTest
+module Handler.Admin
     ( adminSpecs,
       admintoolsSpecs
     ) where
@@ -13,7 +13,7 @@ adminSpecs =
     yit "GET /auth/login" $ do
       get $ AuthR LoginR
       statusIs 200
-    
+
     yit "GET /auth/logout" $ do
       get $ AuthR LogoutR
       statusIs 200
