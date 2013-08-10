@@ -17,7 +17,7 @@ import Factory.Tag
 import qualified Database.Persist as P
 import Data.Time (getCurrentTime)
 import Control.Monad.IO.Class (liftIO)
-import HelperDB
+import Helper.DB.SetupTeardown
 
 persistUserSpecs :: Spec
 persistUserSpecs = do

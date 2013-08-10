@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE NoMonomorphismRestriction #-}
-module HelperDB
+module Helper.DB.SetupTeardown
     ( withDeleteUserTable
     , withDeleteImageTable
     , withDeleteArticleTable
@@ -53,4 +53,4 @@ withDeleteTagTable = bracket_ setUpTagTable tearDownTagTable
    deleteTagTable = runDB $ do
      P.deleteWhere ([] :: [P.Filter Tag])
      P.deleteWhere ([] :: [P.Filter Article])
-     P.deleteWhere ([] :: [P.Filter User]) 
+     P.deleteWhere ([] :: [P.Filter User])

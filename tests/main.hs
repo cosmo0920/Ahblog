@@ -15,32 +15,44 @@ import Handler.About
 import Handler.Admin
 import Feature.UserProfile
 import Feature.Rss
-import VisitUserTest
-import Model.InitDB
+import Feature.Blog
 import Model.DBInsert
+import Model.InitDB
 
 main :: IO ()
 main = yesodTest
 
+handlerSpec :: YesodSpec App
+handlerSpec = do
+  homeSpecs
+  navbarSpecs
+  aboutSpecs
+  adminSpecs
+  admintoolsSpecs
+
+featureSpec :: YesodSpec App
+featureSpec = do
+  userProfileSpecs
+  rssSpecs
+  visitUserSpecs
+
+modelSpec :: YesodSpec App
+modelSpec = do
+  initDBSpecs
+  persistUserSpecs
+  persistImageSpecs
+  persistArticleSpecs
+  persistCommentSpecs
+  persistTagSpecs
+
 yesodTest :: IO ()
 yesodTest = do
     conf <- Yesod.Default.Config.loadConfig $ (configSettings Testing)
-	            { csParseExtra = parseExtra
+　              { csParseExtra = parseExtra
                 }
     foundation <- makeFoundation conf
     hspec $ do
       yesodSpec foundation $ do
-        initDBSpecs
-        homeSpecs
-        navbarSpecs
-        aboutSpecs
-        adminSpecs
-        admintoolsSpecs
-        userProfileSpecs
-        rssSpecs
-        visitUserSpecs
-        persistUserSpecs
-        persistImageSpecs
-        persistArticleSpecs
-        persistCommentSpecs
-        persistTagSpecs
+        handlerSpec
+        featureSpec
+        modelSpec

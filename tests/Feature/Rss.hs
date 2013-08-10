@@ -4,7 +4,7 @@ module Feature.Rss
     ) where
 
 import TestImport
-import HelperDB
+import Helper.DB.SetupTeardown
 import Factory.Article
 
 rssSpecs :: Spec

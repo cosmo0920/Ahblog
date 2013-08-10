@@ -1,10 +1,10 @@
 {-# LANGUAGE OverloadedStrings #-}
-module VisitUserTest
+module Feature.Blog
     ( visitUserSpecs
     ) where
 
 import TestImport
-import HelperDB
+import Helper.DB.SetupTeardown
 import Factory.Tag
 import Factory.Article
 import Factory.Comment
