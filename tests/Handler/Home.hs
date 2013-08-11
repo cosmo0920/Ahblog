@@ -1,5 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
-module HomeTest
+module Handler.Home
     ( homeSpecs
     , navbarSpecs
     ) where
@@ -16,7 +16,7 @@ homeSpecs =
     yit "Home html contains class=\"page-header\"" $ do
       get HomeR
       htmlAllContain "body" "div class=\"page-header\""
-      htmlCount "h1" 1 
+      htmlCount "h1" 1
 
     yit "Home html contains hr" $ do
       get HomeR

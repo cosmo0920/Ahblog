@@ -1,5 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
-module AboutTest
+module Handler.About
     ( aboutSpecs
     ) where
 
@@ -17,7 +17,7 @@ aboutSpecs =
       get AboutR
       statusIs 200
       htmlAllContain "img" "gravatar.com"
-    
+
     ydescribe "/about contains footer" $ do
       yit "footer contains Code" $ do
         get AboutR

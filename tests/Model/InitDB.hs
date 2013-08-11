@@ -1,5 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
-module InitDBTest
+module Model.InitDB
     ( initDBSpecs
     ) where
 

@@ -1,5 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
-module UserProfileTest
+module Feature.UserProfile
     ( userProfileSpecs
     ) where
 
