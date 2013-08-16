@@ -5,7 +5,7 @@ Ahblog
 
 Haskellしたいがために作った執筆者が主に一人の場合のブログエンジン。
 
-* 一応管理者権限は複数人に与えられるようには作っています。 
+* 一応管理者権限は複数人に与えられるようには作っています。
 
 ```bash
 cp config/settings-dummy.yml config/settings.yml
@@ -22,7 +22,7 @@ admins: ["default@example.com"]
 * yesod-paginator
 * friendly-time
 * yesod-newsfeed
-* yesod-markdown 
+* yesod-markdown
 
 ###記事はHTMLまたはMarkdownで書くことができます。
 
@@ -48,13 +48,24 @@ AboutページはMarkdownで記述でき、自由に差し替えられます。
 
 ## Try it
 
-when you use __Debian and related distributions...__
+If you install cabal packages, __strongly recommended__ use cabal-dev.
 
-Install dependent libraries
+### prepare git submodule
 
 ```bash
 $ git clone https://github.com/cosmo0920/Ahblog.git
 $ cd Ahblog
+$ git submodule update --init --recursive
+$ cd static/css && cp ../../bootstrap-select/bootstrap-select.min.css .
+$ cd ../js && cp ../../bootstrap-select/bootstrap-select.min.js .
+$ cd ../../
+```
+
+### Install dependent libraries
+
+when you use __Debian and related distributions...__
+
+```bash
 $ cabal update
 $ cabal install happy [or $ sudo apt-get install happy]
 $ cabal install cabal-dev
@@ -62,9 +73,10 @@ $ ~/.cabal/bin/cabal-dev install --dry-run --only-dependencies #prevent dependen
 $ ~/.cabal/bin/cabal-dev install --only-dependencies
 ```
 
-build application
+### build application
 
 ```bash
+$ mv config/settings-dummy.yml config/settings.yml
 $ ~/.cabal/bin/cabal-dev configure
 $ ~/.cabal/bin/cabal-dev build
 ```
@@ -72,32 +84,11 @@ $ ~/.cabal/bin/cabal-dev build
 or
 
 ```bash
+$ mv config/settings-dummy.yml config/settings.yml
 $ ~/.cabal/bin/cabal-dev install yesod-bin
 $ ~/.cabal/bin/cabal-dev --dev devel
 ```
 
 * * * *
 
-ライセンスはMITライセンスとします。
-
-The MIT License (MIT)
-
-Copyright (c) 2013 cosmo0920
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+ライセンスはMITライセンスとします。see : [LICENSE file](LICENSE)
