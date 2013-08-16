@@ -2,6 +2,7 @@
 module Factory.Article
     ( insertArticleTable
     , insertArticleTable'
+    , insertDraftArticleTable
     ) where
 
 import TestImport
@@ -54,3 +55,27 @@ insertArticleTable' title content slug time = do
     , articleCreatedAt = time
     }
   return key
+
+insertDraftArticleTable :: Text -> Example ()
+insertDraftArticleTable slug = do
+  createTime <- liftIO $ getCurrentTime
+  let title       = "test"
+      content     = "test post"
+      createdTime = createTime
+  _ <- runDB $ do
+    --when Article has "UserId", then before create User data
+    let email = "test@example.com"
+        name  = "test user"
+    userId <- P.insert $ User {
+      userEmail      = email
+    , userScreenName = name
+    }
+    P.insert $ Article {
+      articleAuthor    = userId
+    , articleTitle     = title
+    , articleContent   = content
+    , articleSlug      = slug
+    , articleDraft     = True
+    , articleCreatedAt = createdTime
+    }
+  return ()

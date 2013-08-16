@@ -14,6 +14,12 @@ rssSpecs =
       yit "should be notFound" $ do
         get BlogFeedR
         statusIs 404
+    ydescribe "blog has only draft article" $ do
+      yit "should be notFound" $ withDeleteArticleTable $ do
+        let slug = "draftSlug"
+        insertDraftArticleTable slug
+        get BlogFeedR
+        statusIs 404
     ydescribe "feed can read when article is not Draft" $ do
       yit "should be Found" $ withDeleteArticleTable $ do
         let slug = "testSlug"
