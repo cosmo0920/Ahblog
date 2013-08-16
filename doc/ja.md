@@ -2,10 +2,15 @@ Haskellしたいがために作った執筆者が主に一人の場合のブロ�
 
 * 一応管理者権限は複数人に与えられるようには作っています。
 
-最初に [README.md](../README.md) のTry It.手順を完了させておいてください。
+最初に[README.md](../README.md)の[Try It](../README.md#try-it)手順を完了させておいてください。
 
-config/settings./ymlのadminsに管理者権限を与えたいメールアドレスの文字列を例えば
+config/settings./ymlのadminsに管理者権限を与えたいメールアドレスの文字列を
+例えば、
+
+```
 admins: ["default@example.com"]
+```
+
 のようにして指定します。
 
 すると、指定したメールアドレスを使ったログイン後に
@@ -20,13 +25,12 @@ admins: ["default@example.com"]
 
 ###記事はHTMLまたはMarkdownで書くことができます。
 
-<pre>
 ```haskell
 imageFilePath :: String -> FilePath
 imageFilePath f = uploadDirectory </> uploadSubDirectory </> f
 ```
-</pre>
-のようにコードを埋め込むこともできます。
+
+のようにコードを埋め込むこともできます。Github記法と同じです。
 
 Blogのタイトルはyamlのtitle:に指定します。
 

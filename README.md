@@ -13,7 +13,7 @@ More information, see Japanese manual: [説明書](doc/ja.md)
 
 If you install cabal packages, __strongly recommended__ use cabal-dev.
 
-### prepare git submodule
+### git clone and prepare git submodule
 
 ```bash
 $ git clone https://github.com/cosmo0920/Ahblog.git
