@@ -6,7 +6,7 @@
   <br />
   <form action=@{LangR} method=post>
     _{MsgSwitchLanguage}
-    <select name=lang>
+    <select name=lang class="selectpicker">
         <option value=en>English
         <option value=ja>Japanense
     <input type=submit value=_{MsgSwitch} .btn-inverse .rbtn>
