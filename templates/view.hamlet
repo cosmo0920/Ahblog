@@ -10,7 +10,8 @@
         <div .well>
           ^{articleInfo article}
           <a href=@{PermalinkR $ articleSlug article}>
-            _{MsgPermalink} |
+            _{MsgPermalink}
+          |
           <a href=@{PermalinkR $ articleSlug article}#comment>
             _{MsgComment}
   <div .span3>
