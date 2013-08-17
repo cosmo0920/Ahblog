@@ -8,9 +8,9 @@ host: <<HOST-NOT-SET>>
 # copy-to: user@host:/opt/keter/incoming
 
 # Static file hosts. Keter handles the serving for you.
-static-hosts:
-    - host: static.<<HOST-NOT-SET>>
-      root: ../static # relative to config file, just like the executable
+#static-hosts:
+#    - host: static.<<HOST-NOT-SET>>
+#      root: ../static # relative to config file, just like the executable
 
 # however, the requests from nginx -> keter will not come to
 # that hostname, so we need to tell keter to listen on something
