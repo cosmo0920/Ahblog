@@ -2,7 +2,7 @@
 <div .page-header>
   <h1>_{MsgAdminEditArticlePageTitle}
   $maybe _ <- maid
-    <p>_{MsgAdminLoginUser}: #{username}</p>
+    <p>_{MsgAdminCurrentLoginUser username}</p>
     <form method=post enctype=#{enctype} #post>
         ^{postWidget}
       <input type=submit .btn .btn-info .rbtn value=_{MsgAdminArticleUpdate} #postButton>

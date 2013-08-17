@@ -2,8 +2,8 @@
   <h2>#{articleTitle}</h2></div>
   <div .row>
     <div .span9>
-      <p><i class="icon-calendar"></i>#{published}
-      <p><i class="icon-user"></i>Posted By #{screenAuthor}
+      <p><i class="icon-calendar"></i>_{MsgPostedTime published}
+      <p><i class="icon-user"></i>_{MsgPostedAuthor screenAuthor}
       $if not (null tags)
         <div .tags>
           <i .icon-tags>

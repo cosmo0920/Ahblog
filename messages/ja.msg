@@ -48,7 +48,7 @@ NoComment: コメントはありません
 Profile: プロフィール
 AuthorizationRequired: 認証が必要です
 #admin/index.hamlet
-AdminLoginUser: 現在ログインしているユーザー
+AdminCurrentLoginUser user@Text: 現在 #{user} としてログイン中。
 AdminContent: 管理
 AdminTitle: ブログ管理
 AdminArticle: 記事管理
@@ -85,6 +85,9 @@ AdminRecentFile: 最近アップロードしたファイル
 AdminArticlePreview: プレビュー
 #admin/articleAddError.hamlet
 ArticleAddErrorTitle: エラーです。以下のフォームを正しく入力してください。
+#inline/articleInfo.hs
+PostedTime time@String: 投稿日時 #{time}
+PostedAuthor author@Text: 投稿者 #{author}
 #inline/tag.hamlet
 TaggedArticlePageTitle: とタグ付けされた記事
 TaggedArticleTitle: タイトル
@@ -116,7 +119,11 @@ SwitchLanguage: 言語を切り替える
 Switch: 切り替え
 BackHome: ホームに戻る
 GoBlog: ブログへ進む
+LangEn: 英語
+LangJa: 日本語
 #search.hamlet
 SearchResult: 検索結果
 ArticleSearchTitle: タイトル
 ArticleSearchPosted: 投稿時間
+ArticleSearchResult msg@Text: 検索ワード 「#{msg}」 に対する検索結果:
+ArticleSearchNoResult msg@Text: 検索ワード 「#{msg}」 に対する検索結果はありません。

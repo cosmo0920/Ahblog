@@ -68,7 +68,7 @@
       <div class="tab-pane" id="user">
         <h3>
           _{MsgAdminUser}
-        <p>_{MsgAdminLoginUser}: #{username}</p>
+        <p>_{MsgAdminCurrentLoginUser username}</p>
         <table .table .table-bordered .table-condensed>
          <thead>
            <tr>
