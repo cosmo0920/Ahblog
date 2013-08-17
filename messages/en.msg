@@ -54,7 +54,7 @@ ArticleDeleteConfirm: Delete Article?
 AdminEditArticlePageTitle: Edit Blog Page
 AdminArticleUpdate: Update Post
 #admin/index.hamlet
-AdminLoginUser: Current login user
+AdminCurrentLoginUser user@Text: You are logged in as #{user}.
 AdminContent: Admin
 AdminTitle: Blog Admin
 AdminArticle: Admin Article
@@ -86,6 +86,9 @@ AdminRecentFile: Recent Files
 AdminArticlePreview: Preview
 #admin/articleAddError.hamlet
 ArticleAddErrorTitle: Error occurred! Correct Following entry form:
+#inline/articleInfo.hs
+PostedTime time@String: Posted at #{time}
+PostedAuthor author@Text: Posted by #{author}
 #inline/tag.hamlet
 TaggedArticlePageTitle: Tagged Article
 TaggedArticleTitle: Title
