@@ -2,6 +2,10 @@ language: haskell
 
 before_script:
   - mv config/settings-dummy.yml config/settings.yml
+  - git submodule update --init --recursive
+  - cd static/css && cp ../../bootstrap-select/bootstrap-select.min.css .
+  - cd ../js && cp ../../bootstrap-select/bootstrap-select.min.js .
+  - cd ../../
 
 script:
   - ~/.cabal/bin/cabal-dev install --only-dependencies --dry-run
