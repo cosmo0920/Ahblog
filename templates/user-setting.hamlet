@@ -7,8 +7,8 @@
   <form action=@{LangR} method=post>
     _{MsgSwitchLanguage}
     <select name=lang class="selectpicker">
-        <option value=en>English
-        <option value=ja>Japanense
+        <option value=en>_{MsgLangEn}
+        <option value=ja>_{MsgLangJa}
     <input type=submit value=_{MsgSwitch} .btn-inverse .rbtn>
   <hr>
   <a href=@{HomeR} .btn .rbtn>

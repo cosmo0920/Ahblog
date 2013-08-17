@@ -116,6 +116,8 @@ SwitchLanguage: 言語を切り替える
 Switch: 切り替え
 BackHome: ホームに戻る
 GoBlog: ブログへ進む
+LangEn: 英語
+LangJa: 日本語
 #search.hamlet
 SearchResult: 検索結果
 ArticleSearchTitle: タイトル

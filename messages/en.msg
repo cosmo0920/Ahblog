@@ -116,6 +116,8 @@ SwitchLanguage: Switch Langauge
 Switch: Switch
 BackHome: Back Home
 GoBlog: Go Blog
+LangEn: English
+LangJa: Japanese
 #search.hamlet
 SearchResult: Search Result
 ArticleSearchTitle: Title
