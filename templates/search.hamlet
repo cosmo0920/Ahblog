@@ -2,10 +2,10 @@
   <h1>
     _{MsgSearchResult}
 $if null articles
-  <p>There is no match <b>#{searchString}</b> in this blog articles.
+  <p>_{MsgArticleSearchNoResult searchString}
   <hr>
 $else
-  <p>Search result for <b>#{searchString}</b> in this blog articles as follows:
+  <p>_{MsgArticleSearchResult searchString}
   <div .post-listing>
     <table .table .table-bordered .table-condensed>
       <thead>

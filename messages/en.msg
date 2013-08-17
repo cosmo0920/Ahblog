@@ -122,3 +122,5 @@ LangJa: Japanese
 SearchResult: Search Result
 ArticleSearchTitle: Title
 ArticleSearchPosted: Posted
+ArticleSearchResult msg@Text: Search result for [#{msg}] in this blog articles as follows:
+ArticleSearchNoResult msg@Text: There is no match [#{msg}] in this blog articles.

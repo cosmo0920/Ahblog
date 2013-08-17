@@ -122,3 +122,5 @@ LangJa: 日本語
 SearchResult: 検索結果
 ArticleSearchTitle: タイトル
 ArticleSearchPosted: 投稿時間
+ArticleSearchResult msg@Text: 検索ワード 「#{msg}」 に対する検索結果:
+ArticleSearchNoResult msg@Text: 検索ワード 「#{msg}」 に対する検索結果はありません。
