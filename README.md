@@ -5,7 +5,7 @@ Ahblog
 
 The source code for my internal web app which is powered by the Yesod framework, written in haskell.
 
-Simple responsive design web app using twitter bootstrap. Markdown-driven, comments, post administration and search articles/titles.
+Simple responsive design web app using twitter bootstrap v2.3.x. Markdown-driven, comments, post administration and search articles/titles.
 
 More information, see Japanese manual: [説明書](doc/ja.md)
 
@@ -54,4 +54,4 @@ $ ~/.cabal/bin/cabal-dev --dev devel
 
 * * * *
 
-This code is provided under the MIT LICENSE. see: [LICENSE file](LICENSE)
+This code is provided under the MIT LICENSE. see: [LICENSE](LICENSE)
