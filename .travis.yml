@@ -11,8 +11,9 @@ script:
   - cabal install --only-dependencies --dry-run
   - cabal configure && cabal build
 
+before_install:
+  - export PATH=/usr/lib/ghc/bin:$PATH # for hsc2hs
+
 install:
-  - sudo apt-get install -qq -y libghc-bindings-dsl-dev
-  - export PATH=~/.cabal/bin/:$PATH
   - cabal sandbox init
   - cabal install --only-dependencies
