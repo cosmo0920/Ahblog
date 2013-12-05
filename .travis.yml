@@ -6,13 +6,13 @@ before_script:
   - cd static/css && cp ../../bootstrap-select/bootstrap-select.min.css .
   - cd ../js && cp ../../bootstrap-select/bootstrap-select.min.js .
   - cd ../../
-  - cabal install hsc2hs
-  - export PATH=~/.cabal/bin/:$PATH
-  - cabal sandbox init
 
 script:
   - cabal install --only-dependencies --dry-run
   - cabal configure && cabal build
 
 install:
+  - cabal install hsc2hs
+  - export PATH=~/.cabal/bin/:$PATH
+  - cabal sandbox init
   - cabal install --only-dependencies
