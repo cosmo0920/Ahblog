@@ -73,7 +73,7 @@ when using cabal sandbox
 $ cp config/settings-dummy.yml config/settings.yml
 $ cabal install yesod-bin
 $ export PATH=./.cabal-sandbox/bin:$PATH
-$ yesod --dev devel
+$ yesod devel
 ```
 
 * * * *
