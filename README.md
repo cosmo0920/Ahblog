@@ -13,6 +13,10 @@ More information, see Japanese manual: [説明書](doc/ja.md)
 
 If you install cabal packages, __strongly recommended__ use cabal-dev.
 
+or
+
+If you use cabal 1.18 or higher, __strongly recommended__ use cabal sandbox.
+
 ### git clone and prepare git submodule
 
 ```bash
@@ -26,6 +30,8 @@ $ cd ../../
 
 ### Install dependent libraries
 
+#### when use cabal-dev
+
 when you use __Debian and related distributions...__
 
 ```bash
@@ -34,6 +40,13 @@ $ cabal install happy [or $ sudo apt-get install happy]
 $ cabal install cabal-dev
 $ ~/.cabal/bin/cabal-dev install --dry-run --only-dependencies #prevent dependency hell
 $ ~/.cabal/bin/cabal-dev install --only-dependencies
+```
+
+#### when use cabal sandbox
+
+```bash
+$ cabal sandbox init
+$ cabal install --only-dependencies
 ```
 
 ### build application
@@ -49,7 +62,18 @@ or
 ```bash
 $ cp config/settings-dummy.yml config/settings.yml
 $ ~/.cabal/bin/cabal-dev install yesod-bin
-$ ~/.cabal/bin/cabal-dev --dev devel
+$ ~/.cabal/bin/yesod --dev devel
+```
+
+or
+
+when using cabal sandbox
+
+```bash
+$ cp config/settings-dummy.yml config/settings.yml
+$ cabal install yesod-bin
+$ export PATH=./.cabal-sandbox/bin:$PATH
+$ yesod --dev devel
 ```
 
 * * * *
