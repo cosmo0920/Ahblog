@@ -19,7 +19,7 @@ import Model
 import Text.Jasmine (minifym)
 import Web.ClientSession (getKey)
 import Text.Hamlet (hamletFile)
-import System.Log.FastLogger (Logger)
+import Yesod.Core.Types (Logger)
 import Data.Text
 import Data.Maybe (isNothing)
 import Control.Applicative
