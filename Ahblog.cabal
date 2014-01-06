@@ -91,6 +91,7 @@ library
                  , fast-logger                   >= 2.1        && < 2.2
                  , wai-logger                    >= 2.0        && < 2.2
                  , yesod-paginator               >= 0.9        && < 1.0
+                 , transformers                  >= 0.3
                  , time
                  , friendly-time
                  , filepath
