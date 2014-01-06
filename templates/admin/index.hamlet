@@ -28,6 +28,8 @@
                <tr>
                  <td width="280">
                    <a href=@{ArticleR articleId}>#{makeBrief 25 $ articleTitle article}
+                   $if articleDraft article
+                      <span .label .label-info> draft
                  <td width="30">
                    <a href=@{ArticleEditR articleId}>_{MsgAdminEdit}
                  <td width="30">
