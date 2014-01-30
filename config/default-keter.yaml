@@ -1,7 +1,9 @@
-exec: ../dist/build/Ahblog/Ahblog
-args:
-    - production
-host: <<HOST-NOT-SET>>
+stanzas:
+    - type: webapp
+      exec: ../dist/build/Ahblog/Ahblog
+      args:
+          - production
+      host: localhost
 
 # Use the following to automatically copy your bundle upon creation via `yesod
 # keter`. Uses `scp` internally, so you can set it to a remote destination
@@ -15,5 +17,5 @@ host: <<HOST-NOT-SET>>
 # however, the requests from nginx -> keter will not come to
 # that hostname, so we need to tell keter to listen on something
 # else as well
-extra-hosts:
-  - "127.0.0.1:8000"
+#extra-hosts:
+#  - "127.0.0.1:8000"

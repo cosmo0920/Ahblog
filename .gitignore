@@ -6,6 +6,7 @@ static/files/*.*
 static/*/bootstrap-select*
 config/client_session_key.aes
 config/settings.yml
+config/keter.yaml
 *.hi
 *.o
 *.sqlite3
