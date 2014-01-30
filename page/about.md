@@ -12,22 +12,22 @@ About
 Welcome to About Page.
 ----------------------
 
-### about me 
+### about me
 
 #####Name: *コスモ*
 
  <img src=http://gravatar.com/avatar/42cc565b7cc0ea14ebab3a3840bf1ba9?size=200>
 
-#### Accounts   
+#### Accounts
 
 **Blog:** [http://cosmo0920.wordpress.com/][]
 
-Twitter: [@cosmo\_\_][]
+Twitter: [\@cosmo__][]
 
 Github: [cosmo0920][]
 
 * * * * *
 
   [http://cosmo0920.wordpress.com/]: http://cosmo0920.wordpress.com/
-  [@cosmo\_\_]: https://twitter.com/cosmo__
+  [\@cosmo__]: https://twitter.com/cosmo__
   [cosmo0920]: https://github.com/cosmo0920
