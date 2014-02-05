@@ -1,5 +1,7 @@
 dist*
 .cabal-sandbox
+*.keter
+.shelly
 cabal.sandbox.config
 static/tmp/
 static/files/*.*
