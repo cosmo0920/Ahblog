@@ -8,8 +8,9 @@ before_script:
   - cd ../../
 
 script:
-  - cabal install --only-dependencies --dry-run
+  - cabal install --only-dependencies --enable-tests --dry-run
   - cabal configure && cabal build
+  - cabal test
 
 before_install:
   - export PATH=/usr/lib/ghc/bin:~/.cabal/bin:$PATH # for hsc2hs
@@ -19,4 +20,4 @@ before_install:
 
 install:
   - cabal sandbox init
-  - cabal install --only-dependencies
+  - cabal install --only-dependencies --enable-tests
