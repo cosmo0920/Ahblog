@@ -8,7 +8,6 @@ before_script:
   - cd ../../
 
 script:
-  - cabal install --only-dependencies --enable-tests --dry-run
   - cabal configure && cabal build
   - cabal test
 
