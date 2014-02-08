@@ -10,4 +10,4 @@ userProfileSpecs =
   ydescribe "not logged in user GET /setting/user" $ do
     yit "should be redirect" $ do
       get UserSettingR
-      statusIs 303
+      statusIs 302

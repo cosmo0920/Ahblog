@@ -23,12 +23,12 @@ admintoolsSpecs =
   ydescribe "not admin user" $ do
     yit "GET /admin/manage should redirect" $ do
       get AdminR
-      statusIs 303
+      statusIs 302
 
     yit "GET /admin/new should redirect" $ do
       get NewBlogR
-      statusIs 303
+      statusIs 302
 
     yit "GET /file should redirect" $ do
       get ImagesR
-      statusIs 303
+      statusIs 302
