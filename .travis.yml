@@ -8,15 +8,8 @@ before_script:
   - cd ../../
 
 script:
-  - cabal install --only-dependencies --enable-tests --dry-run
   - cabal configure && cabal build
   - cabal test
-
-before_install:
-  - export PATH=/usr/lib/ghc/bin:~/.cabal/bin:$PATH # for hsc2hs
-  - cabal install happy
-  - cabal install alex
-  - cabal install c2hs
 
 install:
   - cabal sandbox init
