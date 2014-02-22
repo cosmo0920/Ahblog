@@ -56,9 +56,8 @@ library
                 RecordWildCards
 
     build-depends: base                          >= 4          && < 5
-                 -- , yesod-platform                >= 1.1        && < 1.2
-                 , yesod                         >= 1.2        && < 1.3
-                 , yesod-core                    >= 1.2.6      && < 1.3
+                 , yesod                         >= 1.2.5      && < 1.3
+                 , yesod-core                    >= 1.2        && < 1.3
                  , yesod-auth                    >= 1.2        && < 1.3
                  , yesod-static                  >= 1.2        && < 1.3
                  , yesod-default                 >= 1.2        && < 1.3
@@ -68,10 +67,9 @@ library
                  , clientsession                 >= 0.8        && < 0.10
                  , bytestring                    >= 0.9        && < 0.11
                  , text                          >= 0.11       && < 2.0
-                 -- for yesod-paginator-0.9
-                 , persistent                    >= 1.2        && < 1.3
-                 , persistent-sqlite             >= 1.2        && < 1.3
-                 , persistent-template           >= 1.2        && < 1.3
+                 , persistent                    >= 1.3        && < 1.4
+                 , persistent-sqlite             >= 1.3        && < 1.4
+                 , persistent-template           >= 1.3        && < 1.4
                  , template-haskell
                  , hamlet                        >= 1.1        && < 1.2
                  , shakespeare-css               >= 1.0        && < 1.1
@@ -88,8 +86,8 @@ library
                  , aeson                         >= 0.6        && < 0.8
                  , conduit                       >= 1.0        && < 2.0
                  , monad-logger                  >= 0.3        && < 0.4
-                 , fast-logger                   >= 2.1        && < 2.2
-                 , wai-logger                    >= 2.0        && < 2.2
+                 , fast-logger                   >= 2.1.4      && < 2.2
+                 , wai-logger                    >= 2.1        && < 2.2
                  , yesod-paginator               >= 0.9        && < 1.0
                  , transformers                  >= 0.3
                  , time
@@ -116,17 +114,17 @@ test-suite test
 
     build-depends: base
                  , Ahblog
-                 , yesod                         >= 1.2        && < 1.3
-                 , yesod-auth                    >= 1.2        && < 1.3
-                 , yesod-test                    >= 1.2        && < 1.3
-                 , yesod-core                    >= 1.2        && < 1.3
-                 , yesod-markdown                >= 0.8        && < 0.9
-                 , persistent                    >= 1.2        && < 1.3
-                 , persistent-sqlite             >= 1.2        && < 1.3
+                 , yesod
+                 , yesod-auth
+                 , yesod-test
+                 , yesod-core
+                 , yesod-markdown
+                 , persistent
+                 , persistent-sqlite
                  , resourcet
-                 , monad-logger                  >= 0.3
+                 , monad-logger
                  , lifted-base
                  , time
-                 , text                          >= 0.11       && < 0.12
-                 , transformers                  >= 0.3        && < 0.4
+                 , text
+                 , transformers
                  , hspec
