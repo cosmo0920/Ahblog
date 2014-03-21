@@ -11,4 +11,4 @@ if [ ! -d $BACKUP_DIR/files ]; then
 fi
 
 cp /opt/keter/temp/${PRODUCT_NAME}-*/*_production.sqlite3 ${BACKUP_DIR}
-cp /opt/keter/temp/${PRODUCT_NAME}-*/static/files/ ${BACKUP_DIR}/files/
+cp /opt/keter/temp/${PRODUCT_NAME}-*/static/files/* ${BACKUP_DIR}/files/
