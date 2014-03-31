@@ -23,7 +23,7 @@ main =  shelly $ do
   cp from_cp_css to_cp_css
   let keter   = "Ahblog.keter"
       dirs    = ["page","config"]
-      statics = ["static/css","static/files","static/img","static/js"]
+      statics = ["static/css","static/files","static/img","static/js","static/fonts"]
   run_tar "czvf" ([keter, executable] ++ dirs ++ statics)
   return ()
 
