@@ -10,10 +10,10 @@ uploadSubDirectory :: FilePath
 uploadSubDirectory = "files"
 
 uploadForm :: Form (FileInfo, Maybe Textarea, UTCTime)
-uploadForm = renderBootstrap $ (,,)
+uploadForm = renderBootstrap3 BootstrapBasicForm $ (,,)
     <$> fileAFormReq fsFile
     <*> aopt textareaField fsFileDescr Nothing
     <*> lift (liftIO getCurrentTime)
         where
-          fsFile      = (fieldSettingsLabel MsgFormFileUpload)      { fsAttrs = [("class", "span5")]}
-          fsFileDescr = (fieldSettingsLabel MsgFormFileDescription) { fsAttrs = [("class", "span5")]}
+          fsFile      = (fieldSettingsLabel MsgFormFileUpload)      { fsAttrs = [("class", "col-md-12")]}
+          fsFileDescr = (fieldSettingsLabel MsgFormFileDescription) { fsAttrs = [("class", "col-md-12")]}

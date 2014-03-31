@@ -8,7 +8,7 @@ before_script:
   - cd ../../
 
 script:
-  - cabal configure && cabal build
+  - cabal configure --enable-tests && cabal build
   - cabal test
 
 install:

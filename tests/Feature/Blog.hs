@@ -96,7 +96,7 @@ visitUserSpecs =
     ydescribe "Blog has sidebar" $ do
       yit "GET /blog then html has .span3" $ do
         get BlogViewR
-        htmlAllContain "body" "span3"
+        htmlAllContain "body" "col-md-3"
         htmlAllContain "body" "align=\"right\""
 
     ydescribe "/blog contains footer" $ do

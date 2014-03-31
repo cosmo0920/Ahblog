@@ -5,7 +5,7 @@ Ahblog
 
 The source code for my internal web app which is powered by the Yesod framework, written in haskell.
 
-Simple responsive design web app using twitter bootstrap v2.3.x. Markdown-driven, comments, post administration and search articles/titles.
+Simple responsive design web app using twitter bootstrap v3.1.x. Markdown-driven, comments, post administration and search articles/titles.
 
 More information, see Japanese manual: [説明書](doc/ja.md)
 

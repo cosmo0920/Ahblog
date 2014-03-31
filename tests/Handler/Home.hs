@@ -26,9 +26,9 @@ navbarSpecs :: Spec
 navbarSpecs = do
     yit "Home html contains navbar" $ do
       get HomeR
-      htmlAllContain "body" "div class=\"navbar navbar-inverse\""
-      htmlAllContain "body" "div class=\"navbar-inner\""
+      htmlAllContain "body" "div class=\"navbar navbar-default navbar-inverse\""
+      htmlAllContain "body" "div class=\"navbar-header\""
 
-    yit "Home html has a class=\"brand\"" $ do
+    yit "Home html has a class=\"navbar-brand\"" $ do
       get HomeR
-      htmlAllContain "body" "a class=\"brand\""
+      htmlAllContain "body" "a class=\"navbar-brand\""

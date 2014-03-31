@@ -11,7 +11,7 @@
         <option value=ja>_{MsgLangJa}
     <input type=submit value=_{MsgSwitch} .btn-inverse .rbtn>
   <hr>
-  <a href=@{HomeR} .btn .rbtn>
-    <i class="icon-circle-arrow-left"></i> _{MsgBackHome}
-  <a href=@{BlogViewR} .btn .rbtn>
-    _{MsgGoBlog} <i class="icon-circle-arrow-right"></i>
+  <a href=@{HomeR} .btn .rbtn .btn-default>
+    <i class="glyphicon glyphicon-circle-arrow-left"></i> _{MsgBackHome}
+  <a href=@{BlogViewR} .btn .rbtn .btn-default>
+    _{MsgGoBlog} <i class="glyphicon glyphicon-circle-arrow-right"></i>

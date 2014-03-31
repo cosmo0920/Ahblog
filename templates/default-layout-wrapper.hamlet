@@ -32,13 +32,15 @@
           src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_SVG">
         <meta http-equiv="X-UA-Compatible" CONTENT="IE=EmulateIE7" />
     <body>
-        <div class="navbar navbar-inverse">
-          <div class="navbar-inner">
-            <div class="container-fluid">
-              <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-              <a class="brand" href=@{HomeR}><i>#{blogTitle}</i>
-              <div class="nav-collapse">
-                <ul class="nav">
+        <div class="navbar navbar-default navbar-inverse">
+         <div class="navbar-header">
+           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+           <a class="navbar-brand" href=@{HomeR}><i>#{blogTitle}</i>
+         <div class="navbar-collapse collapse">
+           <ul class="nav navbar-nav">
                   <li>
                     <a href=@{BlogViewR}>Blog
                   <li>
@@ -60,7 +62,7 @@
         <div .container>
           ^{pageBody pc}
         <div .row>
-          <div ."span7 offset1">
+          <div ."col-md-7 col-md-offset-1">
             <footer>
               <a href="https://github.com/cosmo0920/Ahblog">Code</a> licensed under the <a href="http://opensource.org/licenses/MIT">MIT License</a><br />
               see <a href=@{ArchiveR}>archive</a> of all posts
