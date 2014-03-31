@@ -29,11 +29,11 @@ postForm mart mtags html = do
     in (,) <$> art <*> tags
   return (r,widget)
       where
-        fsTitle   = (fieldSettingsLabel MsgFormArticleTitle)   { fsAttrs = [("class", "span8")] }
-        fsContent = (fieldSettingsLabel MsgFormArticleContent) { fsAttrs = [("class", "span8")] }
-        fsSlug    = (fieldSettingsLabel MsgFormArticleSlug)    { fsAttrs = [("class", "span8")] }
-        fsTag     = (fieldSettingsLabel MsgFormArticleTag)     { fsAttrs = [("class", "span8")] }
-        fsDraft   = (fieldSettingsLabel MsgFormArticleDraft)   { fsAttrs = [("class", "span8")] }
+        fsTitle   = (fieldSettingsLabel MsgFormArticleTitle)   { fsAttrs = [("class", "col-md-8")] }
+        fsContent = (fieldSettingsLabel MsgFormArticleContent) { fsAttrs = [("class", "col-md-8")] }
+        fsSlug    = (fieldSettingsLabel MsgFormArticleSlug)    { fsAttrs = [("class", "col-md-8")] }
+        fsTag     = (fieldSettingsLabel MsgFormArticleTag)     { fsAttrs = [("class", "col-md-8")] }
+        fsDraft   = (fieldSettingsLabel MsgFormArticleDraft)   { fsAttrs = [("class", "col-md-8")] }
 
 commentForm :: ArticleId -> Form Comment
 commentForm articleId extra = do
@@ -48,5 +48,5 @@ commentForm articleId extra = do
           <*> pure articleId
           <*> lift (liftIO getCurrentTime)
             where
-              fsName    = (fieldSettingsLabel MsgFormCommentName)    { fsAttrs = [("class", "span7")] }
-              fsContent = (fieldSettingsLabel MsgFormCommentContent) { fsAttrs = [("class", "span7")] }
+              fsName    = (fieldSettingsLabel MsgFormCommentName)    { fsAttrs = [("class", "col-md-7")] }
+              fsContent = (fieldSettingsLabel MsgFormCommentContent) { fsAttrs = [("class", "col-md-7")] }

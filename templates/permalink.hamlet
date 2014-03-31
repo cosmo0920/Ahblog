@@ -1,7 +1,7 @@
 <div .page-header>
   <h2>#{articleTitle}</h2></div>
   <div .row>
-    <div .span9>
+    <div .col-md-9>
       <p><i class="icon-calendar"></i>_{MsgPostedTime published}
       <p><i class="icon-user"></i>_{MsgPostedAuthor screenAuthor}
       $if not (null tags)
@@ -40,6 +40,6 @@
       <hr>
       <ul .pager .pull-left>
         <li .previous><a href=@{BlogViewR} .btn><i class="icon-circle-arrow-left"></i>_{MsgBackToRecentPost}
-    <div .span3>
+    <div .col-md-3>
        ^{sidebarWidget}
     <hr>

@@ -24,7 +24,7 @@
           <p>_{MsgNoArticle}
         $else
            $forall Entity articleId article <- articles
-             <table .table-condensed>
+             <table .table .table-bordered .table-condensed>
                <tr>
                  <td width="280">
                    <a href=@{ArticleR articleId}>#{makeBrief 25 $ articleTitle article}
@@ -84,14 +84,15 @@
                <td width="30">#{userEmail user}
                <td width="50">#{makeBrief 50 $ userScreenName user}
                <td width="30">
-                 <a href="@{UserDeleteR userId}" #userdel> _{MsgAdminDelete}
+                 <a href="@{UserDeleteR userId}" #userdel>
+                   _{MsgAdminDelete}
 
-        <a href=@{AuthR LogoutR} .btn .rbtn>
+        <a href=@{AuthR LogoutR} .btn .btn-default .rbtn>
           _{MsgLogout}
-        <a href=@{UserSettingR} .btn .rbtn>
+        <a href=@{UserSettingR} .btn .btn-default .rbtn>
           _{MsgProfile}
 
       <hr>
   $nothing
     <h2>_{MsgAuthorizationRequired}</h2>
-      <a href=@{AuthR LoginR} class="btn">_{MsgLogin}
+      <a href=@{AuthR LoginR} .btn .btn-default>_{MsgLogin}

@@ -1,7 +1,7 @@
 <div .page-header>
   <h2>#{articleTitle article}</h2></div>
   <div .row>
-    <div .span9>
+    <div .col-md-9>
       <p><i class="icon-calendar"></i>#{humanReadableTime' now $ articleCreatedAt article}
       <p><i class="icon-user"></i>Posted by #{username}
         $if not (null tags)
@@ -14,6 +14,6 @@
                     #{tag}
       <div #article>
         <article>#{articleContent article}<br/>
-    <div .span3>
+    <div .col-md-3>
       ^{sidebarWidget}
   <hr>

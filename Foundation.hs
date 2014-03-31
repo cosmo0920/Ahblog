@@ -91,7 +91,6 @@ instance Yesod App where
         pc <- widgetToPageContent $ do
             addScript $ StaticR js_jquery_min_js
             addStylesheet $ StaticR css_bootstrap_min_css
-            addStylesheet $ StaticR css_bootstrap_responsive_min_css
             addStylesheet $ StaticR css_bootstrap_select_min_css
             addStylesheet $ StaticR css_radius_button_css
             addStylesheet $ StaticR css_desert_css

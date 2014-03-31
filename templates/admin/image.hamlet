@@ -5,7 +5,7 @@ $maybe msg <- mmsg
       #{msg}
 <div .container>
   <div .row>
-    <div .span12>
+    <div .col-md-12>
       <h2>
         _{MsgAdminUploadNewFile}
       <div .form-actions>

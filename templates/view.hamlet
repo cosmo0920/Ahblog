@@ -2,7 +2,7 @@
   <h1>
     _{MsgArticle}
 <div .row>
-  <div .span9>
+  <div .col-md-9>
     $if null articles
       <h3> _{MsgNoArticle}
     $else
@@ -14,7 +14,7 @@
           |
           <a href=@{PermalinkR $ articleSlug article}#comment>
             _{MsgComment}
-  <div .span3>
+  <div .col-md-3>
     ^{sidebarWidget}
 <hr>
 <div .pagination>

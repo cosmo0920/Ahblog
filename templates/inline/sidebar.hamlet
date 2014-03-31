@@ -2,7 +2,7 @@
   <a href=@{BlogFeedR}>
    <img src=@{StaticR img_feed_icon_28x28_png}>
 <ul ."nav nav-list well">
-   <li .nav-header><i class="icon-signal"></i>Recent Posts
+   <li .nav-header><i class="glyphicon glyphicon-signal"></i>Recent Posts
    $if null articleArchives
      <p>_{MsgNoArticle}
    $else
@@ -10,7 +10,7 @@
        <li>
          <a href=@{PermalinkR $ articleSlug articleArchive}>
            #{makeBrief 20 $ articleTitle articleArchive}
-   <li .nav-header><i class="icon-share-alt"></i>Powered by
+   <li .nav-header><i class="glyphicon glyphicon-share-alt"></i>Powered by
    <li>
      <a href="http://www.yesodweb.com/">
        Yesod
@@ -29,13 +29,13 @@
    <li>
      <a href="http://hackage.haskell.org/package/friendly-time">
        friendly-time
-   <li .nav-header><i class="icon-time"></i>Archive
+   <li .nav-header><i class="glyphicon glyphicon-time"></i>Archive
    <li>
      <a href="@{ArchiveR}">
        archive
-   <li .nav-header><i class="icon-search"></i>Search
+   <li .nav-header><i class="glyphicon glyphicon-search"></i>Search
    <form .form-search method="get" action=@{SearchR}>
     <div class="input-append">
-     <input #search-input type="text" .span2 .search-query name="q" placeholder=_{MsgSearchPlaceHolder}>
-     <button .btn type="submit">
-       <i class="icon-search">
+     <input #search-input type="text" .search-query name="q" placeholder=_{MsgSearchPlaceHolder}>
+     <button .btn .btn-default type="submit">
+       <i class="glyphicon glyphicon-search">

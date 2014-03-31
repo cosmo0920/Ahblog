@@ -2,17 +2,17 @@
   <h1>_{MsgAdminNewPostArticle}</h1></div>
   $maybe _ <- maid
     <div .row>
-      <div .span8>
+      <div .col-md-8>
         <p>_{MsgAdminPostUserName}: #{username}</p>
         <form method=post enctype=#{enctype} #post>
           ^{articleWidget}
           <input .btn .btn-info .rbtn value=_{MsgAdminNewPost} #postButton>
           <input .btn .btn-primary .rbtn value=_{MsgAdminArticlePreview} #previewButton>
-      <div .span4>
+      <div .col-md-4>
         <h4>
           _{MsgAdminRecentFile}
         $if not $ null images
-        <table .table>
+        <table .table .table-bordered>
           <tr>
             <th>
               _{MsgAdminFileName}
@@ -36,4 +36,4 @@
   $nothing
     <h2>_{MsgNotAnAdmin}</h2>
       <a href=@{AuthR LoginR} class="btn">_{MsgLogin}
-  <ul .pager .pull-left><li .previous><a href=@{AdminR} .btn>_{MsgAdminBackTo}
+  <ul .pager .pull-left><li .previous><a href=@{AdminR} .btn .btn-default>_{MsgAdminBackTo}
