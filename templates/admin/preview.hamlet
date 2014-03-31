@@ -2,11 +2,11 @@
   <h2>#{articleTitle article}</h2></div>
   <div .row>
     <div .col-md-9>
-      <p><i class="icon-calendar"></i>#{humanReadableTime' now $ articleCreatedAt article}
-      <p><i class="icon-user"></i>Posted by #{username}
+      <p><i class="glyphicon glyphicon-calendar"></i>#{humanReadableTime' now $ articleCreatedAt article}
+      <p><i class="glyphicon glyphicon-user"></i>Posted by #{username}
         $if not (null tags)
           <div .tags>
-            <i .icon-tags>
+            <i .glyphicon .glyphicon-tags>
             <ul .tag-list>
               $forall tag <- tags
                 <li>

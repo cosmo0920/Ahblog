@@ -2,11 +2,11 @@
   <h2>#{articleTitle}</h2></div>
   <div .row>
     <div .col-md-9>
-      <p><i class="icon-calendar"></i>_{MsgPostedTime published}
-      <p><i class="icon-user"></i>_{MsgPostedAuthor screenAuthor}
+      <p><i class="glyphicon glyphicon-calendar"></i>_{MsgPostedTime published}
+      <p><i class="glyphicon glyphicon-user"></i>_{MsgPostedAuthor screenAuthor}
       $if not (null tags)
         <div .tags>
-          <i .icon-tags>
+          <i .glyphicon .glyphicon-tags>
           <ul .tag-list>
             $forall tag <- tags
               <li>
@@ -39,7 +39,7 @@
          _{MsgMustBeLoggedIn} <a href=@{AuthR LoginR}>_{MsgLogin}</a>
       <hr>
       <ul .pager .pull-left>
-        <li .previous><a href=@{BlogViewR} .btn><i class="icon-circle-arrow-left"></i>_{MsgBackToRecentPost}
+        <li .previous><a href=@{BlogViewR} .btn><i class="glyphicon glyphicon-circle-arrow-left"></i>_{MsgBackToRecentPost}
     <div .col-md-3>
        ^{sidebarWidget}
     <hr>

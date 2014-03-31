@@ -24,7 +24,7 @@
           <p>_{MsgNoArticle}
         $else
            $forall Entity articleId article <- articles
-             <table .table .table-bordered .table-condensed>
+             <table .table>
                <tr>
                  <td width="280">
                    <a href=@{ArticleR articleId}>#{makeBrief 25 $ articleTitle article}
@@ -36,8 +36,8 @@
                    <a href=@{ArticleDeleteR articleId}>_{MsgAdminDelete}
            <div .pagination>
              ^{widget}
-        <a href=@{NewBlogR} .btn .btn-info .rbtn><i class="icon-pencil"></i> _{MsgAdminNewPost}</a>
-        <a href=@{ImagesR} .btn .btn-success .rbtn><i class="icon-circle-arrow-up"></i> _{MsgAdminFile}</a>
+        <a href=@{NewBlogR} .btn .btn-info .rbtn><i class="glyphicon glyphicon-pencil"></i> _{MsgAdminNewPost}</a>
+        <a href=@{ImagesR} .btn .btn-success .rbtn><i class="glyphicon glyphicon-circle-arrow-up"></i> _{MsgAdminFile}</a>
       <div .tab-pane #comment>
         <h3>_{MsgAdminIndexComment}
         $if null comments

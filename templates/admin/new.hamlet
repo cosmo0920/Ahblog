@@ -30,7 +30,7 @@
                   #{description}
               <td>
                 #{humanReadableTime' now $ imageDate image}
-        <a href=@{ImagesR} .btn .btn-success .rbtn><i class="icon-circle-arrow-up"></i> _{MsgAdminFile}</a>
+        <a href=@{ImagesR} .btn .btn-success .rbtn><i class="glyphicon glyphicon-circle-arrow-up"></i> _{MsgAdminFile}</a>
 
     <hr>
   $nothing
