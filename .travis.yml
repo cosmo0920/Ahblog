@@ -7,6 +7,10 @@ before_script:
   - cd ../js && cp ../../bootstrap-select/bootstrap-select.min.js .
   - cd ../../
 
+before_install:
+  - export PATH=/usr/lib/ghc/bin:~/.cabal/bin:$PATH # for alex
+  - cabal install alex
+
 script:
   - cabal configure --enable-tests && cabal build
   - cabal test
