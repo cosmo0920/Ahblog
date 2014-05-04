@@ -1,7 +1,7 @@
 Ahblog
 ======
 
-[![Build Status](https://travis-ci.org/cosmo0920/Ahblog.png?branch=master)](https://travis-ci.org/cosmo0920/Ahblog)
+[![Build Status](https://travis-ci.org/cosmo0920/Ahblog.svg?branch=master)](https://travis-ci.org/cosmo0920/Ahblog)
 
 The source code for my internal web app which is powered by the Yesod framework, written in haskell.
 
