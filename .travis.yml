@@ -1,5 +1,9 @@
 language: haskell
 
+env:
+  - GHCVER=7.6.3
+  - GHCVER=7.8.2
+
 before_script:
   - mv config/settings-dummy.yml config/settings.yml
   - git submodule update --init --recursive
@@ -8,8 +12,12 @@ before_script:
   - cd ../../
 
 before_install:
-  - export PATH=/usr/lib/ghc/bin:~/.cabal/bin:$PATH # for alex
-  - cabal install alex
+  - sudo add-apt-repository -y ppa:hvr/ghc
+  - sudo apt-get update
+  - sudo apt-get install -y -qq cabal-install-1.18 ghc-$GHCVER alex
+  - export PATH=/opt/ghc/$GHCVER/bin:/opt/cabal/1.18/bin:$PATH
+  - export PATH=~/.cabal/bin:$PATH # for alex
+  - cabal install alex happy
 
 script:
   - cabal configure --enable-tests && cabal build

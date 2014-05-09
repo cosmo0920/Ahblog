@@ -89,7 +89,8 @@ library
                  , fast-logger                   >= 2.1.4      && < 2.2
                  , wai-logger                    >= 2.1        && < 2.2
                  , yesod-paginator               >= 0.9        && < 1.0
-                 , transformers                  >= 0.3
+                 -- xml-conduit-1.2* requests transformers < 4.0
+                 , transformers                  >= 0.3        && < 0.4
                  , time
                  , friendly-time
                  , filepath
