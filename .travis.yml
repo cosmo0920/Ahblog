@@ -2,7 +2,7 @@ language: haskell
 
 env:
   - GHCVER=7.6.3
-  - GHCVER=7.8.2
+  - GHCVER=7.8.3
 
 before_script:
   - mv config/settings-dummy.yml config/settings.yml
