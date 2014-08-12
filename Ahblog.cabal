@@ -90,6 +90,8 @@ library
                  , time
                  , friendly-time
                  , filepath
+                 -- workaround: Pandoc cannot accept texmath-0.7.0.0+
+                 , texmath                                        < 0.7
 
 executable         Ahblog
     if flag(library-only)
