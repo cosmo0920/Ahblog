@@ -26,4 +26,5 @@ script:
 
 install:
   - cabal sandbox init
+  - cp cabal_freeze/cabal-$GHCVER.config cabal.config
   - cabal install --only-dependencies --enable-tests
