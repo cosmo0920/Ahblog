@@ -1,5 +1,6 @@
 dist*
 .cabal-sandbox
+.cabal-sandbox.bak
 *.keter
 .shelly
 cabal.sandbox.config
@@ -13,7 +14,6 @@ config/keter.yaml
 *.o
 *.sqlite3
 .hsenv*
-cabal.config
 cabal-dev/
 yesod-devel/
 log/*
