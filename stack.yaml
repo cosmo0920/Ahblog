@@ -1,0 +1,14 @@
+resolver: lts-3.11
+
+packages:
+- '.'
+- deploy/
+
+extra-deps:
+  - friendly-time-0.4
+  - yesod-markdown-0.10.0
+  - yesod-paginator-0.9.1
+
+flags: {}
+
+extra-package-dbs: []
