@@ -11,11 +11,7 @@ More information, please see Japanese manual: [説明書](doc/ja.md)
 
 ## Try it
 
-If you install cabal packages, __strongly recommended__ use cabal-dev.
-
-or
-
-If you use cabal 1.18 or higher, __strongly recommended__ use cabal sandbox.
+If you try this application, __strongly recommended__ to use [stack](https://github.com/commercialhaskell/stack).
 
 ### git clone and prepare git submodule
 
@@ -28,52 +24,12 @@ $ cd ../js && cp ../../bootstrap-select/bootstrap-select.min.js .
 $ cd ../../
 ```
 
-### Install dependent libraries
-
-#### when use cabal-dev
-
-when you use __Debian and related distributions...__
-
-```bash
-$ cabal update
-$ cabal install happy [or $ sudo apt-get install happy]
-$ cabal install cabal-dev
-$ ~/.cabal/bin/cabal-dev install --dry-run --only-dependencies #prevent dependency hell
-$ ~/.cabal/bin/cabal-dev install --only-dependencies
-```
-
-#### when use cabal sandbox
-
-```bash
-$ cabal sandbox init
-$ cabal install --only-dependencies
-```
-
-### build application
+### Install dependent libraries and build application with stack
 
 ```bash
 $ cp config/settings-dummy.yml config/settings.yml
-$ ~/.cabal/bin/cabal-dev configure
-$ ~/.cabal/bin/cabal-dev build
-```
-
-or
-
-```bash
-$ cp config/settings-dummy.yml config/settings.yml
-$ ~/.cabal/bin/cabal-dev install yesod-bin
-$ ~/.cabal/bin/yesod --dev devel
-```
-
-or
-
-when using cabal sandbox
-
-```bash
-$ cp config/settings-dummy.yml config/settings.yml
-$ cabal install yesod-bin
-$ export PATH=./.cabal-sandbox/bin:$PATH
-$ yesod devel
+$ stack build
+$ ./.stack-work/install/x86_64-linux/lts-*/*/bin/Ahblog Development --port 3000
 ```
 
 * * * *
