@@ -7,7 +7,7 @@ packages:
 extra-deps:
   - friendly-time-0.4
   - yesod-markdown-0.10.0
-  - yesod-paginator-0.9.1
+  - yesod-paginator-0.10.0
 
 flags: {}
 
