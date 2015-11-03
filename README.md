@@ -29,7 +29,7 @@ $ cd ../../
 ```bash
 $ cp config/settings-dummy.yml config/settings.yml
 $ stack build
-$ ./.stack-work/install/x86_64-linux/lts-*/*/bin/Ahblog Development --port 3000
+$ stack exec Ahblog Development --port 3000
 ```
 
 * * * *
