@@ -14,9 +14,9 @@ Welcome to About Page.
 
 ### about me
 
-#####Name: *コスモ*
+##### Name: *コスモ*
 
- <img src=http://gravatar.com/avatar/42cc565b7cc0ea14ebab3a3840bf1ba9?size=200>
+![](http://gravatar.com/avatar/42cc565b7cc0ea14ebab3a3840bf1ba9?size=200)
 
 #### Accounts
 
