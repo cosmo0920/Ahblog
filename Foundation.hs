@@ -6,6 +6,7 @@ import Yesod.Static
 import Yesod.Auth
 import Yesod.Auth.BrowserId
 import Yesod.Auth.GoogleEmail
+import Yesod.Auth.Message (AuthMessage (InvalidLogin))
 import Yesod.Default.Config
 import Yesod.Default.Util (addStaticContentExternal)
 import Network.HTTP.Conduit (Manager)
@@ -13,7 +14,7 @@ import qualified Settings
 import Settings.Development (development)
 import qualified Database.Persist
 import Settings.StaticFiles
-import Database.Persist.Sql (SqlPersistT)
+import Database.Persist.Sql (ConnectionPool, SqlBackend, runSqlPool)
 import Settings (widgetFile, Extra (..))
 import Model
 import Text.Jasmine (minifym)
@@ -31,7 +32,7 @@ import Control.Applicative
 data App = App
     { settings :: AppConfig DefaultEnv Extra
     , getStatic :: Static -- ^ Settings for static file serving.
-    , connPool :: Database.Persist.PersistConfigPool Settings.PersistConf -- ^ Database connection pool.
+    , appConnPool :: ConnectionPool -- ^ Database connection pool.
     , httpManager :: Manager
     , persistConfig :: Settings.PersistConf
     , appLogger :: Logger
@@ -144,13 +145,13 @@ instance Yesod App where
 
 -- How to run database actions.
 instance YesodPersist App where
-    type YesodPersistBackend App = SqlPersistT
-    runDB f = do
+    type YesodPersistBackend App = SqlBackend
+    runDB action = do
         master <- getYesod
-        Database.Persist.runPool
-            (persistConfig master)
-            f
-            (connPool master)
+        runSqlPool action $ appConnPool master
+
+instance YesodPersistRunner App where
+    getDBRunner = defaultGetDBRunner appConnPool
 
 instance YesodAuth App where
     type AuthId App = UserId
@@ -159,19 +160,22 @@ instance YesodAuth App where
     loginDest _ = UserSettingR
     -- Where to send a user after logout
     logoutDest _ = HomeR
+    -- Override the above two destinations when a Referer: header is present
+    redirectToReferer _ = True
 
-    getAuthId creds = runDB $ do
+    authenticate creds = runDB $ do
         x <- getBy $ UniqueUser $ credsIdent creds
-        case x of
-            Just (Entity uid _) -> return $ Just uid
-            Nothing -> do
-                fmap Just $ insert $
-                  User (credsIdent creds) (credsIdent creds)
+        return $ case x of
+            Just (Entity uid _) -> Authenticated uid
+            Nothing -> UserError InvalidLogin
 
     -- You can add other plugins like BrowserID, email or OAuth here
     authPlugins _ = [authBrowserId def, authGoogleEmail]
 
     authHttpManager = httpManager
+
+instance YesodAuthPersist App where
+    type AuthEntity App = User
 
 -- This instance is required to use forms. You can modify renderMessage to
 -- achieve customized and internationalized form validation messages.
@@ -179,7 +183,6 @@ instance RenderMessage App FormMessage where
     renderMessage _ _ = defaultFormMessage
 
 -- | Get the 'Extra' value, used to hold data from the settings.yml file.
---getExtra :: Handler Extra
 getExtra :: Handler Extra
 getExtra = fmap (appExtra . settings) getYesod
 
