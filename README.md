@@ -7,7 +7,7 @@ The source code for my internal web app which is powered by the Yesod framework,
 
 Simple responsive design web app using twitter bootstrap v3.1.x. Markdown-driven, comments, post administration and search articles/titles.
 
-More information, see Japanese manual: [説明書](doc/ja.md)
+More information, please see Japanese manual: [説明書](doc/ja.md)
 
 ## Try it
 
