@@ -1,7 +1,12 @@
 language: haskell
+sudo: false
 
-env:
-  - CABALVER=1.22 GHCVER=7.10.2
+
+matrix:
+  include:
+    - env: CABALVER=1.22 GHCVER=7.10.2
+      compiler: ": #GHC 7.10.2"
+      addons: {apt: {packages: [cabal-install-1.22,ghc-7.10.2,alex-3.1.4,happy-1.19.5], sources: [hvr-ghc]}}
 
 before_script:
   - mv config/settings-dummy.yml config/settings.yml
@@ -11,13 +16,6 @@ before_script:
   - cd ../../
 
 before_install:
-  - sudo add-apt-repository -y ppa:hvr/ghc
-  - sudo apt-get update
-  - sudo apt-get install -y -qq cabal-install-$CABALVER ghc-$GHCVER
-  - export PATH=/opt/ghc/$GHCVER/bin:/opt/cabal/1.20/bin:$PATH
-  - export PATH=~/.cabal/bin:$PATH # for alex
-  - cabal update
-  - cabal install alex happy
   # stack
   - mkdir -p ~/.local/bin
   - export PATH=~/.local/bin:$PATH
