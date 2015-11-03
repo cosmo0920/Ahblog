@@ -12,6 +12,8 @@ main =  shelly $ do
   let arch = "x86_64-linux"
   let stack_dir = concat $ [".stack-work/install/", arch, "/", lts_ver, "/", ghc_ver, "/"]
   let orig_executable = filepath stack_dir "bin/Ahblog"
+  let dist_dir = filepath "dist/build/Ahblog/" "."
+  mkdir_p dist_dir
   let executable_path = filepath "dist/build/Ahblog/" "Ahblog"
   let executable = "dist/build/Ahblog/Ahblog"
   cp orig_executable executable_path

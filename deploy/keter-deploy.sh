@@ -1,6 +1,7 @@
 #!/bin/bash -ex
 
 stack build
+mkdir -p dist/build/Ahblog/
 cp .stack-work/install/x86_64-linux/lts-3.11/7.10.2/bin/Ahblog dist/build/Ahblog/Ahblog
 strip dist/build/Ahblog/Ahblog
 rm -rf static/tmp
