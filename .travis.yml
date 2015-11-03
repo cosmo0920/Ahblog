@@ -1,8 +1,7 @@
 language: haskell
 
 env:
-  - GHCVER=7.6.3
-  - GHCVER=7.8.3
+  - CABALVER=1.22 GHCVER=7.10.2
 
 before_script:
   - mv config/settings-dummy.yml config/settings.yml
@@ -14,17 +13,19 @@ before_script:
 before_install:
   - sudo add-apt-repository -y ppa:hvr/ghc
   - sudo apt-get update
-  - sudo apt-get install -y -qq cabal-install-1.20 ghc-$GHCVER alex
+  - sudo apt-get install -y -qq cabal-install-$CABALVER ghc-$GHCVER
   - export PATH=/opt/ghc/$GHCVER/bin:/opt/cabal/1.20/bin:$PATH
   - export PATH=~/.cabal/bin:$PATH # for alex
   - cabal update
   - cabal install alex happy
-
-script:
-  - cabal configure --enable-tests && cabal build
-  - cabal test
+  # stack
+  - mkdir -p ~/.local/bin
+  - export PATH=~/.local/bin:$PATH
+  - travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
 
 install:
-  - cabal sandbox init
-  - cp cabal_freeze/cabal-$GHCVER.config cabal.config
-  - cabal install --only-dependencies --enable-tests
+  - stack --skip-ghc-check setup
+  - stack +RTS -N2 -RTS --no-terminal build
+
+script:
+  - stack +RTS -N2 -RTS --no-terminal test
