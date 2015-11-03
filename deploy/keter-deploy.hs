@@ -1,14 +1,20 @@
 {-# LANGUAGE OverloadedStrings #-}
 import Shelly
-import Data.Text
+import Data.Text hiding (concat)
 import Data.Maybe (fromMaybe)
 import Prelude hiding (FilePath)
 
 main :: IO ()
 main =  shelly $ do
-  cabal_configure
-  cabal_build
+  stack_build
+  let lts_ver = "lts-3.11"
+  let ghc_ver = "7.10.2"
+  let arch = "x86_64-linux"
+  let stack_dir = concat $ [".stack-work/install/", arch, "/", lts_ver, "/", ghc_ver, "/"]
+  let orig_executable = filepath stack_dir "bin/Ahblog"
+  let executable_path = filepath "dist/build/Ahblog/" "Ahblog"
   let executable = "dist/build/Ahblog/Ahblog"
+  cp orig_executable executable_path
   run_strip [executable]
   let rm_static = "static/tmp"
   rm_rf rm_static
@@ -27,18 +33,14 @@ main =  shelly $ do
   run_tar "czvf" ([keter, executable] ++ dirs ++ statics)
   return ()
 
-run_cabal :: Text -> [Text] -> Sh Text
-run_cabal option args = do
-  cabal <- fmap (fromText . fromMaybe "cabal") $ get_env "CABAL"
-  run cabal (option:args)
+run_stack :: Text -> [Text] -> Sh Text
+run_stack option args = do
+  stack <- fmap (fromText . fromMaybe "stack") $ get_env "STACK"
+  run stack (option:args)
 
-cabal_configure :: Sh Text
-cabal_configure = shelly $ do
-  run_cabal "configure" []
-
-cabal_build :: Sh Text
-cabal_build = shelly $ do
-  run_cabal "build" []
+stack_build :: Sh Text
+stack_build = shelly $ do
+  run_stack "build" []
 
 run_strip :: [Text] -> Sh Text
 run_strip [args] = shelly $ do
