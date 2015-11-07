@@ -1,4 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
 import Shelly
 import Data.Text hiding (concat)
 import Data.Maybe (fromMaybe)
