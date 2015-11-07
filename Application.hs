@@ -20,9 +20,6 @@ import Database.Persist.Sql (runMigration)
 import Network.HTTP.Conduit (newManager, conduitManagerSettings)
 import Data.Default (def)
 import Control.Monad.Logger (runLoggingT)
--- this module used by fast-logger-2.0.x.
--- If you use 2.1 or higher, you don't need import it.
--- import qualified GHC.IO.FD
 import System.Log.FastLogger (newStdoutLoggerSet, defaultBufSize)
 import Network.Wai.Logger (clockDateCacher)
 import Yesod.Core.Types (loggerSet, Logger (Logger))
