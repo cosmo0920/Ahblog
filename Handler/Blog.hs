@@ -15,10 +15,15 @@ import Yesod.RssFeed
 import Helper.Sidebar
 import Helper.ArticleInfo
 import Helper.MakeBrief
+import qualified Database.Esqueleto as E
 
 getBlogFeedR :: Handler RepRss
 getBlogFeedR = do
-  articles <- runDB $ selectList [ArticleDraft !=. True][Desc ArticleCreatedAt, LimitTo 10]
+  articles <- runDB $ E.select $ E.from $ \(articles') -> do
+    E.where_ (articles' E.^. ArticleDraft E.!=. E.val True)
+    E.orderBy [E.desc (articles' E.^. ArticleCreatedAt)]
+    E.limit 10
+    return articles'
   title <- getBlogTitle
   let entries = flip map articles $ \(Entity _ article) ->
         FeedEntry {
