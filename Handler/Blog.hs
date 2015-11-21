@@ -52,7 +52,11 @@ getBlogViewR = do
   let page = 10
   (articles, widget, articleArchives) <- runDB $ do
     (articles, widget) <- selectPaginated page [ArticleDraft !=. True] [Desc ArticleCreatedAt]
-    articleArchives    <- selectList [ArticleDraft !=. True] [Desc ArticleCreatedAt, LimitTo 10]
+    articleArchives    <- E.select $ E.from $ \(articleArchives') -> do
+      E.where_ (articleArchives' E.^. ArticleDraft E.!=. E.val True)
+      E.orderBy [E.desc (articleArchives' E.^. ArticleCreatedAt)]
+      E.limit 10
+      return articleArchives'
     return (articles, widget, articleArchives)
   title <- getBlogTitle
   -- We'll need the two "objects": articleWidget and enctype
