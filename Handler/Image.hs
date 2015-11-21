@@ -7,11 +7,15 @@ import System.Directory (removeFile, doesFileExist)
 import Data.Time
 import Data.Time.Format.Human
 import Helper.ImageForm
+import qualified Database.Esqueleto as E
 
 getImagesR :: Handler Html
 getImagesR = do
     ((_, widget), enctype) <- runFormPost uploadForm
-    images <- runDB $ selectList [ImageFilename !=. ""] [Desc ImageDate]
+    images <- runDB $ E.select $ E.from $ \(images') -> do
+      E.where_ (images' E.^. ImageFilename E.!=. E.val "")
+      E.orderBy [E.desc (images' E.^. ImageDate)]
+      return images'
     mmsg <- getMessage
     now <- liftIO $ getCurrentTime
     defaultLayout $ do
