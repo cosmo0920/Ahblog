@@ -127,3 +127,7 @@ ArticleSearchTitle: タイトル
 ArticleSearchPosted: 投稿時間
 ArticleSearchResult msg@Text: 検索ワード 「#{msg}」 に対する検索結果:
 ArticleSearchNoResult msg@Text: 検索ワード 「#{msg}」 に対する検索結果はありません。
+#sidebar.hamlet
+RecentPosts: 最近の投稿
+PostArchive: アーカイブ
+PostSearch: 検索

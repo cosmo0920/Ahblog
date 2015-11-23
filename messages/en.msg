@@ -127,3 +127,7 @@ ArticleSearchTitle: Title
 ArticleSearchPosted: Posted
 ArticleSearchResult msg@Text: Search result for [#{msg}] in this blog articles as follows:
 ArticleSearchNoResult msg@Text: There is no match [#{msg}] in this blog articles.
+#sidebar.hamlet
+RecentPosts: Recent Posts
+PostArchive: Archive
+PostSearch: Search

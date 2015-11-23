@@ -2,7 +2,7 @@
   <a href=@{BlogFeedR}>
    <img src=@{StaticR img_feed_icon_28x28_png}>
 <ul ."nav nav-list well">
-   <li .nav-header><i class="glyphicon glyphicon-signal"></i>Recent Posts
+   <li .nav-header><i class="glyphicon glyphicon-signal"></i>_{MsgRecentPosts}
    $if null articleArchives
      <p>_{MsgNoArticle}
    $else
@@ -29,11 +29,11 @@
    <li>
      <a href="http://hackage.haskell.org/package/friendly-time">
        friendly-time
-   <li .nav-header><i class="glyphicon glyphicon-time"></i>Archive
+   <li .nav-header><i class="glyphicon glyphicon-time"></i>_{MsgPostArchive}
    <li>
      <a href="@{ArchiveR}">
        archive
-   <li .nav-header><i class="glyphicon glyphicon-search"></i>Search
+   <li .nav-header><i class="glyphicon glyphicon-search"></i>_{MsgPostSearch}
    <form .form-search method="get" action=@{SearchR}>
     <div class="input-append">
      <input #search-input type="text" .search-query name="q" placeholder=_{MsgSearchPlaceHolder}>
