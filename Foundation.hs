@@ -4,8 +4,7 @@ import Prelude
 import Yesod
 import Yesod.Static
 import Yesod.Auth
-import Yesod.Auth.BrowserId
-import Yesod.Auth.GoogleEmail
+import Yesod.Auth.OpenId (authOpenId, IdentifierType (Claimed))
 import Yesod.Auth.Message (AuthMessage (InvalidLogin))
 import Yesod.Default.Config
 import Yesod.Default.Util (addStaticContentExternal)
@@ -169,8 +168,8 @@ instance YesodAuth App where
             Just (Entity uid _) -> Authenticated uid
             Nothing -> UserError InvalidLogin
 
-    -- You can add other plugins like BrowserID, email or OAuth here
-    authPlugins _ = [authBrowserId def, authGoogleEmail]
+    -- You can add other plugins like Google Email, email or OAuth here
+    authPlugins app = [authOpenId Claimed []]
 
     authHttpManager = httpManager
 
