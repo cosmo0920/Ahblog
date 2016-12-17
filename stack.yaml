@@ -2,7 +2,7 @@ resolver: lts-7.13
 
 packages:
   - location: .
-  - location: deploy/
+  # - location: deploy/
   - location:
       git: https://github.com/cosmo0920/yesod-paginator.git
       commit: 66399e801e7feeb92dde4c797052eeee64a827cf
