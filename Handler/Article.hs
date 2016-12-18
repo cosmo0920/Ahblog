@@ -7,7 +7,6 @@ import Data.Time
 import Data.List (sort, nub)
 import Data.Time.Format.Human
 import Yesod.Auth
-import qualified Database.Esqueleto as E
 
 getPermalinkR :: Text -> Handler Html
 getPermalinkR slug = do
@@ -42,10 +41,7 @@ postPermalinkR slug = do
 getArchiveR :: Handler Html
 getArchiveR = do
   now <- liftIO $ getCurrentTime
-  archives <- runDB $ E.select $ E.from $ \(archives') -> do
-    E.where_ (archives' E.^. ArticleDraft E.!=. E.val True)
-    E.orderBy [E.desc (archives' E.^. ArticleCreatedAt)]
-    return archives'
+  archives <- runDB $ selectList [ArticleDraft !=. True] [Desc ArticleCreatedAt]
   defaultLayout $ do
     setTitleI MsgArticleArchive
     $(widgetFile "archive")
