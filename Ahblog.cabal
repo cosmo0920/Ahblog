@@ -91,6 +91,7 @@ library
                  , time
                  , friendly-time
                  , filepath
+                 , load-env
 
 executable         Ahblog
     if flag(library-only)
