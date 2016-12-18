@@ -1,6 +1,8 @@
 Ahblog
 ======
 
+**Notice:** Authorized as admin feature is temporary *disabled*. Because this feature depends on `Yesod.Auth.BrowserId` and `Yesod.Auth.GoogleEmail`. They cannot use anymore.
+
 [![Build Status](https://travis-ci.org/cosmo0920/Ahblog.svg?branch=master)](https://travis-ci.org/cosmo0920/Ahblog)
 
 The source code for my internal web app which is powered by the Yesod framework, written in haskell.
