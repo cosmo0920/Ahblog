@@ -1,6 +1,6 @@
 User
-    email Text
-    UniqueUser email
+    ident Text
+    UniqueUser ident
     screenName Text
     deriving Show Typeable
 

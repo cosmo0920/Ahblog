@@ -81,7 +81,7 @@
            <tbody .link>
            $forall Entity userId user <- users
              <tr>
-               <td width="30">#{userEmail user}
+               <td width="30">#{userIdent user}
                <td width="50">#{makeBrief 50 $ userScreenName user}
                <td width="30">
                  <a href="@{UserDeleteR userId}" #userdel>
