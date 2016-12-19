@@ -4,8 +4,7 @@ import Prelude
 import Yesod
 import Yesod.Static
 import Yesod.Auth
-import Yesod.Auth.BrowserId
-import Yesod.Auth.GoogleEmail
+import Yesod.Auth.OpenId (authOpenId, IdentifierType (Claimed))
 import Yesod.Auth.Message (AuthMessage (InvalidLogin))
 import Yesod.Default.Config
 import Yesod.Default.Util (addStaticContentExternal)
@@ -88,7 +87,6 @@ instance Yesod App where
         -- you to use normal widget features in default-layout.
         maid <- maybeAuthId
         muser <- maybeAuth
-        admin <- maybe (return False) (isAdmin' . entityVal) muser
         pc <- widgetToPageContent $ do
             addScript $ StaticR js_jquery_min_js
             addStylesheet $ StaticR css_bootstrap_min_css
@@ -131,15 +129,15 @@ instance Yesod App where
 
     makeLogger                         = return . appLogger
 
-    isAuthorized AdminR _             = isAdmin
-    isAuthorized NewBlogR _           = isAdmin
-    isAuthorized (ArticleDeleteR _) _ = isAdmin
-    isAuthorized (ArticleEditR _) _   = isAdmin
-    isAuthorized (ArticleR _) _       = isAdmin
-    isAuthorized (CommentDeleteR _) _ = isAdmin
-    isAuthorized (ImageR _) _         = isAdmin
-    isAuthorized ImagesR _            = isAdmin
-    isAuthorized (UserDeleteR _) _    = isAdmin
+    isAuthorized AdminR _             = isAuthenticated
+    isAuthorized NewBlogR _           = isAuthenticated
+    isAuthorized (ArticleDeleteR _) _ = isAuthenticated
+    isAuthorized (ArticleEditR _) _   = isAuthenticated
+    isAuthorized (ArticleR _) _       = isAuthenticated
+    isAuthorized (CommentDeleteR _) _ = isAuthenticated
+    isAuthorized (ImageR _) _         = isAuthenticated
+    isAuthorized ImagesR _            = isAuthenticated
+    isAuthorized (UserDeleteR _) _    = isAuthenticated
     isAuthorized UserSettingR _       = isAuthenticated
     isAuthorized _ _                  = return Authorized
 
@@ -164,13 +162,16 @@ instance YesodAuth App where
     redirectToReferer _ = True
 
     authenticate creds = runDB $ do
-        x <- getBy $ UniqueUser $ credsIdent creds
-        return $ case x of
-            Just (Entity uid _) -> Authenticated uid
-            Nothing -> UserError InvalidLogin
+      x <- getBy $ UniqueUser $ credsIdent creds
+      case x of
+        Just (Entity uid _) -> return $ Authenticated uid
+        Nothing -> Authenticated <$> insert User
+                   { userIdent = credsIdent creds
+                   , userScreenName = ""
+                   }
 
-    -- You can add other plugins like BrowserID, email or OAuth here
-    authPlugins _ = [authBrowserId def, authGoogleEmail]
+    -- You can add other plugins like Google Email, email or OAuth here
+    authPlugins app = [authOpenId Claimed []]
 
     authHttpManager = httpManager
 
@@ -188,23 +189,6 @@ getExtra = fmap (appExtra . settings) getYesod
 
 getBlogTitle :: Handler Text
 getBlogTitle = extraBlogTitle . appExtra . settings <$> getYesod
-
--- is administrator? return AuthResult ver.
-isAdmin :: Handler AuthResult
-isAdmin = do
-  extra <- getExtra
-  mauth <- maybeAuth
-  case mauth of
-    Nothing -> return AuthenticationRequired
-    Just (Entity _ user)
-      | userEmail user `elem` extraAdmins extra -> return Authorized
-      | otherwise -> unauthorizedI MsgNotAnAdmin
-
--- is administrator? return Bool ver.
-isAdmin' :: User -> Handler Bool
-isAdmin' user = do
-  adminUser <- extraAdmins . appExtra . settings <$> getYesod
-  return $ userEmail user `elem` adminUser
 
 isAuthenticated :: YesodAuth master => HandlerT master IO AuthResult
 isAuthenticated = do

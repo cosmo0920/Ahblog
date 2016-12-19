@@ -19,10 +19,10 @@ insertTagTable = do
       createdTime = createTime
   _ <- runDB $ do
     --when Article has "UserId", then before create User data
-    let email = "test@example.com"
+    let ident = "https://me.yahoo.com/a/a_dummy_user_ident"
         name  = "test user"
     userId <- P.insert $ User {
-      userEmail      = email
+      userIdent      = ident
     , userScreenName = name
     }
     articleId <- P.insert $ Article {
@@ -48,10 +48,10 @@ insertTagTable' tname = do
       createdTime = createTime
   key <- runDB $ do
     --when Article has "UserId", then before create User data
-    let email = "test@example.com"
+    let ident = "https://me.yahoo.com/a/a_dummy_user_ident"
         name  = "test user"
     userId <- P.insert $ User {
-      userEmail      = email
+      userIdent      = ident
     , userScreenName = name
     }
     articleId <- P.insert $ Article {

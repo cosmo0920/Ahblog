@@ -8,9 +8,9 @@ import qualified Database.Persist as P
 import Data.Text
 
 insertUserTable' :: Text -> Text -> Example (Key User)
-insertUserTable' email name = do
+insertUserTable' ident name = do
   key <- runDB $ P.insert $ User {
-    userEmail      = email
+    userIdent      = ident
   , userScreenName = name
   }
   user <- runDB $ P.get key

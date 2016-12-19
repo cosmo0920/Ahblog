@@ -20,10 +20,10 @@ insertArticleTable slug = do
       createdTime = createTime
   _ <- runDB $ do
     --when Article has "UserId", then before create User data
-    let email = "test@example.com"
+    let ident = "https://me.yahoo.com/a/a_dummy_user_ident"
         name  = "test user"
     userId <- P.insert $ User {
-      userEmail      = email
+      userIdent      = ident
     , userScreenName = name
     }
     P.insert $ Article {
@@ -40,10 +40,10 @@ insertArticleTable' :: Text -> Markdown -> Text -> UTCTime -> Example (Key Artic
 insertArticleTable' title content slug time = do
   key <- runDB $ do
     --when Article has "UserId", then before create User data
-    let email = "test@example.com"
+    let ident = "https://me.yahoo.com/a/a_dummy_user_ident"
         name  = "test user"
     userId <- P.insert $ User {
-      userEmail      = email
+      userIdent      = ident
     , userScreenName = name
     }
     P.insert $ Article {
@@ -64,10 +64,10 @@ insertDraftArticleTable slug = do
       createdTime = createTime
   _ <- runDB $ do
     --when Article has "UserId", then before create User data
-    let email = "test@example.com"
+    let ident = "https://me.yahoo.com/a/a_dummy_user_ident"
         name  = "test user"
     userId <- P.insert $ User {
-      userEmail      = email
+      userIdent      = ident
     , userScreenName = name
     }
     P.insert $ Article {

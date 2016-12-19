@@ -23,13 +23,13 @@ persistUserSpecs :: Spec
 persistUserSpecs = do
   ydescribe "User Persist Spec" $ do
     yit "User table can insert and setup/teardown" $ withDeleteUserTable $ do
-      let email = "test@example.com"
+      let ident = "https://me.yahoo.com/a/a_dummy_user_ident"
           name  = "test user"
 
-      key <- insertUserTable' email name
+      key <- insertUserTable' ident name
       user <- runDB $ P.get key
       assertEqual "userScreenName" (user >>= return . userScreenName) (Just name)
-      assertEqual "userEmail" (user >>= return . userEmail) (Just email)
+      assertEqual "userIdent" (user >>= return . userIdent) (Just ident)
 
 persistImageSpecs :: Spec
 persistImageSpecs = do
