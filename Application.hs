@@ -23,6 +23,9 @@ import Control.Monad.Logger (runLoggingT)
 import System.Log.FastLogger (newStdoutLoggerSet, defaultBufSize)
 import Network.Wai.Logger (clockDateCacher)
 import Yesod.Core.Types (loggerSet, Logger (Logger))
+import LoadEnv
+import System.Environment (getEnv)
+import qualified Data.Text as T
 
 -- Import all relevant handler modules here.
 -- Don't forget to add new modules to your cabal file!
@@ -75,9 +78,11 @@ makeFoundation conf = do
 
     loggerSet' <- newStdoutLoggerSet defaultBufSize
     (getter, _) <- clockDateCacher
+    loadEnv -- load from .env
+    googleLoginKeys <- getGoogleLoginKeys
 
     let logger = Yesod.Core.Types.Logger loggerSet' getter
-        foundation = App conf s p manager dbconf logger
+        foundation = App conf s p manager dbconf logger googleLoginKeys
 
     -- Perform database migration using our application's logging settings.
     runLoggingT
@@ -85,6 +90,13 @@ makeFoundation conf = do
         (messageLoggerSource foundation logger)
 
     return foundation
+      where
+        getGoogleLoginKeys :: IO GoogleLoginKeys
+        getGoogleLoginKeys = GoogleLoginKeys
+          <$> getEnvT "GOOGLE_LOGIN_CLIENT_ID"
+          <*> getEnvT "GOOGLE_LOGIN_CLIENT_SECRET"
+          where
+            getEnvT = fmap T.pack . getEnv
 
 -- for yesod devel
 getApplicationDev :: IO (Int, Application)

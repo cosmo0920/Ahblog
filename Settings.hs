@@ -71,6 +71,11 @@ data Extra = Extra
     , extraBlogTitle :: Text
     } deriving Show
 
+data GoogleLoginKeys = GoogleLoginKeys
+    { googleLoginClientId :: Text
+    , googleLoginClientSecret :: Text
+    }
+
 parseExtra :: DefaultEnv -> Object -> Parser Extra
 parseExtra _ o = Extra
     <$> o .:  "copyright"

@@ -1,7 +1,7 @@
 Ahblog
 ======
 
-**Notice:** Authorized as admin feature is temporary *disabled*. Because this feature depends on `Yesod.Auth.BrowserId` and `Yesod.Auth.GoogleEmail`. They cannot use anymore.
+**Notice:** Authorized as admin feature is effectively working with `Yesod.Auth.GoogleEmail2`.
 
 [![Build Status](https://travis-ci.org/cosmo0920/Ahblog.svg?branch=master)](https://travis-ci.org/cosmo0920/Ahblog)
 

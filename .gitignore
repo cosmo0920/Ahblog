@@ -17,3 +17,4 @@ config/keter.yaml
 cabal-dev/
 yesod-devel/
 log/*
+.env

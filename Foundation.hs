@@ -5,6 +5,7 @@ import Yesod
 import Yesod.Static
 import Yesod.Auth
 import Yesod.Auth.OpenId (authOpenId, IdentifierType (Claimed))
+import Yesod.Auth.GoogleEmail2
 import Yesod.Auth.Message (AuthMessage (InvalidLogin))
 import Yesod.Default.Config
 import Yesod.Default.Util (addStaticContentExternal)
@@ -14,7 +15,7 @@ import Settings.Development (development)
 import qualified Database.Persist
 import Settings.StaticFiles
 import Database.Persist.Sql (ConnectionPool, SqlBackend, runSqlPool)
-import Settings (widgetFile, Extra (..))
+import Settings (widgetFile, Extra (..), GoogleLoginKeys (..))
 import Model
 import Text.Jasmine (minifym)
 import Web.ClientSession (getKey)
@@ -35,6 +36,7 @@ data App = App
     , httpManager :: Manager
     , persistConfig :: Settings.PersistConf
     , appLogger :: Logger
+    , googleLoginKeys :: GoogleLoginKeys
     }
 
 -- Set up i18n messages. See the message folder.
@@ -87,6 +89,7 @@ instance Yesod App where
         -- you to use normal widget features in default-layout.
         maid <- maybeAuthId
         muser <- maybeAuth
+        admin <- maybe (return False) (isAdmin' . entityVal) muser
         pc <- widgetToPageContent $ do
             addScript $ StaticR js_jquery_min_js
             addStylesheet $ StaticR css_bootstrap_min_css
@@ -129,15 +132,15 @@ instance Yesod App where
 
     makeLogger                         = return . appLogger
 
-    isAuthorized AdminR _             = isAuthenticated
-    isAuthorized NewBlogR _           = isAuthenticated
-    isAuthorized (ArticleDeleteR _) _ = isAuthenticated
-    isAuthorized (ArticleEditR _) _   = isAuthenticated
-    isAuthorized (ArticleR _) _       = isAuthenticated
-    isAuthorized (CommentDeleteR _) _ = isAuthenticated
-    isAuthorized (ImageR _) _         = isAuthenticated
-    isAuthorized ImagesR _            = isAuthenticated
-    isAuthorized (UserDeleteR _) _    = isAuthenticated
+    isAuthorized AdminR _             = isAdmin
+    isAuthorized NewBlogR _           = isAdmin
+    isAuthorized (ArticleDeleteR _) _ = isAdmin
+    isAuthorized (ArticleEditR _) _   = isAdmin
+    isAuthorized (ArticleR _) _       = isAdmin
+    isAuthorized (CommentDeleteR _) _ = isAdmin
+    isAuthorized (ImageR _) _         = isAdmin
+    isAuthorized ImagesR _            = isAdmin
+    isAuthorized (UserDeleteR _) _    = isAdmin
     isAuthorized UserSettingR _       = isAuthenticated
     isAuthorized _ _                  = return Authorized
 
@@ -171,7 +174,7 @@ instance YesodAuth App where
                    }
 
     -- You can add other plugins like Google Email, email or OAuth here
-    authPlugins app = [authOpenId Claimed []]
+    authPlugins m = [authOpenId Claimed []] ++ [authGoogleEmail (googleLoginClientId $ googleLoginKeys m)  (googleLoginClientSecret $ googleLoginKeys m)]
 
     authHttpManager = httpManager
 
@@ -189,6 +192,23 @@ getExtra = fmap (appExtra . settings) getYesod
 
 getBlogTitle :: Handler Text
 getBlogTitle = extraBlogTitle . appExtra . settings <$> getYesod
+
+-- is administrator? return AuthResult ver.
+isAdmin :: Handler AuthResult
+isAdmin = do
+  extra <- getExtra
+  mauth <- maybeAuth
+  case mauth of
+    Nothing -> return AuthenticationRequired
+    Just (Entity _ user)
+      | userIdent user `elem` extraAdmins extra -> return Authorized
+      | otherwise -> unauthorizedI MsgNotAnAdmin
+
+-- is administrator? return Bool ver.
+isAdmin' :: User -> Handler Bool
+isAdmin' user = do
+  adminUser <- extraAdmins . appExtra . settings <$> getYesod
+  return $ userIdent user `elem` adminUser
 
 isAuthenticated :: YesodAuth master => HandlerT master IO AuthResult
 isAuthenticated = do
