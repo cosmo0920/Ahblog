@@ -52,7 +52,7 @@ GOOGLE_LOGIN_CLIENT_SECRET=YOUR_CLIENT_SECRET
 ```bash
 $ cp config/settings-dummy.yml config/settings.yml
 $ stack build
-$ stack exec Ahblog Development --port 3000
+$ stack exec Ahblog Development -- --port 3000
 ```
 
 * * * *
