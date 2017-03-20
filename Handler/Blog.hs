@@ -26,6 +26,7 @@ getBlogFeedR = do
           , feedEntryUpdated = articleCreatedAt article
           , feedEntryTitle = articleTitle article
           , feedEntryContent = toHtml $ makeBrief 500 $ markdownToText $ articleContent article
+          , feedEntryEnclosure = Nothing
           }
   let feed = Feed {
           feedTitle = "Blog - " `T.append` title
@@ -36,6 +37,7 @@ getBlogFeedR = do
         , feedLanguage = "ja"
         , feedUpdated = articleCreatedAt $ entityVal $ head articles
         , feedEntries = entries
+        , feedLogo = Nothing
         }
   case articles of
    [] -> notFound

@@ -1,13 +1,13 @@
-resolver: lts-3.11
+resolver: lts-8.5
 
 packages:
-- '.'
-- deploy/
+  - location: .
+  # - location: deploy/
 
 extra-deps:
   - friendly-time-0.4
-  - yesod-markdown-0.10.0
-  - yesod-paginator-0.10.0
+  - yesod-markdown-0.11.4
+  - yesod-paginator-0.11.0
   - yesod-default-1.2.0
   - hsc2hs-0.68.1
   - load-env-0.1.1
