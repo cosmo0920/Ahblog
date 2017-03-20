@@ -24,6 +24,7 @@ $ git submodule update --init --recursive
 $ cd static/css && cp ../../bootstrap-select/bootstrap-select.min.css .
 $ cd ../js && cp ../../bootstrap-select/bootstrap-select.min.js .
 $ cd ../../
+$ cp .env-sample .env
 ```
 
 ### Prepare Google Login
