@@ -3,13 +3,11 @@ resolver: lts-8.5
 packages:
   - location: .
   # - location: deploy/
-  - location:
-      git: https://github.com/cosmo0920/yesod-paginator.git
-      commit: 66399e801e7feeb92dde4c797052eeee64a827cf
 
 extra-deps:
   - friendly-time-0.4
-  - yesod-markdown-0.11.2
+  - yesod-markdown-0.11.4
+  - yesod-paginator-0.11.0
   - yesod-default-1.2.0
   - hsc2hs-0.68.1
   - load-env-0.1.1
