@@ -6,8 +6,8 @@ import Prelude hiding (FilePath)
 main :: IO ()
 main =  shelly $ do
   stack_build
-  let lts_ver = "lts-7.13"
-  let ghc_ver = "8.0.1"
+  let lts_ver = "lts-8.5"
+  let ghc_ver = "8.0.2"
   let arch = "x86_64-linux"
   let stack_dir = concat $ [".stack-work/install/", arch, "/", lts_ver, "/", ghc_ver, "/"]
   let orig_executable = filepath stack_dir "bin/Ahblog"
@@ -31,7 +31,8 @@ main =  shelly $ do
   let keter   = "Ahblog.keter"
       dirs    = ["page","config"]
       statics = ["static/css","static/files","static/img","static/js","static/fonts"]
-  run_tar "czvf" ([keter, executable] ++ dirs ++ statics)
+      dotenv = [".env"]
+  run_tar "czvf" ([keter, executable] ++ dirs ++ statics ++ dotenv)
   return ()
 
 run_stack :: Text -> [Text] -> Sh Text

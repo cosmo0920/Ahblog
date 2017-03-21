@@ -2,7 +2,7 @@ resolver: lts-8.5
 
 packages:
   - location: .
-  # - location: deploy/
+  - location: deploy/
 
 extra-deps:
   - friendly-time-0.4
