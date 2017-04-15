@@ -16,14 +16,14 @@ admins: ["default@example.com"]
 すると、指定したメールアドレスを使ったログイン後に
 /admin以下の認証がかかったURLへのアクセスができるようになります。
 
-###yesodのパッケージの他以下のものを使用しています。依存関係に注意。
+### yesodのパッケージの他以下のものを使用しています。依存関係に注意。
 
 * yesod-paginator
 * friendly-time
 * yesod-newsfeed
 * yesod-markdown
 
-###記事はHTMLまたはMarkdownで書くことができます。
+### 記事はHTMLまたはMarkdownで書くことができます。
 
 ```haskell
 imageFilePath :: String -> FilePath
